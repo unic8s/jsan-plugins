@@ -44,18 +44,34 @@ module.exports = {
 
                 this.publishCover();
                 break;
-                case "next":
-                    this.spotifyApi.skipToNext();
-                    break;
-                case "previous":
-                    this.spotifyApi.skipToPrevious();
-                    break;
-                case "play":
-                    this.spotifyApi.play();
-                    break;
-                case "pause":
-                    this.spotifyApi.pause();
-                    break;
+            case "next":
+                this.spotifyApi.skipToNext()
+                    .then(function () {
+                    }, function (err) {
+                        console.log('Something went wrong!', err);
+                    });
+                break;
+            case "previous":
+                this.spotifyApi.skipToPrevious()
+                    .then(function () {
+                    }, function (err) {
+                        console.log('Something went wrong!', err);
+                    });
+                break;
+            case "play":
+                this.spotifyApi.play()
+                    .then(function () {
+                    }, function (err) {
+                        console.log('Something went wrong!', err);
+                    });
+                break;
+            case "pause":
+                this.spotifyApi.pause()
+                    .then(function () {
+                    }, function (err) {
+                        console.log('Something went wrong!', err);
+                    });
+                break;
         }
     },
     webhook(event) {
@@ -206,7 +222,7 @@ module.exports = {
                     } else {
                         refThis.resetState();
                     }
-                }else{
+                } else {
                     refThis.resetState();
                 }
             }, (error) => {
@@ -226,7 +242,7 @@ module.exports = {
             this.options.nodes.outputs.query("duration").data = 0;
         }
 
-        if(this.previousCover != this.coverPath){
+        if (this.previousCover != this.coverPath) {
             this.showLogo();
 
             this.previousCover = this.coverPath;
