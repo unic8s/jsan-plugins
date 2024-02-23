@@ -1,0 +1,32 @@
+{
+    "name": "Particles",
+    "uid": "com_unic8_elan_particles",
+    "description": "Particles plugin",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+    ],
+    "features": [
+        "2d"
+    ],
+    "inputs": [
+        {"name": "mode", "type": "Number", "value": 0},
+        {"name": "amount", "type": "Number", "value": 1000},
+        {"name": "speed", "type": "Number", "value": 20},
+        {"name": "duration", "type": "Number", "value": 2},
+        {"name": "texturize", "type": "Boolean", "value": false},
+        {"name": "particle", "type": "File", "value": null},
+        {"name": "colorize", "type": "Boolean", "value": false},
+        {"name": "color", "type": "Color", "value": "#FFFFFF"},
+        {"name": "center", "type": "Rectangle", "value": {"x": 0, "y": 0, "width": 0, "height": 0}}
+    ],
+    "outputs": [
+    ],
+    "files": [
+        "assets/particle.png"
+    ]
+}

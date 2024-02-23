@@ -1,0 +1,36 @@
+{
+    "name": "Number operator",
+    "uid": "com_unic8_elan_number_operator",
+    "description": "Number operator plugin",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+    ],
+    "features": [
+    ],
+    "inputs": [
+        {"name": "= A", "type": "Number", "value": 0},
+        {"name": "= B", "type": "Number", "value": 0},
+        {"name": "> A", "type": "Number", "value": 0},
+        {"name": "> B", "type": "Number", "value": 0},
+        {"name": "% A", "type": "Number", "value": 0},
+        {"name": "% B", "type": "Number", "value": 0},
+        {"name": "Floor", "type": "Number", "value": 0},
+        {"name": "Ceil", "type": "Number", "value": 0},
+        {"name": "Round", "type": "Number", "value": 0}
+    ],
+    "outputs": [
+        {"name": "= Out", "type": "Boolean", "value": true},
+        {"name": "> Out", "type": "Boolean", "value": false},
+        {"name": "% Out", "type": "Number", "value": 0},
+        {"name": "Floor", "type": "Number", "value": 0},
+        {"name": "Ceil", "type": "Number", "value": 0},
+        {"name": "Round", "type": "Number", "value": 0}
+    ],
+    "files": [
+    ]
+}

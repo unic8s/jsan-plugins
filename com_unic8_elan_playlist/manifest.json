@@ -1,0 +1,29 @@
+{
+    "name": "Playlist",
+    "uid": "com_unic8_elan_playlist",
+    "description": "Playlist plugin",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+        "file"
+    ],
+    "features": [
+    ],
+    "inputs": [
+        {"name": "list", "type": "Directory", "value": ""},
+        {"name": "interval", "type": "Number", "value": 0},
+        {"name": "trigger", "type": "Boolean", "value": false},
+        {"name": "index", "type": "Number", "value": 0}
+    ],
+    "outputs": [
+        {"name": "file", "type": "File", "value": ""},
+        {"name": "index", "type": "Number", "value": 0},
+        {"name": "amount", "type": "Number", "value": 0}
+    ],
+    "files": [
+    ]
+}

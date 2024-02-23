@@ -1,0 +1,31 @@
+{
+    "name": "Weather",
+    "uid": "com_unic8_elan_weather",
+    "description": "Weather plugin",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+    ],
+    "features": [
+    ],
+    "inputs": [
+        {"name": "location", "type": "String", "value": ""},
+        {"name": "unit", "type": "String", "value": "metric"},
+        {"name": "precision", "type": "Number", "value": 1}
+    ],
+    "outputs": [
+        {"name": "temp_cur", "type": "Number", "value": 0},
+        {"name": "temp_min", "type": "Number", "value": 0},
+        {"name": "temp_max", "type": "Number", "value": 0},
+        {"name": "humidity", "type": "Number", "value": 0},
+        {"name": "sunrise", "type": "Number", "value": 0},
+        {"name": "sunset", "type": "Number", "value": 0},
+        {"name": "icon", "type": "File", "value": ""}
+    ],
+    "files": [
+    ]
+}

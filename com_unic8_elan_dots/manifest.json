@@ -1,0 +1,25 @@
+{
+    "name": "Dots",
+    "uid": "com_unic8_elan_dots",
+    "description": "Dots plugin",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+    ],
+    "features": [
+        "2d"
+    ],
+    "inputs": [
+        {"name": "modulo", "type": "Number", "value": 3},
+        {"name": "duration", "type": "Number", "value": 8},
+        {"name": "scheme", "type": "Number", "value": 0}
+    ],
+    "outputs": [
+    ],
+    "files": [
+    ]
+}

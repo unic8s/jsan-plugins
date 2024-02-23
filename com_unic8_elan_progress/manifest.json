@@ -1,0 +1,27 @@
+{
+    "name": "Progress",
+    "uid": "com_unic8_elan_progress",
+    "description": "Progressbar plugin",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+    ],
+    "features": [
+        "2d"
+    ],
+    "inputs": [
+        {"name": "track", "type": "Color", "value": "#000000"},
+        {"name": "fill", "type": "Color", "value": "#FFFFFF"},
+        {"name": "minimum", "type": "Number", "value": 0},
+        {"name": "maximum", "type": "Number", "value": 0},
+        {"name": "value", "type": "Number", "value": 0}
+    ],
+    "outputs": [
+    ],
+    "files": [
+    ]
+}

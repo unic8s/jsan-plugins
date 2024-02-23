@@ -1,0 +1,27 @@
+{
+    "name": "Mapping",
+    "uid": "com_unic8_elan_mapping",
+    "description": "Mapping plugin",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+    ],
+    "features": [
+    ],
+    "inputs": [
+        {"name": "Value", "type": "Number", "value": 0},
+        {"name": "From low", "type": "Number", "value": 0},
+        {"name": "From high", "type": "Number", "value": 1},
+        {"name": "To low", "type": "Number", "value": 0},
+        {"name": "To high", "type": "Number", "value": 1}
+    ],
+    "outputs": [
+        {"name": "Output", "type": "Number", "value": 0}
+    ],
+    "files": [
+    ]
+}

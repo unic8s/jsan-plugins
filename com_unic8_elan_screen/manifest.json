@@ -1,0 +1,24 @@
+{
+    "name": "Screen",
+    "uid": "com_unic8_elan_screen",
+    "description": "Screen plugin for screen capturing",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+        "screen"
+    ],
+    "features": [
+        "2d"
+    ],
+    "inputs": [
+        {"name": "contains", "type": "Boolean", "value": false}
+    ],
+    "outputs": [
+    ],
+    "files": [
+    ]
+}

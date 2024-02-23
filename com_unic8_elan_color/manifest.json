@@ -1,0 +1,28 @@
+{
+    "name": "Color builder",
+    "uid": "com_unic8_elan_color",
+    "description": "Color builder plugin",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+    ],
+    "features": [
+    ],
+    "inputs": [
+        {"name": "red", "type": "Number", "value": 0},
+        {"name": "green", "type": "Number", "value": 0},
+        {"name": "blue", "type": "Number", "value": 0},
+        {"name": "trigger", "type": "Boolean", "value": false},
+        {"name": "duration", "type": "Number", "value": 0},
+        {"name": "random", "type": "Boolean", "value": true}
+    ],
+    "outputs": [
+        {"name": "color", "type": "Color", "value": "#000000"}
+    ],
+    "files": [
+    ]
+}

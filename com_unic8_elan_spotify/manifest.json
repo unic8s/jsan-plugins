@@ -1,0 +1,37 @@
+{
+    "name": "Spotify",
+    "uid": "com_unic8_elan_spotify",
+    "description": "Spotify plugin for playback info/state and cover art",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": false,
+        "priority": 0
+    },
+    "permissions": [
+        "storage",
+        "webhook",
+        "spotify"
+    ],
+    "features": [
+    ],
+    "inputs": [
+        {"name": "Image size", "type": "Number", "value": -1},
+        {"name": "play", "type": "Boolean", "value": false},
+        {"name": "pause", "type": "Boolean", "value": false},
+        {"name": "previous", "type": "Boolean", "value": false},
+        {"name": "next", "type": "Boolean", "value": false}
+    ],
+    "outputs": [
+        {"name": "song", "type": "String", "value": ""},
+        {"name": "artist", "type": "String", "value": ""},
+        {"name": "album", "type": "String", "value": ""},
+        {"name": "cover", "type": "File", "value": ""},
+        {"name": "playing", "type": "Boolean", "value": false},
+        {"name": "progress", "type": "Number", "value": 0},
+        {"name": "duration", "type": "Number", "value": 0}
+    ],
+    "files": [
+        "assets/spotify.png"
+    ]
+}

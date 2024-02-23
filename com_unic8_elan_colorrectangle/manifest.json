@@ -1,0 +1,25 @@
+{
+    "name": "Color Rectangle",
+    "uid": "com_unic8_elan_colorrectangle",
+    "description": "Color Rectangle plugin",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+    ],
+    "features": [
+        "2d"
+    ],
+    "inputs": [
+        {"name": "color", "type": "Color", "value": "#000000"},
+        {"name": "radius", "type": "Number", "value": 0},
+        {"name": "chamfer", "type": "Boolean", "value": false}
+    ],
+    "outputs": [
+    ],
+    "files": [
+    ]
+}

@@ -1,0 +1,26 @@
+{
+    "name": "Strobe",
+    "uid": "com_unic8_elan_strobe",
+    "description": "Strobe plugin",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+    ],
+    "features": [
+        "2d"
+    ],
+    "inputs": [
+        {"name": "trigger", "type": "Boolean", "value": false},
+        {"name": "color", "type": "Color", "value": "#FFFFFF"},
+        {"name": "randomColor", "type": "Boolean", "value": false},
+        {"name": "duration", "type": "Number", "value": 0.5}
+    ],
+    "outputs": [
+    ],
+    "files": [
+    ]
+}

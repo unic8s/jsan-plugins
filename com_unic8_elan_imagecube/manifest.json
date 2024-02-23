@@ -1,0 +1,28 @@
+{
+    "name": "Image Cube",
+    "uid": "com_unic8_elan_imagecube",
+    "description": "Image Cube plugin",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+    ],
+    "features": [
+        "2d",
+        "3d"
+    ],
+    "inputs": [
+        {"name": "image", "type": "File", "value": ""},
+        {"name": "rotationX", "type": "Number", "value": 0},
+        {"name": "rotationY", "type": "Number", "value": 0},
+        {"name": "rotationZ", "type": "Number", "value": 0},
+        {"name": "auto", "type": "Boolean", "value": true}
+    ],
+    "outputs": [
+    ],
+    "files": [
+    ]
+}

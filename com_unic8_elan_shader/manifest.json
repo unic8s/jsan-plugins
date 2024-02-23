@@ -1,0 +1,42 @@
+{
+    "name": "Shader",
+    "uid": "com_unic8_elan_shader",
+    "description": "Shader plugin",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+    ],
+    "features": [
+        "2d"
+    ],
+    "inputs": [
+        {"name": "red", "type": "Boolean", "value": false},
+        {"name": "green", "type": "Boolean", "value": false},
+        {"name": "blue", "type": "Boolean", "value": false},
+        {"name": "alpha", "type": "Number", "value": 0},
+        {"name": "index", "type": "Number", "value": 0}
+    ],
+    "outputs": [
+    ],
+    "files": [
+        "assets/cave.frag",
+        "assets/cells.frag",
+        "assets/chase.frag",
+        "assets/geom.frag",
+        "assets/liquid.frag",
+        "assets/organic.frag",
+        "assets/pattern.frag",
+        "assets/plasma.frag",
+        "assets/rain.frag",
+        "assets/robot.frag",
+        "assets/skyline.frag",
+        "assets/spheres.frag",
+        "assets/tunnel_clouds.frag",
+        "assets/tunnel_fire.frag",
+        "assets/tunnel.frag"
+    ]
+}

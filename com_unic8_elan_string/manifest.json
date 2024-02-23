@@ -1,0 +1,38 @@
+{
+    "name": "String modifier",
+    "uid": "com_unic8_elan_string",
+    "description": "String modifier plugin",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+    ],
+    "features": [
+    ],
+    "inputs": [
+        {"name": "Len", "type": "String", "value": ""},
+        {"name": "Has hay", "type": "String", "value": ""},
+        {"name": "Has ndl", "type": "String", "value": ""},
+        {"name": "Con A", "type": "String", "value": ""},
+        {"name": "Con B", "type": "String", "value": ""},
+        {"name": "Con sep", "type": "String", "value": ""},
+        {"name": "Rep hay", "type": "String", "value": ""},
+        {"name": "Rep ndl", "type": "String", "value": ""},
+        {"name": "Rep new", "type": "String", "value": ""},
+        {"name": "Sub src", "type": "String", "value": ""},
+        {"name": "Sub bgn", "type": "Number", "value": 0},
+        {"name": "Sub end", "type": "Number", "value": 0}
+    ],
+    "outputs": [
+        {"name": "Len", "type": "Number", "value": 0},
+        {"name": "Has", "type": "Boolean", "value": false},
+        {"name": "Con", "type": "String", "value": ""},
+        {"name": "Rep", "type": "String", "value": ""},
+        {"name": "Sub", "type": "String", "value": ""}
+    ],
+    "files": [
+    ]
+}

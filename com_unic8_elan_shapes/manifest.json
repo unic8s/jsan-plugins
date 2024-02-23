@@ -1,0 +1,39 @@
+{
+    "name": "Shapes",
+    "uid": "com_unic8_elan_shapes",
+    "description": "Shapes plugin",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+    ],
+    "features": [
+        "2d"
+    ],
+    "inputs": [
+        {"name": "trigger", "type": "Boolean", "value": true},
+        {"name": "duration", "type": "Number", "value": 2},
+        {"name": "square", "type": "Boolean", "value": true},
+        {"name": "circle", "type": "Boolean", "value": true},
+        {"name": "star", "type": "Boolean", "value": true},
+        {"name": "line", "type": "Number", "value": 1},
+        {"name": "color", "type": "Color", "value": "#FFFFFF"},
+        {"name": "outline", "type": "Boolean", "value": true},
+        {"name": "startSize", "type": "Number", "value": 0},
+        {"name": "endSize", "type": "Number", "value": 25},
+        {"name": "startAlpha", "type": "Number", "value": 1},
+        {"name": "endAlpha", "type": "Number", "value": 0},
+        {"name": "position", "type": "Rectangle", "value": {"x": 0, "y": 0, "width": 0, "height": 0}},
+        {"name": "randomColor", "type": "Boolean", "value": true},
+        {"name": "randomPosition", "type": "Boolean", "value": true},
+        {"name": "randomRotation", "type": "Boolean", "value": true}
+    ],
+    "outputs": [
+        {"name": "amount", "type": "Number", "value": 0}
+    ],
+    "files": [
+    ]
+}

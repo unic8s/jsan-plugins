@@ -1,0 +1,29 @@
+{
+    "name": "Stepper",
+    "uid": "com_unic8_elan_stepper",
+    "description": "Stepper plugin",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+    ],
+    "features": [
+    ],
+    "inputs": [
+        {"name": "trigger", "type": "Boolean", "value": false},
+        {"name": "from", "type": "Number", "value": 0},
+        {"name": "to", "type": "Number", "value": 1},
+        {"name": "duration", "type": "Number", "value": 1},
+        {"name": "repeat", "type": "Boolean", "value": false},
+        {"name": "yoyo", "type": "Boolean", "value": false}
+    ],
+    "outputs": [
+        {"name": "value", "type": "Number", "value": false},
+        {"name": "active", "type": "Boolean", "value": false}
+    ],
+    "files": [
+    ]
+}

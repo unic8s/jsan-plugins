@@ -1,0 +1,23 @@
+{
+    "name": "Color Wheel",
+    "uid": "com_unic8_elan_colorwheel",
+    "description": "Color Wheel plugin",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+    ],
+    "features": [
+        "2d"
+    ],
+    "inputs": [
+        {"name": "steps", "type": "Number", "value": 25}
+    ],
+    "outputs": [
+    ],
+    "files": [
+    ]
+}

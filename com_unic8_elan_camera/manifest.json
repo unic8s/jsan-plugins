@@ -1,0 +1,24 @@
+{
+    "name": "Camera",
+    "uid": "com_unic8_elan_camera",
+    "description": "Camera plugin for playback of video sources",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+        "camera"
+    ],
+    "features": [
+        "2d"
+    ],
+    "inputs": [
+        {"name": "contains", "type": "Boolean", "value": false}
+    ],
+    "outputs": [
+    ],
+    "files": [
+    ]
+}

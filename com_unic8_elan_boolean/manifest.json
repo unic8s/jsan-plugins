@@ -1,0 +1,38 @@
+{
+    "name": "Boolean modifier",
+    "uid": "com_unic8_elan_boolean",
+    "description": "Boolean modifier plugin",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+    ],
+    "features": [
+    ],
+    "inputs": [
+        {"name": "NOT", "type": "Boolean", "value": false},
+        {"name": "AND A", "type": "Boolean", "value": false},
+        {"name": "AND B", "type": "Boolean", "value": false},
+        {"name": "OR A", "type": "Boolean", "value": false},
+        {"name": "OR B", "type": "Boolean", "value": false},
+        {"name": "XOR A", "type": "Boolean", "value": false},
+        {"name": "XOR B", "type": "Boolean", "value": false},
+        {"name": "NAND A", "type": "Boolean", "value": false},
+        {"name": "NAND B", "type": "Boolean", "value": false},
+        {"name": "NOR A", "type": "Boolean", "value": false},
+        {"name": "NOR B", "type": "Boolean", "value": false}
+    ],
+    "outputs": [
+        {"name": "NOT", "type": "Boolean", "value": false},
+        {"name": "AND", "type": "Boolean", "value": false},
+        {"name": "OR", "type": "Boolean", "value": false},
+        {"name": "XOR", "type": "Boolean", "value": false},
+        {"name": "NAND", "type": "Boolean", "value": false},
+        {"name": "NOR", "type": "Boolean", "value": false}
+    ],
+    "files": [
+    ]
+}

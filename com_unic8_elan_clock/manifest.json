@@ -1,0 +1,28 @@
+{
+    "name": "Clock",
+    "uid": "com_unic8_elan_clock",
+    "description": "Clock plugin",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+    ],
+    "features": [
+        "2d"
+    ],
+    "inputs": [
+        {"name": "time", "type": "Number", "value": -1},
+        {"name": "modern", "type": "Boolean", "value": true},
+        {"name": "smooth", "type": "Boolean", "value": false},
+        {"name": "hours", "type": "Color", "value": "#FF0000"},
+        {"name": "minutes", "type": "Color", "value": "#00FF00"},
+        {"name": "seconds", "type": "Color", "value": "#0000FF"}
+    ],
+    "outputs": [
+    ],
+    "files": [
+    ]
+}

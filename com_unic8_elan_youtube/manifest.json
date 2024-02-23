@@ -1,0 +1,28 @@
+{
+    "name": "YouTube",
+    "uid": "com_unic8_elan_youtube",
+    "description": "YouTube plugin",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+    ],
+    "features": [
+    ],
+    "inputs": [
+        {"name": "channel", "type": "String", "value": ""},
+        {"name": "imageSize", "type": "Number", "value": -1}
+    ],
+    "outputs": [
+        {"name": "cover", "type": "File", "value": ""},
+        {"name": "viewCount", "type": "Number", "value": ""},
+        {"name": "subscriberCount", "type": "Number", "value": ""},
+        {"name": "videoCount", "type": "Number", "value": ""}
+    ],
+    "files": [
+        "assets/youtube.png"
+    ]
+}

@@ -1,0 +1,31 @@
+{
+    "name": "Text",
+    "uid": "com_unic8_elan_text",
+    "description": "Text plugin",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+    ],
+    "features": [
+        "2d"
+    ],
+    "inputs": [
+        {"name": "label", "type": "String", "value": ""},
+        {"name": "font", "type": "String", "value": "Roboto"},
+        {"name": "size", "type": "Number", "value": 12},
+        {"name": "color", "type": "Color", "value": "#FFFFFF"},
+        {"name": "width", "type": "Number", "value": 0},
+        {"name": "scroll", "type": "Boolean", "value": false},
+        {"name": "smooth", "type": "Boolean", "value": true},
+        {"name": "speed", "type": "Number", "value": 10}
+    ],
+    "outputs": [
+        {"name": "metrics", "type": "Rectangle", "value": {"x": 0, "y": 0, "width": 0, "height": 0}}
+    ],
+    "files": [
+    ]
+}

@@ -1,0 +1,33 @@
+{
+    "name": "Number calculator",
+    "uid": "com_unic8_elan_number_calculator",
+    "description": "Number calculator plugin",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+    ],
+    "features": [
+    ],
+    "inputs": [
+        {"name": "Add A", "type": "Number", "value": 0},
+        {"name": "Add B", "type": "Number", "value": 0},
+        {"name": "Sub A", "type": "Number", "value": 0},
+        {"name": "Sub B", "type": "Number", "value": 0},
+        {"name": "Mlt A", "type": "Number", "value": 0},
+        {"name": "Mlt B", "type": "Number", "value": 0},
+        {"name": "Div A", "type": "Number", "value": 0},
+        {"name": "Div B", "type": "Number", "value": 0}
+    ],
+    "outputs": [
+        {"name": "Add", "type": "Number", "value": 0},
+        {"name": "Sub", "type": "Number", "value": 0},
+        {"name": "Mlt", "type": "Number", "value": 0},
+        {"name": "Div", "type": "Number", "value": 0}
+    ],
+    "files": [
+    ]
+}

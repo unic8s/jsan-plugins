@@ -1,0 +1,26 @@
+{
+    "name": "Control",
+    "uid": "com_unic8_elan_control",
+    "description": "Control plugin",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+        "webhook"
+    ],
+    "features": [
+    ],
+    "inputs": [
+    ],
+    "outputs": [
+        {"name": "left", "type": "Boolean", "value": false},
+        {"name": "right", "type": "Boolean", "value": false},
+        {"name": "up", "type": "Boolean", "value": false},
+        {"name": "down", "type": "Boolean", "value": false}
+    ],
+    "files": [
+    ]
+}

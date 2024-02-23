@@ -1,0 +1,26 @@
+{
+    "name": "Rectangle splitter",
+    "uid": "com_unic8_elan_rectangle_splitter",
+    "description": "Rectangle splitter plugin",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+    ],
+    "features": [
+    ],
+    "inputs": [
+        {"name": "rectangle", "type": "Rectangle", "value": {"x": 0, "y": 0, "width": 0, "height": 0}}
+    ],
+    "outputs": [
+        {"name": "x", "type": "Number", "value": 0},
+        {"name": "y", "type": "Number", "value": 0},
+        {"name": "width", "type": "Number", "value": 0},
+        {"name": "height", "type": "Number", "value": 0}
+    ],
+    "files": [
+    ]
+}

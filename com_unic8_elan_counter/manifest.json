@@ -1,0 +1,26 @@
+{
+    "name": "Counter",
+    "uid": "com_unic8_elan_counter",
+    "description": "Counter plugin",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+    ],
+    "features": [
+    ],
+    "inputs": [
+        {"name": "Trigger", "type": "Boolean", "value": false},
+        {"name": "Limit", "type": "Number", "value": 100},
+        {"name": "Reset", "type": "Boolean", "value": true}
+    ],
+    "outputs": [
+        {"name": "Counter", "type": "Number", "value": 0},
+        {"name": "active", "type": "Boolean", "value": true}
+    ],
+    "files": [
+    ]
+}

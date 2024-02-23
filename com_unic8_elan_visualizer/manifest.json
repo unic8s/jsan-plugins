@@ -1,0 +1,30 @@
+{
+    "name": "Visualizer",
+    "uid": "com_unic8_elan_visualizer",
+    "description": "Visualizer plugin for audio frequencies",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+        "microphone"
+    ],
+    "features": [
+        "2d"
+    ],
+    "inputs": [
+        {"name": "mode", "type": "Number", "value": 0},
+        {"name": "width", "type": "Number", "value": 1},
+        {"name": "gap", "type": "Number", "value": 1},
+        {"name": "speed", "type": "Number", "value": 1},
+        {"name": "scheme", "type": "Number", "value": 0},
+        {"name": "invert x", "type": "Boolean", "value": false},
+        {"name": "invert y", "type": "Boolean", "value": false}
+    ],
+    "outputs": [
+    ],
+    "files": [
+    ]
+}

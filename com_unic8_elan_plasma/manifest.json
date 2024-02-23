@@ -1,0 +1,25 @@
+{
+    "name": "Plasma",
+    "uid": "com_unic8_elan_plasma",
+    "description": "Plasma plugin",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+    ],
+    "features": [
+        "2d"
+    ],
+    "inputs": [
+        {"name": "speed", "type": "Number", "value": 1},
+        {"name": "density", "type": "Number", "value": 4},
+        {"name": "time", "type": "Number", "value": 8}
+    ],
+    "outputs": [
+    ],
+    "files": [
+    ]
+}

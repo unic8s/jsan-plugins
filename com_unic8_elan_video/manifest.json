@@ -1,0 +1,35 @@
+{
+    "name": "Video",
+    "uid": "com_unic8_elan_video",
+    "description": "Video plugin",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+        "file"
+    ],
+    "features": [
+        "2d"
+    ],
+    "inputs": [
+        {"name": "path", "type": "File", "value": ""},
+        {"name": "contains", "type": "Boolean", "value": false},
+        {"name": "autoplay", "type": "Boolean", "value": true},
+        {"name": "loop", "type": "Boolean", "value": true},
+        {"name": "muted", "type": "Boolean", "value": true},
+        {"name": "paused", "type": "Boolean", "value": false},
+        {"name": "progress", "type": "Number", "value": 0},
+        {"name": "speed", "type": "Number", "value": 1}
+    ],
+    "outputs": [
+        {"name": "paused", "type": "Boolean", "value": false},
+        {"name": "progress", "type": "Number", "value": 0},
+        {"name": "duration", "type": "Number", "value": 0},
+        {"name": "ended", "type": "Boolean", "value": false}
+    ],
+    "files": [
+    ]
+}

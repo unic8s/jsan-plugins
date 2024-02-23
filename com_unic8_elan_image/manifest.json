@@ -1,0 +1,28 @@
+{
+    "name": "Image",
+    "uid": "com_unic8_elan_image",
+    "description": "Image plugin",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+        "file"
+    ],
+    "features": [
+        "2d"
+    ],
+    "inputs": [
+        {"name": "path", "type": "File", "value": ""},
+        {"name": "contains", "type": "Boolean", "value": false},
+        {"name": "fade", "type": "Number", "value": 0}
+    ],
+    "outputs": [
+        {"name": "average", "type": "Color", "value": "#000000"},
+        {"name": "accent", "type": "Color", "value": "#000000"}
+    ],
+    "files": [
+    ]
+}
