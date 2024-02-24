@@ -136,6 +136,12 @@ module.exports = {
                     this.gifData.index = 0;
 
                     this.animateGif();
+
+                    this.killTween();
+
+                    this.tween = window.TweenLite.to(this.stage, this.fade, {
+                        alpha: 1
+                    });
                     break;
                 case "image/png":
                 case "image/jpeg":
