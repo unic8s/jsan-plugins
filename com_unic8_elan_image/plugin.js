@@ -119,6 +119,8 @@ module.exports = {
         }
     },
     async loadImage(url) {
+        this.loaded = false;
+
         try {
             const response = await fetch(url);
             const blobData = await response.blob();
@@ -126,9 +128,11 @@ module.exports = {
 
             switch (blobData.type) {
                 case "image/gif":
-                    var gif = window.gifuctJS.parseGIF(buffer);
+                    var gifuctJS = this.options.GIF;
 
-                    this.gifData.frames = window.gifuctJS.decompressFrames(gif, true);
+                    var gifRaw = gifuctJS.parseGIF(buffer);
+
+                    this.gifData.frames = gifuctJS.decompressFrames(gifRaw, true);
                     this.gifData.index = 0;
 
                     this.animateGif();
