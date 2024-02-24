@@ -3,7 +3,7 @@ module.exports = {
     dimensions: null,
     container: null,
     timeStamp: 0,
-    modern: true,
+    modern: false,
     smooth: false,
     colorHours: null,
     colorMinutes: null,

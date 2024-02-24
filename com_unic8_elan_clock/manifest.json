@@ -15,7 +15,7 @@
     ],
     "inputs": [
         {"name": "time", "type": "Number", "value": -1},
-        {"name": "modern", "type": "Boolean", "value": true},
+        {"name": "modern", "type": "Boolean", "value": false},
         {"name": "smooth", "type": "Boolean", "value": false},
         {"name": "hours", "type": "Color", "value": "#FF0000"},
         {"name": "minutes", "type": "Color", "value": "#00FF00"},

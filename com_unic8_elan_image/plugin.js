@@ -7,13 +7,12 @@ module.exports = {
     canvas: null,
     context: null,
     container: null,
-    timeoutID: null,
-    gifData: null,
     request: null,
     stage: null,
     fade: 0,
     tween: null,
     thumbLimit: 64,
+    gif: null,
 
     install: function (options) {
         this.options = options;
@@ -119,6 +118,12 @@ module.exports = {
         }
     },
     async loadImage(url) {
+        if (this.gif) {
+            this.container.removeChild(this.gif);
+            this.gif.destroy();
+            this.gif = null;
+        }
+
         try {
             const response = await fetch(url);
             const blobData = await response.blob();
@@ -126,12 +131,11 @@ module.exports = {
 
             switch (blobData.type) {
                 case "image/gif":
-                    var gif = window.gifuctJS.parseGIF(buffer);
+                    this.gif = await this.options.PIXI.gif.fromBuffer(buffer);
 
-                    this.gifData.frames = window.gifuctJS.decompressFrames(gif, true);
-                    this.gifData.index = 0;
+                    this.scaleImage();
 
-                    this.animateGif();
+                    this.container.addChild(this.gif);
                     break;
                 case "image/png":
                 case "image/jpeg":
@@ -154,81 +158,57 @@ module.exports = {
             height: height * ratio
         };
 
-        this.stage.width = realBounds.width;
-        this.stage.height = realBounds.height;
-        this.stage.x = (this.dimensions.width - realBounds.width) >> 1;
-        this.stage.y = (this.dimensions.height - realBounds.height) >> 1;
+        let target = this.gif ? this.gif : this.stage;
+
+        target.width = realBounds.width;
+        target.height = realBounds.height;
+        target.x = (this.dimensions.width - realBounds.width) >> 1;
+        target.y = (this.dimensions.height - realBounds.height) >> 1;
 
         return realBounds;
     },
     scaleImage: function () {
-        this.stage.texture.update();
+        if (this.gif) {
+            this.prescale(this.gif.width, this.gif.height);
 
-        this.prescale(this.image.width, this.image.height);
-
-        if (this.loaded) {
-            this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            this.context.drawImage(this.image, 0, 0, this.canvas.width, this.canvas.height);
-
-            let pixels;
-
-            if (this.dimensions.width > this.thumbLimit || this.dimensions.height > this.thumbLimit) {
-                let thumbCanvas = document.createElement("canvas");
-                thumbCanvas.width = this.dimensions.width > this.thumbLimit ? this.thumbLimit : this.dimensions.width;
-                thumbCanvas.height = this.dimensions.height > this.thumbLimit ? this.thumbLimit : this.dimensions.height;
-
-                let thumbContext = thumbCanvas.getContext("2d", {
-                    alpha: true
-                });
-
-                thumbContext.drawImage(this.canvas, 0, 0, this.canvas.width, this.canvas.height, 0, 0, thumbCanvas.width, thumbCanvas.height);
-
-                pixels = thumbContext.getImageData(0, 0, thumbCanvas.width, thumbCanvas.height).data;
-
-                thumbContext = null;
-                thumbCanvas = null;
-            } else {
-                pixels = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height).data;
-            }
-
-            const average = this.options.helpers.color.calculateAverage(pixels);
-            const accent = this.options.helpers.color.calculateAccent(pixels);
-
-            this.options.nodes.outputs.query("average").data = this.options.helpers.color.rgbToHex.apply(this, average);
-            this.options.nodes.outputs.query("accent").data = this.options.helpers.color.rgbToHex.apply(this, accent);
-        }
-    },
-    animateGif: function () {
-        let currentFrame = this.gifData.frames[this.gifData.index];
-
-        this.prescale(currentFrame.dims.width, currentFrame.dims.height);
-
-        if (
-            !this.gifData.imageData
-            ||
-            currentFrame.dims.width != this.gifData.imageData.width
-            ||
-            currentFrame.dims.height != this.gifData.imageData.height
-        ) {
-            this.canvas.width = currentFrame.dims.width;
-            this.canvas.height = currentFrame.dims.height;
-
-            this.gifData.imageData = this.context.createImageData(currentFrame.dims.width, currentFrame.dims.height);
-        }
-
-        this.gifData.imageData.data.set(currentFrame.patch);
-        this.context.putImageData(this.gifData.imageData, 0, 0);
-
-        if (this.gifData.index < this.gifData.frames.length - 1) {
-            this.gifData.index++;
+            this.options.nodes.outputs.query("average").data = 0;
+            this.options.nodes.outputs.query("accent").data = 0;
         } else {
-            this.gifData.index = 0;
+            this.stage.texture.update();
+
+            this.prescale(this.image.width, this.image.height);
+
+            if (this.loaded) {
+                this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                this.context.drawImage(this.image, 0, 0, this.canvas.width, this.canvas.height);
+
+                let pixels;
+
+                if (this.dimensions.width > this.thumbLimit || this.dimensions.height > this.thumbLimit) {
+                    let thumbCanvas = document.createElement("canvas");
+                    thumbCanvas.width = this.dimensions.width > this.thumbLimit ? this.thumbLimit : this.dimensions.width;
+                    thumbCanvas.height = this.dimensions.height > this.thumbLimit ? this.thumbLimit : this.dimensions.height;
+
+                    let thumbContext = thumbCanvas.getContext("2d", {
+                        alpha: true
+                    });
+
+                    thumbContext.drawImage(this.canvas, 0, 0, this.canvas.width, this.canvas.height, 0, 0, thumbCanvas.width, thumbCanvas.height);
+
+                    pixels = thumbContext.getImageData(0, 0, thumbCanvas.width, thumbCanvas.height).data;
+
+                    thumbContext = null;
+                    thumbCanvas = null;
+                } else {
+                    pixels = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height).data;
+                }
+
+                const average = this.options.helpers.color.calculateAverage(pixels);
+                const accent = this.options.helpers.color.calculateAccent(pixels);
+
+                this.options.nodes.outputs.query("average").data = this.options.helpers.color.rgbToHex.apply(this, average);
+                this.options.nodes.outputs.query("accent").data = this.options.helpers.color.rgbToHex.apply(this, accent);
+            }
         }
-
-        this.stage.texture.update();
-
-        this.timeoutID = setTimeout(() => {
-            this.animateGif();
-        }, currentFrame.delay);
     }
 }
