@@ -159,7 +159,9 @@ module.exports = {
                     this.image.src = this.image.constructor.name == "HTMLImageElement" ? URL.createObjectURL(new Blob([buffer], { type: blobData.type })) : url;
                     break;
             }
-        } catch (ex) { }
+        } catch (ex) {
+            console.error(ex);
+        }
     },
     validateAndFix: function (gif) {
         let currentGce = null;
