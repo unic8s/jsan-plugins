@@ -14,6 +14,7 @@ module.exports = {
     fade: 0,
     tween: null,
     thumbLimit: 64,
+    isGIF: false,
 
     install: function (options) {
         this.options = options;
@@ -60,7 +61,8 @@ module.exports = {
         this.gifData = {
             frames: [],
             index: 0,
-            imageData: null
+            imageData: null,
+            rendered: []
         };
     },
     uninstall: function () {
@@ -126,14 +128,23 @@ module.exports = {
             const blobData = await response.blob();
             const buffer = await blobData.arrayBuffer();
 
+            this.isGIF = blobData.type == "image/gif";
+
             switch (blobData.type) {
                 case "image/gif":
                     var gifuctJS = this.options.GIF;
 
                     var gifRaw = gifuctJS.parseGIF(buffer);
 
+                    this.validateAndFix(gifRaw);
+
                     this.gifData.frames = gifuctJS.decompressFrames(gifRaw, true);
                     this.gifData.index = 0;
+
+                    this.precomputeFrames();
+
+                    var currentFrame = this.gifData.frames[0];
+                    this.prescale(currentFrame.dims.width, currentFrame.dims.height);
 
                     this.animateGif();
 
@@ -149,6 +160,17 @@ module.exports = {
                     break;
             }
         } catch (ex) { }
+    },
+    validateAndFix: function (gif) {
+        let currentGce = null;
+
+        for (const frame of gif.frames) {
+            currentGce = frame.gce ?? currentGce;
+
+            if ('image' in frame && !('gce' in frame)) {
+                frame.gce = currentGce;
+            }
+        }
     },
     prescale: function (width, height) {
         var ratio = 1;
@@ -176,7 +198,7 @@ module.exports = {
 
         this.prescale(this.image.width, this.image.height);
 
-        if (this.loaded) {
+        if (this.loaded && !this.isGIF) {
             this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
             this.context.drawImage(this.image, 0, 0, this.canvas.width, this.canvas.height);
 
@@ -208,26 +230,59 @@ module.exports = {
             this.options.nodes.outputs.query("accent").data = this.options.helpers.color.rgbToHex.apply(this, accent);
         }
     },
-    animateGif: function () {
-        let currentFrame = this.gifData.frames[this.gifData.index];
+    precomputeFrames() {
+        const patchCanvas = document.createElement("canvas");
+        const patchContext = patchCanvas.getContext("2d", {
+            alpha: true,
+            willReadFrequently: true
+        });
 
-        this.prescale(currentFrame.dims.width, currentFrame.dims.height);
+        let previousFrame = null;
+        const fps = 30;
+        const defaultDelay = (1000 / fps) | 0;
 
-        if (
-            !this.gifData.imageData
-            ||
-            currentFrame.dims.width != this.gifData.imageData.width
-            ||
-            currentFrame.dims.height != this.gifData.imageData.height
-        ) {
-            this.canvas.width = currentFrame.dims.width;
-            this.canvas.height = currentFrame.dims.height;
+        this.gifData.rendered = [];
 
-            this.gifData.imageData = this.context.createImageData(currentFrame.dims.width, currentFrame.dims.height);
+        for (let i = 0; i < this.gifData.frames.length; i++) {
+            const {
+                disposalType = 2,
+                delay = defaultDelay,
+                patch,
+                dims: { width, height, left, top },
+            } = this.gifData.frames[i];
+
+            patchCanvas.width = width;
+            patchCanvas.height = height;
+            patchContext.clearRect(0, 0, width, height);
+            const patchData = patchContext.createImageData(width, height);
+
+            patchData.data.set(patch);
+            patchContext.putImageData(patchData, 0, 0);
+
+            if (disposalType === 3) {
+                previousFrame = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height);
+            }
+
+            this.context.drawImage(patchCanvas, left, top);
+            const imageData = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height);
+
+            if (disposalType === 2) {
+                this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            }
+            else if (disposalType === 3) {
+                this.context.putImageData(previousFrame, 0, 0);
+            }
+
+            this.gifData.rendered.push({
+                delay: delay,
+                data: imageData
+            });
         }
+    },
+    animateGif: function () {
+        let currentFrame = this.gifData.rendered[this.gifData.index];
 
-        this.gifData.imageData.data.set(currentFrame.patch);
-        this.context.putImageData(this.gifData.imageData, 0, 0);
+        this.context.putImageData(currentFrame.data, 0, 0);
 
         if (this.gifData.index < this.gifData.frames.length - 1) {
             this.gifData.index++;
