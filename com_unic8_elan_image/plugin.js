@@ -231,6 +231,8 @@ module.exports = {
         }
     },
     precomputeFrames() {
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
         const patchCanvas = document.createElement("canvas");
         const patchContext = patchCanvas.getContext("2d", {
             alpha: true,
