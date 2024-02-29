@@ -15,6 +15,12 @@ module.exports = {
     tween: null,
     thumbLimit: 64,
     isGIF: false,
+    gifDims: {
+        width: 0,
+        height: 0
+    },
+    patchCanvas: null,
+    patchContext: null,
 
     install: function (options) {
         this.options = options;
@@ -64,6 +70,12 @@ module.exports = {
             imageData: null,
             rendered: []
         };
+
+        this.patchCanvas = document.createElement("canvas");
+        this.patchContext = this.patchCanvas.getContext("2d", {
+            alpha: true,
+            willReadFrequently: true
+        });
     },
     uninstall: function () {
         this.stage.destroy();
@@ -198,9 +210,9 @@ module.exports = {
     scaleImage: function () {
         this.stage.texture.update();
 
-        this.prescale(this.image.width, this.image.height);
-
         if (this.loaded && !this.isGIF) {
+            this.prescale(this.image.width, this.image.height);
+
             this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
             this.context.drawImage(this.image, 0, 0, this.canvas.width, this.canvas.height);
 
@@ -230,16 +242,12 @@ module.exports = {
 
             this.options.nodes.outputs.query("average").data = this.options.helpers.color.rgbToHex.apply(this, average);
             this.options.nodes.outputs.query("accent").data = this.options.helpers.color.rgbToHex.apply(this, accent);
+        }else{
+            this.prescale(this.gifDims.width, this.gifDims.height);
         }
     },
     precomputeFrames() {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-        const patchCanvas = document.createElement("canvas");
-        const patchContext = patchCanvas.getContext("2d", {
-            alpha: true,
-            willReadFrequently: true
-        });
 
         let previousFrame = null;
         const fps = 30;
@@ -255,19 +263,24 @@ module.exports = {
                 dims: { width, height, left, top },
             } = this.gifData.frames[i];
 
-            patchCanvas.width = width;
-            patchCanvas.height = height;
-            patchContext.clearRect(0, 0, width, height);
-            const patchData = patchContext.createImageData(width, height);
+            if(i == 0){
+                this.gifDims.width = width;
+                this.gifDims.height = height;
+            }
+
+            this.patchCanvas.width = width;
+            this.patchCanvas.height = height;
+            this.patchContext.clearRect(0, 0, width, height);
+            const patchData = this.patchContext.createImageData(width, height);
 
             patchData.data.set(patch);
-            patchContext.putImageData(patchData, 0, 0);
+            this.patchContext.putImageData(patchData, 0, 0);
 
             if (disposalType === 3) {
                 previousFrame = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height);
             }
 
-            this.context.drawImage(patchCanvas, left, top);
+            this.context.drawImage(this.patchCanvas, left, top);
             const imageData = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height);
 
             if (disposalType === 2) {
@@ -282,11 +295,16 @@ module.exports = {
                 data: imageData
             });
         }
+
+        this.patchCanvas.width = this.gifDims.width;
+        this.patchCanvas.height = this.gifDims.height;
     },
     animateGif: function () {
         let currentFrame = this.gifData.rendered[this.gifData.index];
 
-        this.context.putImageData(currentFrame.data, 0, 0);
+        this.patchContext.putImageData(currentFrame.data, 0, 0);
+
+        this.context.drawImage(this.patchCanvas, 0, 0, this.canvas.width, this.canvas.height);
 
         if (this.gifData.index < this.gifData.frames.length - 1) {
             this.gifData.index++;
