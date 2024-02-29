@@ -19,7 +19,8 @@
         {"name": "width", "type": "Number", "value": 1},
         {"name": "gap", "type": "Number", "value": 1},
         {"name": "speed", "type": "Number", "value": 1},
-        {"name": "scheme", "type": "Number", "value": 0},
+        {"name": "scheme", "type": "Number", "value": -1},
+        {"name": "color", "type": "Color", "value": "#FFFFFF"},
         {"name": "invert x", "type": "Boolean", "value": false},
         {"name": "invert y", "type": "Boolean", "value": false}
     ],

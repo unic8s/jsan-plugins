@@ -8,8 +8,9 @@ module.exports = {
     context: null,
     gradientList: [],
     schemeList: [],
-    schemeIndex: 0,
+    schemeIndex: -1,
     scheme: null,
+    color: "#FFFFFF",
     peaks: [],
     lengthFactor: 0,
     mode: 0,
@@ -104,6 +105,9 @@ module.exports = {
             case "invert y":
                 this.sprite.scale.y = data ? -1 : 1;
                 break;
+            case "color":
+                this.color = data;
+                break;
         }
     },
     microphoneFrequencies: function (event) {
@@ -123,8 +127,10 @@ module.exports = {
             return;
         }
 
-        this.context.fillStyle = this.scheme;
-        this.context.strokeStyle = this.scheme;
+        const style = this.schemeIndex > -1 ? this.scheme : this.color;
+
+        this.context.fillStyle = style;
+        this.context.strokeStyle = style;
 
         const alphaDec = 255 / this.dimensions.height;
         const speedMlt = this.dimensions.height;
@@ -259,7 +265,7 @@ module.exports = {
 
                 var adjustedLength = this.lengthFactor * average;
 
-                this.context.fillStyle = this.scheme;
+                this.context.fillStyle = style;
                 this.context.fillRect(this.dimensions.width - 1, (this.dimensions.height - adjustedLength) | 0, 1, this.dimensions.height);
                 break;
             case 5:
@@ -371,7 +377,6 @@ module.exports = {
 
         if (!this.scheme) {
             this.scheme = gradient;
-            this.schemeIndex = 0;
         }
 
         this.schemeList.push(name);
