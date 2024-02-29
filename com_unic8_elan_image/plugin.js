@@ -15,6 +15,7 @@ module.exports = {
     tween: null,
     thumbLimit: 64,
     isGIF: false,
+    frameDelay: -1,
     gifDims: {
         width: 0,
         height: 0
@@ -119,6 +120,9 @@ module.exports = {
                 break;
             case "fade":
                 this.fade = data > 0 ? data : 0;
+                break;
+            case "frameDelay":
+                this.frameDelay = data;
                 break;
         }
     },
@@ -316,6 +320,6 @@ module.exports = {
 
         this.timeoutID = setTimeout(() => {
             this.animateGif();
-        }, currentFrame.delay);
+        }, this.frameDelay > -1 ? this.frameDelay : currentFrame.delay);
     }
 }
