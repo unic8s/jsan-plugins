@@ -72,8 +72,6 @@ module.exports = {
 
         let item = this.jsonData[this.index];
 
-        console.log(item);
-
         if(!item){
             return;
         }
