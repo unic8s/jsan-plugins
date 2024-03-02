@@ -1,0 +1,24 @@
+{
+    "name": "Giphy",
+    "uid": "com_unic8_elan_giphy",
+    "description": "Giphy plugin",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+    ],
+    "features": [
+    ],
+    "inputs": [
+        {"name": "search", "type": "String", "value": ""},
+        {"name": "index", "type": "Number", "value": 0}
+    ],
+    "outputs": [
+        {"name": "image", "type": "File", "value": ""}
+    ],
+    "files": [
+    ]
+}
