@@ -318,7 +318,13 @@ module.exports = {
 
         this.stage.texture.update();
 
+        if(this.timeoutID != null){
+            clearTimeout(this.timeoutID);
+        }
+
         this.timeoutID = setTimeout(() => {
+            clearTimeout(this.timeoutID);
+
             this.animateGif();
         }, this.frameDelay > -1 ? this.frameDelay : currentFrame.delay);
     }
