@@ -1,0 +1,22 @@
+{
+    "name": "SONOS",
+    "uid": "com_unic8_elan_sonos",
+    "description": "SONOS plugin",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+        "sonos"
+    ],
+    "features": [
+    ],
+    "inputs": [
+    ],
+    "outputs": [
+    ],
+    "files": [
+    ]
+}
