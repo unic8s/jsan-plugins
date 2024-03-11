@@ -1,0 +1,16 @@
+{
+  "name": "jsan-plugins",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "list": "node utils/list.js",
+    "pack": "node utils/pack.js",
+    "clean": "node utils/clean.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jszip": "^3.10.1"
+  }
+}
