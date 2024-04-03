@@ -2,33 +2,48 @@ module.exports = {
     options: null,
     timestamp: -1,
     intervalId: null,
+    previousCover: null,
 
     install: function (options) {
         this.options = options;
-
-        const DeviceDiscovery = options.SonosApi.DeviceDiscovery;
-
-        DeviceDiscovery((device) => {
-            console.log('found device at ' + device.host)
-
-            // mute every device...
-            device.setMuted(true)
-                .then(d => console.log(`${d.host} now muted`))
-        })
-
-        // find one device
-        DeviceDiscovery().once('DeviceAvailable', (device) => {
-            console.log('found device at ' + device.host)
-
-            // get all groups
-            device.getAllGroups().then(groups => {
-                groups.forEach(group => {
-                    console.log(group.Name);
-                })
-            })
-        })
     },
     uninstall: function () {
-        this.stopTimer();
+        this.stopPolling();
+    },
+
+    stopPolling: function () {
+        clearInterval(this.intervalID);
+    },
+
+    sonos: function (event) {
+        switch (event.data.cmd) {
+            case "deviceDiscovery":
+                const host = event.data.host;
+                const refThis = this;
+
+                this.intervalId = setInterval(() => {
+                    refThis.options.SonosHelper.currentTrack(host);
+                }, 2000);
+                break;
+            case "currentTrack":
+                const track = event.data.track;
+
+                this.options.nodes.outputs.query("song").data = track.title;
+                this.options.nodes.outputs.query("artist").data = track.artist;
+                this.options.nodes.outputs.query("album").data = track.album;
+                this.options.nodes.outputs.query("song").data = track.title;
+                this.options.nodes.outputs.query("progress").data = track.position;
+                this.options.nodes.outputs.query("duration").data = track.duration;
+
+                if (this.previousCover != track.albumArtURL) {
+                    this.options.nodes.outputs.query("cover").data = {
+                        fileID: track.albumArtURL,
+                        path: track.albumArtURL
+                    };
+
+                    this.previousCover = track.albumArtURL;
+                }
+                break;
+        }
     }
 }

@@ -127,7 +127,7 @@ module.exports = {
         this.resolveData();
     },
     stopPolling: function () {
-        clearInterval(this.options.intervalID);
+        clearInterval(this.intervalID);
     },
     publishCover: function () {
         if (this.thumbList.length == 0) {

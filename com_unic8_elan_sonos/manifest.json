@@ -16,6 +16,13 @@
     "inputs": [
     ],
     "outputs": [
+        {"name": "song", "type": "String", "value": ""},
+        {"name": "artist", "type": "String", "value": ""},
+        {"name": "album", "type": "String", "value": ""},
+        {"name": "cover", "type": "File", "value": ""},
+        {"name": "playing", "type": "Boolean", "value": false},
+        {"name": "progress", "type": "Number", "value": 0},
+        {"name": "duration", "type": "Number", "value": 0}
     ],
     "files": [
     ]
