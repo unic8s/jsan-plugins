@@ -172,6 +172,7 @@ module.exports = {
                     break;
                 case "image/png":
                 case "image/jpeg":
+                default:
                     this.image.src = this.image.constructor.name == "HTMLImageElement" ? URL.createObjectURL(new Blob([buffer], { type: blobData.type })) : url;
                     break;
             }

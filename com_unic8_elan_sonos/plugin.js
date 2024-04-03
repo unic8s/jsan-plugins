@@ -3,12 +3,15 @@ module.exports = {
     timestamp: -1,
     intervalId: null,
     previousCover: null,
+    killed: false,
 
     install: function (options) {
         this.options = options;
     },
     uninstall: function () {
         this.stopPolling();
+
+        this.killed = true;
     },
 
     stopPolling: function () {
@@ -16,6 +19,10 @@ module.exports = {
     },
 
     sonos: function (event) {
+        if(this.killed){
+            return;
+        }
+
         switch (event.data.cmd) {
             case "deviceDiscovery":
                 const host = event.data.host;
@@ -27,6 +34,8 @@ module.exports = {
                 break;
             case "currentTrack":
                 const track = event.data.track;
+
+                //console.log(track);
 
                 this.options.nodes.outputs.query("song").data = track.title;
                 this.options.nodes.outputs.query("artist").data = track.artist;
