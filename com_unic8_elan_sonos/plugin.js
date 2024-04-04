@@ -4,14 +4,11 @@ module.exports = {
     intervalId: null,
     previousCover: null,
     killed: false,
-    host: null,
 
     install: function (options) {
         this.options = options;
     },
     uninstall: function () {
-        this.stopPolling();
-
         this.killed = true;
     },
     input(id, data) {
@@ -34,25 +31,12 @@ module.exports = {
         this.input(event.data);
     },
 
-    stopPolling: function () {
-        clearInterval(this.intervalID);
-    },
-
     sonos: function (event) {
         if (this.killed) {
             return;
         }
 
         switch (event.data.cmd) {
-            case "deviceDiscovery":
-                this.host = event.data.host;
-
-                var refThis = this;
-
-                this.intervalId = setInterval(() => {
-                    refThis.options.SonosHelper.currentTrack(refThis.host);
-                }, 2000);
-                break;
             case "currentTrack":
                 var track = event.data.track;
 
@@ -63,13 +47,13 @@ module.exports = {
                 this.options.nodes.outputs.query("progress").data = track.position;
                 this.options.nodes.outputs.query("duration").data = track.duration;
 
-                if (this.previousCover != track.albumArtURL) {
+                if (this.previousCover != track.albumArtURI) {
                     this.options.nodes.outputs.query("cover").data = {
-                        fileID: track.albumArtURL,
-                        path: track.albumArtURL
+                        fileID: track.albumArtURI,
+                        path: track.albumArtURI
                     };
 
-                    this.previousCover = track.albumArtURL;
+                    this.previousCover = track.albumArtURI;
                 }
                 break;
         }
