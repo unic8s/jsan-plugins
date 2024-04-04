@@ -3,6 +3,8 @@ module.exports = {
     timestamp: -1,
     intervalId: null,
     previousCover: null,
+    coverPath: 'assets/sonos.png',
+    track: null,
     killed: false,
 
     install: function (options) {
@@ -36,26 +38,47 @@ module.exports = {
             return;
         }
 
+        console.log(event.data.cmd, event.data);
+
         switch (event.data.cmd) {
             case "currentTrack":
-                var track = event.data.track;
-
-                this.options.nodes.outputs.query("song").data = track.title;
-                this.options.nodes.outputs.query("artist").data = track.artist;
-                this.options.nodes.outputs.query("album").data = track.album;
-                this.options.nodes.outputs.query("song").data = track.title;
-                this.options.nodes.outputs.query("progress").data = track.position;
-                this.options.nodes.outputs.query("duration").data = track.duration;
-
-                if (this.previousCover != track.albumArtURI) {
-                    this.options.nodes.outputs.query("cover").data = {
-                        fileID: track.albumArtURI,
-                        path: track.albumArtURI
-                    };
-
-                    this.previousCover = track.albumArtURI;
-                }
+                this.track = event.data.track; 
+                
+                this.generateOutput();
                 break;
+            case "playState":
+                var state = event.data.state;
+
+                switch(state){
+                    case "playing":
+                        break;
+                    case "paused":
+                        this.track = null;
+                        break;
+                }
+
+                this.generateOutput();
+                break;
+        }
+    },
+    generateOutput(){
+        const fileID = this.options.files[this.coverPath];
+
+        const info = this.track ? this.track : {title: "", artist: "", album: "", progress: 0, duration: 1, albumArtURI: fileID};
+
+        this.options.nodes.outputs.query("song").data = info.title;
+        this.options.nodes.outputs.query("artist").data = info.artist;
+        this.options.nodes.outputs.query("album").data = info.album;
+        this.options.nodes.outputs.query("progress").data = info.position;
+        this.options.nodes.outputs.query("duration").data = info.duration;
+
+        if (this.previousCover != info.albumArtURI) {
+            this.options.nodes.outputs.query("cover").data = {
+                fileID: info.albumArtURI,
+                path: info.albumArtURI
+            };
+
+            this.previousCover = info.albumArtURI;
         }
     }
 }

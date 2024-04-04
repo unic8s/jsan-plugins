@@ -30,5 +30,6 @@
         {"name": "duration", "type": "Number", "value": 0}
     ],
     "files": [
+        "assets/sonos.png"
     ]
 }
