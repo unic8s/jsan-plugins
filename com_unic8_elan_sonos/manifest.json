@@ -9,11 +9,16 @@
         "priority": 0
     },
     "permissions": [
-        "sonos"
+        "sonos",
+        "webhook"
     ],
     "features": [
     ],
     "inputs": [
+        {"name": "play", "type": "Boolean", "value": false},
+        {"name": "pause", "type": "Boolean", "value": false},
+        {"name": "previous", "type": "Boolean", "value": false},
+        {"name": "next", "type": "Boolean", "value": false}
     ],
     "outputs": [
         {"name": "song", "type": "String", "value": ""},
