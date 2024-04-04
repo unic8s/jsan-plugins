@@ -50,7 +50,7 @@ module.exports = {
                 var refThis = this;
 
                 this.intervalId = setInterval(() => {
-                    refThis.options.SonosHelper.currentTrack(this.host);
+                    refThis.options.SonosHelper.currentTrack(refThis.host);
                 }, 2000);
                 break;
             case "currentTrack":
