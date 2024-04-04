@@ -43,7 +43,8 @@ module.exports = {
             refThis.tween = window.TweenLite.to(refThis.stage, refThis.fade, {
                 alpha: 1
             });
-        }
+        };
+        this.image.onerror = function () {};
 
         this.canvas = document.createElement("canvas");
         this.canvas.width = this.dimensions.width;
@@ -247,7 +248,7 @@ module.exports = {
 
             this.options.nodes.outputs.query("average").data = this.options.helpers.color.rgbToHex.apply(this, average);
             this.options.nodes.outputs.query("accent").data = this.options.helpers.color.rgbToHex.apply(this, accent);
-        }else{
+        } else {
             this.prescale(this.gifDims.width, this.gifDims.height);
         }
     },
@@ -268,7 +269,7 @@ module.exports = {
                 dims: { width, height, left, top },
             } = this.gifData.frames[i];
 
-            if(i == 0){
+            if (i == 0) {
                 this.gifDims.width = width;
                 this.gifDims.height = height;
             }
@@ -319,7 +320,7 @@ module.exports = {
 
         this.stage.texture.update();
 
-        if(this.timeoutID != null){
+        if (this.timeoutID != null) {
             clearTimeout(this.timeoutID);
         }
 
