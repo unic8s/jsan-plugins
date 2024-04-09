@@ -5,6 +5,7 @@ module.exports = {
     previousCover: null,
     coverPath: 'assets/sonos.png',
     track: null,
+    state: "paused",
     killed: false,
 
     install: function (options) {
@@ -47,24 +48,29 @@ module.exports = {
                 this.generateOutput();
                 break;
             case "playState":
-                var state = event.data.state;
-
-                switch(state){
-                    case "playing":
-                        break;
-                    case "paused":
-                        this.track = null;
-                        break;
-                }
+                this.state = event.data.state;
 
                 this.generateOutput();
                 break;
         }
     },
     generateOutput(){
-        const fileID = this.options.files[this.coverPath];
+        let info = null;
 
-        const info = this.track ? this.track : {title: "", artist: "", album: "", progress: 0, duration: 1, albumArtURI: fileID};
+        switch(this.state){
+            case "playing":
+                info = this.track;
+                break;
+            case "paused":
+                var fileID = this.options.files[this.coverPath];
+
+                info = {title: "", artist: "", album: "", progress: 0, duration: 1, albumArtURI: fileID};
+                break;
+        }
+
+        if(!info){
+            return;
+        }
 
         this.options.nodes.outputs.query("song").data = info.title;
         this.options.nodes.outputs.query("artist").data = info.artist;
