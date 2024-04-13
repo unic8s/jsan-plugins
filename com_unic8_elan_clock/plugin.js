@@ -149,7 +149,7 @@ module.exports = {
             this.gfxMinutes.lineStyle(arcWidth, this.colorMinutes, 1, true);
             this.gfxMinutes.arc(x, y, arcRadius, 0, Math.PI * 2 / 60 * minutesSub);
         } else {
-            size = 2;
+            size = 1.25;
 
             this.gfxMinutes.beginFill(this.colorMinutes);
             this.gfxMinutes.drawPolygon([
@@ -173,7 +173,7 @@ module.exports = {
 
             this.gfxHours.arc(x, y, arcRadius, 0, Math.PI * 2 / 12 * (hours + minutesSub / 60));
         } else {
-            size = 3;
+            size = 1.5;
 
             this.gfxHours.beginFill(this.colorHours);
             this.gfxHours.drawPolygon([
