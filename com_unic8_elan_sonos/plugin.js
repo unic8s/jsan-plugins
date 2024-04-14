@@ -39,8 +39,6 @@ module.exports = {
             return;
         }
 
-        console.log(event.data.cmd, event.data);
-
         switch (event.data.cmd) {
             case "currentTrack":
                 this.track = event.data.track; 
