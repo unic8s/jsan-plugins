@@ -272,7 +272,21 @@ module.exports = {
             this.spotifyApi.setAccessToken(accessToken);
             this.spotifyApi.setRefreshToken(refreshToken);
 
-            this.startPolling();
+            this.spotifyApi.refreshAccessToken().then(
+                function (data) {
+                    console.log('The access token has been refreshed!');
+
+                    spotifyApi.setAccessToken(data.body['access_token']);
+
+                    localStorage.setItem("spotifyExpire", data.body['expires_in']);
+                    localStorage.setItem("spotifyAccessToken", data.body['access_token']);
+
+                    this.startPolling();
+                },
+                function (err) {
+                    console.log('Could not refresh access token', err);
+                }
+            );
         } else {
             var scopes = [
                 'user-read-playback-state',
