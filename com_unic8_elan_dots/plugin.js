@@ -122,18 +122,18 @@ module.exports = {
 
                     this.root.addChild(gfx);
 
-                    setTimeout(() => {
+                    requestAnimationFrame(() => {
                         this.addTween(gfx, gfx.x, gfx.y);
-                    }, 0);
+                    });
 
                     this.list.push(gfx);
                 }
             }
         }
 
-        setTimeout(() => {
+        requestAnimationFrame(() => {
             this.timeline.play();
-        }, 0);
+        });
     },
     addTween: function (item, x, y) {
         const delay = Math.random() * (this.duration - this.duration / 5) + this.duration / 10;

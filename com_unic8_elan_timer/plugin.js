@@ -6,6 +6,7 @@ module.exports = {
     active: false,
     toggle: false,
     timeoutID: null,
+    lastTime: 0,
 
     install: function (options) {
         this.options = options;
@@ -26,21 +27,32 @@ module.exports = {
         }
 
         this.counter = 0;
+        this.lastTime = this.getTime();
 
         this.restartTimer();
     },
     uninstall: function () {
-        clearTimeout(this.timeoutID);
+        cancelAnimationFrame(this.timeoutID);
     },
 
+    getTime: function() {
+        return Number((parseInt(process.hrtime.bigint()) * 0.000001).toFixed(0));
+    },
     restartTimer() {
-        clearTimeout(this.timeoutID);
+        cancelAnimationFrame(this.timeoutID);
 
         if (this.active && (this.cycles == 0 || this.counter < this.cycles)) {
-            this.timeoutID = setTimeout(() => {
-                this.tick();
+            this.timeoutID = requestAnimationFrame(() => {
+                const now = this.getTime();
+
+                if(now - this.lastTime >= this.delay) {
+                    this.lastTime = now;
+
+                    this.tick();
+                }
+
                 this.restartTimer();
-            }, this.delay);
+            });
         }
     },
     tick() {
