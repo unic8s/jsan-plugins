@@ -269,6 +269,8 @@ module.exports = {
         const refreshToken = localStorage.getItem("spotifyRefreshToken");
 
         if (accessToken && refreshToken) {
+            const refThis = this;
+
             this.spotifyApi.setAccessToken(accessToken);
             this.spotifyApi.setRefreshToken(refreshToken);
 
@@ -276,12 +278,12 @@ module.exports = {
                 function (data) {
                     console.log('The access token has been refreshed!');
 
-                    spotifyApi.setAccessToken(data.body['access_token']);
+                    refThis.spotifyApi.setAccessToken(data.body['access_token']);
 
                     localStorage.setItem("spotifyExpire", data.body['expires_in']);
                     localStorage.setItem("spotifyAccessToken", data.body['access_token']);
 
-                    this.startPolling();
+                    refThis.startPolling();
                 },
                 function (err) {
                     console.log('Could not refresh access token', err);
