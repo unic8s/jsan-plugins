@@ -276,8 +276,6 @@ module.exports = {
 
             this.spotifyApi.refreshAccessToken().then(
                 function (data) {
-                    console.log('The access token has been refreshed!');
-
                     refThis.spotifyApi.setAccessToken(data.body['access_token']);
 
                     localStorage.setItem("spotifyExpire", data.body['expires_in']);
