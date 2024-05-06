@@ -14,7 +14,6 @@
     ],
     "inputs": [
         {"name": "text", "type": "String", "value": ""},
-        {"name": "scale", "type": "Number", "value": 10},
         {"name": "light", "type": "Color", "value": "#FFFFFF"},
         {"name": "dark", "type": "Color", "value": "#000000"}
     ],

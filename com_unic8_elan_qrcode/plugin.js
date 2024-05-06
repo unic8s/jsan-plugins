@@ -1,8 +1,6 @@
 module.exports = {
     options: null,
     params: {
-        scale: 16,
-        margin: 1,
         color: {
             dark: "#000000FF",
             light: "#FFFFFFFF"
@@ -17,9 +15,6 @@ module.exports = {
         switch (id) {
             case "text":
                 this.text = data;
-                break;
-            case "scale":
-                this.params.scale = data;
                 break;
             case "light":
                 this.params.color.light = data + "FF";
