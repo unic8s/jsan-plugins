@@ -1,0 +1,26 @@
+{
+    "name": "QR code",
+    "uid": "com_unic8_elan_qrcode",
+    "description": "QR code plugin",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+    ],
+    "features": [
+    ],
+    "inputs": [
+        {"name": "text", "type": "String", "value": ""},
+        {"name": "scale", "type": "Number", "value": 10},
+        {"name": "light", "type": "Color", "value": "#FFFFFF"},
+        {"name": "dark", "type": "Color", "value": "#000000"}
+    ],
+    "outputs": [
+        {"name": "image", "type": "File", "value": ""}
+    ],
+    "files": [
+    ]
+}
