@@ -1,0 +1,23 @@
+{
+    "name": "File to URL",
+    "uid": "com_unic8_elan_url",
+    "description": "File to URL plugin",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+    ],
+    "features": [
+    ],
+    "inputs": [
+        {"name": "file", "type": "File", "value": ""}
+    ],
+    "outputs": [
+        {"name": "url", "type": "String", "value": ""}
+    ],
+    "files": [
+    ]
+}

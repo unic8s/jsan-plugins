@@ -1,7 +1,7 @@
 module.exports = {
     options: null,
     params: {
-        scale: 10,
+        scale: 16,
         margin: 1,
         color: {
             dark: "#000000FF",
