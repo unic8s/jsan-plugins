@@ -140,45 +140,49 @@ module.exports = {
     async loadImage(url) {
         this.loaded = false;
 
-        try {
-            const response = await fetch(url);
-            const blobData = await response.blob();
-            const buffer = await blobData.arrayBuffer();
-
-            this.isGIF = blobData.type == "image/gif";
-
-            switch (blobData.type) {
-                case "image/gif":
-                    var gifuctJS = this.options.GIF;
-
-                    var gifRaw = gifuctJS.parseGIF(buffer);
-
-                    this.validateAndFix(gifRaw);
-
-                    this.gifData.frames = gifuctJS.decompressFrames(gifRaw, true);
-                    this.gifData.index = 0;
-
-                    this.precomputeFrames();
-
-                    var currentFrame = this.gifData.frames[0];
-                    this.prescale(currentFrame.dims.width, currentFrame.dims.height);
-
-                    this.animateGif();
-
-                    this.killTween();
-
-                    this.tween = window.TweenLite.to(this.stage, this.fade, {
-                        alpha: 1
-                    });
-                    break;
-                case "image/png":
-                case "image/jpeg":
-                default:
-                    this.image.src = this.image.constructor.name == "HTMLImageElement" ? URL.createObjectURL(new Blob([buffer], { type: blobData.type })) : url;
-                    break;
+        if(String(url).substring(0, 5) == "data:"){
+            this.image.src = url;
+        }else{
+            try {
+                const response = await fetch(url);
+                const blobData = await response.blob();
+                const buffer = await blobData.arrayBuffer();
+    
+                this.isGIF = blobData.type == "image/gif";
+    
+                switch (blobData.type) {
+                    case "image/gif":
+                        var gifuctJS = this.options.GIF;
+    
+                        var gifRaw = gifuctJS.parseGIF(buffer);
+    
+                        this.validateAndFix(gifRaw);
+    
+                        this.gifData.frames = gifuctJS.decompressFrames(gifRaw, true);
+                        this.gifData.index = 0;
+    
+                        this.precomputeFrames();
+    
+                        var currentFrame = this.gifData.frames[0];
+                        this.prescale(currentFrame.dims.width, currentFrame.dims.height);
+    
+                        this.animateGif();
+    
+                        this.killTween();
+    
+                        this.tween = window.TweenLite.to(this.stage, this.fade, {
+                            alpha: 1
+                        });
+                        break;
+                    case "image/png":
+                    case "image/jpeg":
+                    default:
+                        this.image.src = this.image.constructor.name == "HTMLImageElement" ? URL.createObjectURL(new Blob([buffer], { type: blobData.type })) : url;
+                        break;
+                }
+            } catch (ex) {
+                console.error(ex);
             }
-        } catch (ex) {
-            console.error(ex);
         }
     },
     validateAndFix: function (gif) {
