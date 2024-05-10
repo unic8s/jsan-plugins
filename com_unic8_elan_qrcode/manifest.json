@@ -14,6 +14,7 @@
     ],
     "inputs": [
         {"name": "text", "type": "String", "value": ""},
+        {"name": "width", "type": "Number", "value": 0},
         {"name": "light", "type": "Color", "value": "#FFFFFF"},
         {"name": "dark", "type": "Color", "value": "#000000"}
     ],

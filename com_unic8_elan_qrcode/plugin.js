@@ -16,15 +16,13 @@ module.exports = {
 
         this.params.width = this.options.params.canvas.width;
     },
-    resize: function (bounds) {
-        this.params.width = bounds.width;
-
-        this.generate();
-    },
     input: function (id, data) {
         switch (id) {
             case "text":
                 this.text = data;
+                break;
+            case "width":
+                this.params.width = data;
                 break;
             case "light":
                 this.params.color.light = data + "FF";
