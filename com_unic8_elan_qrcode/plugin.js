@@ -1,6 +1,9 @@
 module.exports = {
     options: null,
     params: {
+        errorCorrectionLevel: "L",
+        margin: 1,
+        width: 0,
         color: {
             dark: "#000000FF",
             light: "#FFFFFFFF"
@@ -10,6 +13,13 @@ module.exports = {
 
     install: function (options) {
         this.options = options;
+
+        this.params.width = this.options.params.canvas.width;
+    },
+    resize: function (bounds) {
+        this.params.width = bounds.width;
+
+        this.generate();
     },
     input: function (id, data) {
         switch (id) {
