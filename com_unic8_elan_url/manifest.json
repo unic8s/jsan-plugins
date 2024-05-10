@@ -1,7 +1,7 @@
 {
-    "name": "File to URL",
+    "name": "URL file converter",
     "uid": "com_unic8_elan_url",
-    "description": "File to URL plugin",
+    "description": "URL file converter plugin",
     "author": "unic8 Studios",
     "version": "0.1.0",
     "process": {
@@ -13,10 +13,12 @@
     "features": [
     ],
     "inputs": [
-        {"name": "file", "type": "File", "value": ""}
+        {"name": "file A", "type": "File", "value": ""},
+        {"name": "url B", "type": "String", "value": ""}
     ],
     "outputs": [
-        {"name": "url", "type": "String", "value": ""}
+        {"name": "url A", "type": "String", "value": ""},
+        {"name": "file B", "type": "File", "value": ""}
     ],
     "files": [
     ]

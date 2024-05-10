@@ -6,8 +6,14 @@ module.exports = {
     },
     input: function (id, data) {
         switch (id) {
-            case "file":
-                this.options.nodes.outputs.query("url").data = data;
+            case "file A":
+                this.options.nodes.outputs.query("url A").data = data;
+                break;
+            case "url B":
+                this.options.nodes.outputs.query("file B").data = {
+                    fileID: data,
+                    path: data
+                };
                 break;
         }
     }
