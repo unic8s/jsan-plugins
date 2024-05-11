@@ -44,7 +44,7 @@ module.exports = {
                 alpha: 1
             });
         };
-        this.image.onerror = function () {};
+        this.image.onerror = function () { };
 
         this.canvas = document.createElement("canvas");
         this.canvas.width = this.dimensions.width;
@@ -140,43 +140,44 @@ module.exports = {
     async loadImage(url) {
         this.loaded = false;
 
-        if(String(url).substring(0, 5) == "data:"){
+        if (String(url).substring(0, 5) == "data:") {
             this.image.src = url;
-        }else{
+        } else {
             try {
                 const response = await fetch(url);
                 const blobData = await response.blob();
                 const buffer = await blobData.arrayBuffer();
-    
+
                 this.isGIF = blobData.type == "image/gif";
-    
+
                 switch (blobData.type) {
                     case "image/gif":
                         var gifuctJS = this.options.GIF;
-    
+
                         var gifRaw = gifuctJS.parseGIF(buffer);
-    
+
                         this.validateAndFix(gifRaw);
-    
+
                         this.gifData.frames = gifuctJS.decompressFrames(gifRaw, true);
                         this.gifData.index = 0;
-    
+
                         this.precomputeFrames();
-    
+
                         var currentFrame = this.gifData.frames[0];
                         this.prescale(currentFrame.dims.width, currentFrame.dims.height);
-    
+
                         this.animateGif();
-    
+
                         this.killTween();
-    
+
                         this.tween = window.TweenLite.to(this.stage, this.fade, {
                             alpha: 1
                         });
                         break;
                     case "image/png":
                     case "image/jpeg":
-                    default:
+                    case "image/webp":
+                    case "image/svg+xml":
                         this.image.src = this.image.constructor.name == "HTMLImageElement" ? URL.createObjectURL(new Blob([buffer], { type: blobData.type })) : url;
                         break;
                 }
