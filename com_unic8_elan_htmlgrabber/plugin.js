@@ -37,18 +37,17 @@ module.exports = {
         try {
             const response = await fetch(this.url);
             const body = await response.text();
-            const myDOM = new DOMParser().parseFromString(body, "text/html");
+            const myDOM = new DOMParser().parseFromString(body);
             const myElement = myDOM.querySelector(this.selector);
 
             if (myElement) {
                 let data = "";
 
-                switch(myElement.nodeName){
+                switch (myElement.nodeName) {
                     case "IMG":
+                    case "VIDEO":
+                    case "AUDIO":
                         data = myElement.src;
-                        break;
-                    case "A":
-                        data = myElement.href;
                         break;
                     default:
                         data = myElement.innerText;

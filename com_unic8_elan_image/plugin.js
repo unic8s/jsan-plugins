@@ -110,7 +110,9 @@ module.exports = {
                     onComplete: () => {
                         this.killTween();
 
-                        this.loadImage(data);
+                        if(data){
+                            this.loadImage(data);
+                        }
                     }
                 });
                 break;
