@@ -1,0 +1,25 @@
+{
+    "name": "HTML grabber",
+    "uid": "com_unic8_elan_htmlgrabber",
+    "description": "HTML grabber plugin",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+    ],
+    "features": [
+    ],
+    "inputs": [
+        {"name": "URL", "type": "String", "value": ""},
+        {"name": "Interval", "type": "Number", "value": 10},
+        {"name": "Selector", "type": "String", "value": ""}
+    ],
+    "outputs": [
+        {"name": "Content", "type": "String", "value": ""}
+    ],
+    "files": [
+    ]
+}
