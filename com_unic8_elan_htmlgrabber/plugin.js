@@ -12,6 +12,9 @@ module.exports = {
             case "URL":
                 this.url = data;
                 break;
+            case "Trigger":
+                this.grab();
+                return;
             case "Interval":
                 this.interval = data;
                 break;
@@ -24,7 +27,7 @@ module.exports = {
             clearInterval(this.intervalID);
         }
 
-        if (this.selector) {
+        if (this.selector && this.interval > 0) {
             const refThis = this;
 
             this.intervalID = setInterval(() => {

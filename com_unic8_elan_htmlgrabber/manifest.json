@@ -14,7 +14,8 @@
     ],
     "inputs": [
         {"name": "URL", "type": "String", "value": ""},
-        {"name": "Interval", "type": "Number", "value": 10},
+        {"name": "Trigger", "type": "Boolean", "value": false},
+        {"name": "Interval", "type": "Number", "value": 0},
         {"name": "Selector", "type": "String", "value": ""}
     ],
     "outputs": [
