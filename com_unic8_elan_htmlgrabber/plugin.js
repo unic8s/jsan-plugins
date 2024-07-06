@@ -40,7 +40,7 @@ module.exports = {
         try {
             const response = await fetch(this.url);
             const body = await response.text();
-            const myDOM = new DOMParser().parseFromString(body);
+            const myDOM = new DOMParser().parseFromString(body, "text/html");
             const myElement = myDOM.querySelector(this.selector);
 
             if (myElement) {
@@ -58,6 +58,8 @@ module.exports = {
 
                 this.options.nodes.outputs.query("Content").data = data;
             }
-        } catch (ex) { }
+        } catch (ex) {
+            this.options.nodes.outputs.query("Content").data = ex.toString();
+        }
     }
 }
