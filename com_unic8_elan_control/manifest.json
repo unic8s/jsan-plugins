@@ -19,7 +19,9 @@
         {"name": "left", "type": "Boolean", "value": false},
         {"name": "right", "type": "Boolean", "value": false},
         {"name": "up", "type": "Boolean", "value": false},
-        {"name": "down", "type": "Boolean", "value": false}
+        {"name": "down", "type": "Boolean", "value": false},
+        {"name": "back", "type": "Boolean", "value": false},
+        {"name": "enter", "type": "Boolean", "value": false}
     ],
     "files": [
     ]
