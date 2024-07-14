@@ -20,8 +20,6 @@ module.exports = {
     onKey(event) {
         let type = null;
 
-        console.log(event);
-
         switch (event.code) {
             case "ArrowLeft":
                 type = "left";
