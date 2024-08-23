@@ -50,7 +50,7 @@ module.exports = {
         this.startTimer();
     },
     uninstall: function () {
-        clearInterval(this.intervalID);
+        this.stopTimer();
     },
 
     startTimer: function () {

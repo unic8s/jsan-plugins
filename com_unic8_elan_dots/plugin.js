@@ -122,62 +122,61 @@ module.exports = {
 
                     this.root.addChild(gfx);
 
-                    requestAnimationFrame(() => {
-                        this.addTween(gfx, gfx.x, gfx.y);
-                    });
-
                     this.list.push(gfx);
                 }
             }
         }
 
         requestAnimationFrame(() => {
+            this.addTweens();
             this.timeline.play();
         });
     },
-    addTween: function (item, x, y) {
-        const delay = Math.random() * (this.duration - this.duration / 5) + this.duration / 10;
+    addTweens: function () {
+        for (let c = 0; c < this.list.length; c++) {
+            const item = this.list[c];
+            const x = item.x;
+            const y = item.y;
 
-        const centerX = this.dimensions.width >> 1;
-        const centerY = this.dimensions.height >> 1;
+            const delay = Math.random() * (this.duration - this.duration / 5) + this.duration / 10;
 
-        this.timeline.to(item, {
-            duration: this.duration - delay,
-            x: x >= centerX ? this.dimensions.width - 1 : 0,
-            y: y >= centerY ? this.dimensions.height - 1 : 0
-        }, delay).to(item, {
-            duration: this.duration - delay,
-            x: Math.random() * this.dimensions.width,
-            y: Math.random() * this.dimensions.height,
-        }, this.duration + delay).to(item, {
-            duration: this.duration - delay,
-            x: x >= centerX ? this.dimensions.width - 1 : 0,
-            y: y,
-        }, this.duration * 2 + delay).to(item, {
-            duration: this.duration - delay,
-            x: x,
-            y: Math.sin(x / (this.modulo + 2)) * (this.modulo + 2) + centerY,
-        }, this.duration * 3 + delay).to(item, {
-            duration: this.duration - delay,
-            x: Math.round(y / (this.dimensions.width / (this.modulo + 1))) * (this.dimensions.width / (this.modulo + 1)),
-            y: y,
-        }, this.duration * 4 + delay).to(item, {
-            duration: this.duration - delay,
-            x: x / 2 + centerX / 2,
-            y: this.dimensions.height - (x * 1.5 - centerX) * (x * 1.5 - centerX) / this.dimensions.height,
-        }, this.duration * 5 + delay).to(item, {
-            duration: this.duration - delay,
-            x: Math.sin(x / (this.modulo - 1)) * centerX + centerX,
-            y: Math.cos(x / (this.modulo - 1)) * centerY + centerY,
-        }, this.duration * 6 + delay).to(item, {
-            duration: this.duration - delay,
-            x: centerX,
-            y: centerY,
-        }, this.duration * 7 + delay).to(item, {
-            duration: this.duration - delay,
-            x: x,
-            y: y,
-        }, this.duration * 8 + delay);
+            const centerX = this.dimensions.width >> 1;
+            const centerY = this.dimensions.height >> 1;
+
+            this.timeline.to(item, {
+                duration: this.duration - delay,
+                x: x >= centerX ? this.dimensions.width - 1 : 0,
+                y: y >= centerY ? this.dimensions.height - 1 : 0
+            }, delay).to(item, {
+                duration: this.duration - delay,
+                x: Math.random() * this.dimensions.width,
+                y: Math.random() * this.dimensions.height,
+            }, this.duration + delay).to(item, {
+                duration: this.duration - delay,
+                x: x >= centerX ? this.dimensions.width - 1 : 0,
+                y: y,
+            }, this.duration * 2 + delay).to(item, {
+                duration: this.duration - delay,
+                x: x,
+                y: Math.sin(x / (this.modulo + 2)) * (this.modulo + 2) + centerY,
+            }, this.duration * 3 + delay).to(item, {
+                duration: this.duration - delay,
+                x: x / 2 + centerX / 2,
+                y: this.dimensions.height - (x * 1.5 - centerX) * (x * 1.5 - centerX) / this.dimensions.height,
+            }, this.duration * 4 + delay).to(item, {
+                duration: this.duration - delay,
+                x: Math.sin(x / (this.modulo - 1)) * centerX + centerX,
+                y: Math.cos(x / (this.modulo - 1)) * centerY + centerY,
+            }, this.duration * 5 + delay).to(item, {
+                duration: this.duration - delay,
+                x: centerX,
+                y: centerY,
+            }, this.duration * 6 + delay).to(item, {
+                duration: this.duration - delay,
+                x: x,
+                y: y,
+            }, this.duration * 7 + delay);
+        }
     },
     killTweens: function () {
         if (!this.timeline) {
