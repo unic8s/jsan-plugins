@@ -35,7 +35,7 @@ module.exports = {
         spotLight.position.set(16, 16, 64);
         this.container3D.add(spotLight);
 
-        const geometry = new THREE.TorusKnotGeometry(10, 3, 64, 8);
+        const geometry = new THREE.TorusKnotGeometry(10, 3, 128, 16);
 
         this.material = new THREE.MeshStandardMaterial({
             color: this.color
