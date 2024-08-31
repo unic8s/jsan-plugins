@@ -315,6 +315,8 @@ module.exports = {
 
                 if (refThis.spotifyApi) {
                     refThis.spotifyApi.setAccessToken(data.body['access_token']);
+
+                    refThis.startPolling();
                 } else {
                     refThis.authSpotify();
                 }
