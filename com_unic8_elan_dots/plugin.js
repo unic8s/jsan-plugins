@@ -2,7 +2,7 @@ module.exports = {
     options: null,
     dimensions: null,
     container: null,
-    modulo: 3,
+    modulo: 4,
     duration: 8,
     smooth: false,
     list: [],

@@ -14,7 +14,7 @@
         "2d"
     ],
     "inputs": [
-        {"name": "modulo", "type": "Number", "value": 3},
+        {"name": "modulo", "type": "Number", "value": 4},
         {"name": "duration", "type": "Number", "value": 8},
         {"name": "scheme", "type": "Number", "value": 0}
     ],
