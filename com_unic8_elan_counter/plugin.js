@@ -1,7 +1,7 @@
 module.exports = {
     options: null,
     counter: 0,
-    limit: 100,
+    limit: 0,
     delay: 1000,
     active: false,
 
@@ -11,7 +11,7 @@ module.exports = {
     input: function (id, data) {
         switch (id) {
             case "Trigger":
-                if (this.counter < this.limit) {
+                if (this.limit == 0 || this.counter < this.limit) {
                     this.options.nodes.outputs.query("active").data = true;
 
                     this.counter++;

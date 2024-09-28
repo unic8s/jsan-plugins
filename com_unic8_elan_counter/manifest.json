@@ -14,7 +14,7 @@
     ],
     "inputs": [
         {"name": "Trigger", "type": "Boolean", "value": false},
-        {"name": "Limit", "type": "Number", "value": 100},
+        {"name": "Limit", "type": "Number", "value": 0},
         {"name": "Reset", "type": "Boolean", "value": true}
     ],
     "outputs": [
