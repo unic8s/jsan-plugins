@@ -31,9 +31,7 @@ module.exports = {
 
     install: function (options) {
         this.options = options;
-
         this.dimensions = this.options.params.canvas;
-
         this.container = options.PIXI.instance;
     },
     uninstall: function() {

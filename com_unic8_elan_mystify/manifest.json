@@ -1,0 +1,26 @@
+{
+    "name": "Mystify",
+    "uid": "com_unic8_elan_mystify",
+    "description": "Mistify plugin",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+    ],
+    "features": [
+        "2d"
+    ],
+    "inputs": [
+        {"name": "Points", "type": "Number", "value": 4},
+        {"name": "Color", "type": "Color", "value": "#FFFFFF"},
+        {"name": "Speed", "type": "Number", "value": 1},
+        {"name": "Trail", "type": "Number", "value": 10}
+    ],
+    "outputs": [
+    ],
+    "files": [
+    ]
+}

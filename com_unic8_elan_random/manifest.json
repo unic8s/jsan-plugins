@@ -1,0 +1,25 @@
+{
+    "name": "Random",
+    "uid": "com_unic8_elan_random",
+    "description": "Random plugin",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+    ],
+    "features": [
+    ],
+    "inputs": [
+        {"name": "Trigger", "type": "Boolean", "value": false},
+        {"name": "Min", "type": "Number", "value": 0},
+        {"name": "Max", "type": "Number", "value": 1}
+    ],
+    "outputs": [
+        {"name": "Random", "type": "Number", "value": 0}
+    ],
+    "files": [
+    ]
+}
