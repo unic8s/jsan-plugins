@@ -17,7 +17,8 @@
         {"name": "Points", "type": "Number", "value": 4},
         {"name": "Color", "type": "Color", "value": "#FFFFFF"},
         {"name": "Speed", "type": "Number", "value": 1},
-        {"name": "Trail", "type": "Number", "value": 10}
+        {"name": "Trail", "type": "Number", "value": 10},
+        {"name": "Bezier", "type": "Boolean", "value": false}
     ],
     "outputs": [
     ],

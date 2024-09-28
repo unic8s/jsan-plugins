@@ -10,6 +10,7 @@ module.exports = {
     color: "#FFFFFF",
     speed: 1,
     trail: 10,
+    bezier: false,
     vertices: [],
     timeoutID: null,
 
@@ -67,6 +68,9 @@ module.exports = {
             case "Trail":
                 this.trail = data > 0 ? data : 1;
                 break;
+            case "Bezier":
+                this.bezier = data;
+                break;
         }
 
         this.setup();
@@ -92,12 +96,21 @@ module.exports = {
             this.animateVertex(vertex);
         }
 
+        this.context.rect(0, 0, this.dimensions.width, this.dimensions.height);
+        this.context.fill();
+
         this.draw();
     },
     randomVertex: function () {
         return {
             x: Math.random() * this.dimensions.width | 0,
-            y: Math.random() * this.dimensions.height | 0
+            y: Math.random() * this.dimensions.height | 0,
+            anchor: {
+                x1: Math.random() * this.dimensions.width | 0,
+                y1: Math.random() * this.dimensions.height | 0,
+                x2: Math.random() * this.dimensions.width | 0,
+                y2: Math.random() * this.dimensions.height | 0
+            }
         };
     },
     animateVertex: function (vertex) {
@@ -105,19 +118,16 @@ module.exports = {
 
         const refThis = this;
 
-        //window.TweenLite.killTweensOf(vertex);
-        setTimeout(() => {
-            window.TweenLite.to(vertex, Math.random() * this.speed + this.speed,
-                {
-                    x: next.x,
-                    y: next.y,
-                    ease: window.Linear.easeNone,
-                    onComplete: () => {
-                        refThis.animateVertex(vertex);
-                    }
+        window.TweenLite.to(vertex, Math.random() * this.speed + this.speed,
+            {
+                x: next.x,
+                y: next.y,
+                ease: window.Linear.easeNone,
+                onComplete: () => {
+                    refThis.animateVertex(vertex);
                 }
-            );
-        }, 0);
+            }
+        );
     },
     draw: function () {
         this.context.strokeStyle = this.color;
@@ -134,7 +144,11 @@ module.exports = {
                 this.context.moveTo(vertex.x, vertex.y);
             }
 
-            this.context.lineTo(vertex.x, vertex.y);
+            if (this.bezier) {
+                this.context.bezierCurveTo(vertex.anchor.x1, vertex.anchor.y1, vertex.anchor.x1, vertex.anchor.y2, vertex.x, vertex.y);
+            } else {
+                this.context.lineTo(vertex.x, vertex.y);
+            }
         }
 
         const first = this.vertices[0];
