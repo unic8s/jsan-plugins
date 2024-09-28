@@ -43,6 +43,9 @@ module.exports = {
 
         this.killAnimations();
     },
+    blend: function(mode) {
+        this.sprite.blendMode = mode;
+    },
     resize: function (bounds) {
         this.dimensions = bounds;
 
