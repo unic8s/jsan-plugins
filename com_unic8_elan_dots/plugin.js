@@ -2,13 +2,18 @@ module.exports = {
     options: null,
     dimensions: null,
     container: null,
+    PIXI: null,
+    sprite: null,
+    canvas: null,
+    context: null,
     modulo: 4,
     duration: 8,
     smooth: false,
     list: [],
-    root: null,
     scheme: 0,
+    trail: 1,
     timeline: null,
+    timeoutID: null,
 
     install: function (options) {
         this.options = options;
@@ -16,12 +21,22 @@ module.exports = {
         this.dimensions = this.options.params.canvas;
         this.container = options.PIXI.instance;
 
-        const PIXI = this.options.PIXI.module;
+        this.PIXI = options.PIXI.module;
 
-        this.root = new PIXI.Sprite();
-        this.root.pivot.set(this.dimensions.width >> 1, this.dimensions.height >> 1);
-        this.root.position.set(this.dimensions.width >> 1, this.dimensions.height >> 1);
-        this.container.addChild(this.root);
+        this.sprite = new this.PIXI.Sprite();
+        this.sprite.pivot.set(this.dimensions.width >> 1, this.dimensions.height >> 1);
+        this.sprite.position.set(this.dimensions.width >> 1, this.dimensions.height >> 1);
+        this.container.addChild(this.sprite);
+
+        this.canvas = document.createElement("canvas");
+        this.canvas.width = this.dimensions.width;
+        this.canvas.height = this.dimensions.height;
+
+        this.context = this.canvas.getContext("2d", {
+            willReadFrequently: true
+        });
+
+        this.sprite.texture = this.PIXI.Texture.from(this.canvas);
 
         this.build();
     },
@@ -39,6 +54,9 @@ module.exports = {
             case "scheme":
                 this.scheme = data;
                 break;
+            case "trail":
+                this.trail = data > 0 ? data : 1;
+                break;
         }
 
         this.build();
@@ -46,8 +64,13 @@ module.exports = {
     resize: function (bounds) {
         this.dimensions = bounds;
 
-        this.root.position.set(this.dimensions.width >> 1, this.dimensions.height >> 1);
-        this.root.pivot.set(this.dimensions.width >> 1, this.dimensions.height >> 1);
+        this.canvas.width = this.dimensions.width;
+        this.canvas.height = this.dimensions.height;
+
+        this.sprite.texture.destroy(true);
+        this.sprite.texture = this.PIXI.Texture.from(this.canvas);
+        this.sprite.pivot.set(this.dimensions.width >> 1, this.dimensions.height >> 1);
+        this.sprite.position.set(this.dimensions.width >> 1, this.dimensions.height >> 1);
 
         this.build();
     },
@@ -56,6 +79,9 @@ module.exports = {
             const item = this.list[c];
             item.blendMode = mode;
         }
+    },
+    render: function () {
+        this.draw();
     },
 
     build: function () {
@@ -70,26 +96,14 @@ module.exports = {
             }
         });
 
-        for (let c = 0; c < this.list.length; c++) {
-            const item = this.list[c];
-
-            this.root.removeChild(item);
-        }
-
         this.list = [];
 
         const centerX = this.dimensions.width >> 1;
         const centerY = this.dimensions.height >> 1;
 
-        const PIXI = this.options.PIXI.module;
-
         for (let x = 0; x < this.dimensions.width; x++) {
             for (let y = 0; y < this.dimensions.height; y++) {
                 if (x % this.modulo == 0 && y % this.modulo == 0) {
-                    const gfx = new PIXI.Graphics();
-                    gfx.x = x;
-                    gfx.y = y;
-
                     let color = 0xFFFFFF;
 
                     switch (this.scheme) {
@@ -107,7 +121,7 @@ module.exports = {
                             }
                             break;
                         case 2:
-                            color = Math.random() * 0xFFFFFF;
+                            color = Math.random() * 0xFFFFFF | 0;
                             break;
                         case 3:
                             var shiftX = x * (64 / this.dimensions.width);
@@ -117,10 +131,17 @@ module.exports = {
                             break;
                     }
 
-                    gfx.beginFill(color);
-                    gfx.drawRect(0, 0, 1, 1);
+                    color = color.toString(16);
 
-                    this.root.addChild(gfx);
+                    while (color.length < 6) {
+                        color = "0" + color;
+                    }
+
+                    const gfx = {
+                        x: x,
+                        y: y,
+                        color: "#" + color
+                    }
 
                     this.list.push(gfx);
                 }
@@ -184,5 +205,20 @@ module.exports = {
         }
 
         this.timeline.kill();
+    },
+    draw: function () {
+        this.context.globalAlpha = 1 / (this.trail * 2);
+        this.context.fillStyle = "#000";
+        this.context.fillRect(0, 0, this.dimensions.width, this.dimensions.height);
+        this.context.globalAlpha = 1;
+
+        for (let c = 0; c < this.list.length; c++) {
+            const gfx = this.list[c];
+
+            this.context.fillStyle = gfx.color;
+            this.context.fillRect(gfx.x, gfx.y, 1, 1);
+        }
+
+        this.sprite.texture.update();
     }
 }

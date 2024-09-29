@@ -12,7 +12,6 @@ module.exports = {
     trail: 10,
     bezier: false,
     vertices: [],
-    timeoutID: null,
 
     install: function (options) {
         this.options = options;
@@ -78,9 +77,10 @@ module.exports = {
 
         this.setup();
     },
+    render: function() {
+        this.draw();
+    },
     killAnimations: function () {
-        cancelAnimationFrame(this.timeoutID);
-
         for (let c = 0; c < this.vertices.length; c++) {
             const vertex = this.vertices[c];
 
@@ -160,11 +160,5 @@ module.exports = {
         this.context.stroke();
 
         this.sprite.texture.update();
-
-        const refThis = this;
-
-        this.timeoutID = requestAnimationFrame(() => {
-            refThis.draw();
-        });
     }
 }
