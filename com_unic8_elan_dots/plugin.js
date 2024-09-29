@@ -74,11 +74,8 @@ module.exports = {
 
         this.build();
     },
-    blend: function (mode) {
-        for (let c = 0; c < this.list.length; c++) {
-            const item = this.list[c];
-            item.blendMode = mode;
-        }
+    blend: function(mode) {
+        this.sprite.blendMode = mode;
     },
     render: function () {
         this.draw();
