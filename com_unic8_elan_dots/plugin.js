@@ -12,6 +12,7 @@ module.exports = {
     list: [],
     scheme: 0,
     trail: 1,
+    random: false,
     timeline: null,
     timeoutID: null,
 
@@ -57,6 +58,9 @@ module.exports = {
             case "trail":
                 this.trail = data > 0 ? data : 1;
                 break;
+            case "random":
+                this.random = data;
+                break;
         }
 
         this.build();
@@ -74,7 +78,7 @@ module.exports = {
 
         this.build();
     },
-    blend: function(mode) {
+    blend: function (mode) {
         this.sprite.blendMode = mode;
     },
     render: function () {
@@ -151,44 +155,85 @@ module.exports = {
         });
     },
     addTweens: function () {
+        const positions = [];
+
+        for (let c = 0; c < this.list.length; c++) {
+            const item = this.list[c];
+            const x = item.x;
+            const y = item.y;
+
+            const centerX = this.dimensions.width >> 1;
+            const centerY = this.dimensions.height >> 1;
+
+            positions.push([
+                {
+                    x: x >= centerX ? this.dimensions.width - 1 : 0,
+                    y: y >= centerY ? this.dimensions.height - 1 : 0
+                },
+                {
+                    x: Math.random() * this.dimensions.width,
+                    y: Math.random() * this.dimensions.height
+                },
+                {
+                    x: x >= centerX ? this.dimensions.width - 1 : 0,
+                    y: y
+                },
+                {
+                    x: x,
+                    y: Math.sin(x / (this.modulo + 2)) * (this.modulo + 2) + centerY
+                },
+                {
+                    x: x / 2 + centerX / 2,
+                    y: this.dimensions.height - (x * 1.5 - centerX) * (x * 1.5 - centerX) / this.dimensions.height
+                },
+                {
+                    x: Math.sin(x / (this.modulo - 1)) * centerX + centerX,
+                    y: Math.cos(x / (this.modulo - 1)) * centerY + centerY
+                },
+                {
+                    x: centerX,
+                    y: centerY
+                }
+            ]);
+        }
+
         for (let c = 0; c < this.list.length; c++) {
             const item = this.list[c];
             const x = item.x;
             const y = item.y;
 
             const delay = Math.random() * (this.duration - this.duration / 5) + this.duration / 10;
-
-            const centerX = this.dimensions.width >> 1;
-            const centerY = this.dimensions.height >> 1;
+            const posIndex = Math.floor(Math.random() * positions.length);
+            const position = this.random ? positions.splice(posIndex, 1)[0] : positions[c];
 
             this.timeline.to(item, {
                 duration: this.duration - delay,
-                x: x >= centerX ? this.dimensions.width - 1 : 0,
-                y: y >= centerY ? this.dimensions.height - 1 : 0
+                x: position[0].x,
+                y: position[0].y
             }, delay).to(item, {
                 duration: this.duration - delay,
-                x: Math.random() * this.dimensions.width,
-                y: Math.random() * this.dimensions.height,
+                x: position[1].x,
+                y: position[1].y
             }, this.duration + delay).to(item, {
                 duration: this.duration - delay,
-                x: x >= centerX ? this.dimensions.width - 1 : 0,
-                y: y,
+                x: position[2].x,
+                y: position[2].y
             }, this.duration * 2 + delay).to(item, {
                 duration: this.duration - delay,
-                x: x,
-                y: Math.sin(x / (this.modulo + 2)) * (this.modulo + 2) + centerY,
+                x: position[3].x,
+                y: position[3].y
             }, this.duration * 3 + delay).to(item, {
                 duration: this.duration - delay,
-                x: x / 2 + centerX / 2,
-                y: this.dimensions.height - (x * 1.5 - centerX) * (x * 1.5 - centerX) / this.dimensions.height,
+                x: position[4].x,
+                y: position[4].y
             }, this.duration * 4 + delay).to(item, {
                 duration: this.duration - delay,
-                x: Math.sin(x / (this.modulo - 1)) * centerX + centerX,
-                y: Math.cos(x / (this.modulo - 1)) * centerY + centerY,
+                x: position[5].x,
+                y: position[5].y
             }, this.duration * 5 + delay).to(item, {
                 duration: this.duration - delay,
-                x: centerX,
-                y: centerY,
+                x: position[6].x,
+                y: position[6].y
             }, this.duration * 6 + delay).to(item, {
                 duration: this.duration - delay,
                 x: x,
