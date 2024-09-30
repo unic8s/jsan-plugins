@@ -42,7 +42,7 @@ module.exports = {
 
         this.killAnimations();
     },
-    blend: function(mode) {
+    blend: function (mode) {
         this.sprite.blendMode = mode;
     },
     resize: function (bounds) {
@@ -77,7 +77,7 @@ module.exports = {
 
         this.setup();
     },
-    render: function() {
+    render: function () {
         this.draw();
     },
     killAnimations: function () {
@@ -108,12 +108,10 @@ module.exports = {
         return {
             x: Math.random() * this.dimensions.width | 0,
             y: Math.random() * this.dimensions.height | 0,
-            anchor: {
-                x1: Math.random() * this.dimensions.width | 0,
-                y1: Math.random() * this.dimensions.height | 0,
-                x2: Math.random() * this.dimensions.width | 0,
-                y2: Math.random() * this.dimensions.height | 0
-            }
+            ax1: Math.random() * this.dimensions.width | 0,
+            ay1: Math.random() * this.dimensions.height | 0,
+            ax2: Math.random() * this.dimensions.width | 0,
+            ay2: Math.random() * this.dimensions.height | 0
         };
     },
     animateVertex: function (vertex) {
@@ -125,6 +123,10 @@ module.exports = {
             {
                 x: next.x,
                 y: next.y,
+                ax1: next.ax1,
+                ay1: next.ay1,
+                ax2: next.ax2,
+                ay2: next.ay2,
                 ease: window.Linear.easeNone,
                 onComplete: () => {
                     refThis.animateVertex(vertex);
@@ -148,7 +150,7 @@ module.exports = {
             }
 
             if (this.bezier) {
-                this.context.bezierCurveTo(vertex.anchor.x1, vertex.anchor.y1, vertex.anchor.x1, vertex.anchor.y2, vertex.x, vertex.y);
+                this.context.bezierCurveTo(vertex.ax1, vertex.ay1, vertex.ax2, vertex.ay2, vertex.x, vertex.y);
             } else {
                 this.context.lineTo(vertex.x, vertex.y);
             }
@@ -156,7 +158,12 @@ module.exports = {
 
         const first = this.vertices[0];
 
-        this.context.lineTo(first.x, first.y);
+        if (this.bezier) {
+            this.context.bezierCurveTo(first.ax1, first.ay1, first.ax2, first.ay2, first.x, first.y);
+        } else {
+            this.context.lineTo(first.x, first.y);
+        }
+
         this.context.stroke();
 
         this.sprite.texture.update();
