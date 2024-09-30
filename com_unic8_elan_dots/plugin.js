@@ -211,6 +211,10 @@ module.exports = {
             const position = this.random ? positions.splice(posIndex, 1)[0] : positions[c];
 
             requestAnimationFrame(() => {
+                if(!this.timeline){
+                    return;
+                }
+
                 this.timeline.to(item, {
                     duration: this.duration - delay,
                     x: position[0].x,
@@ -218,6 +222,10 @@ module.exports = {
                 }, delay);
 
                 requestAnimationFrame(() => {
+                    if(!this.timeline){
+                        return;
+                    }
+
                     this.timeline.to(item, {
                         duration: this.duration - delay,
                         x: position[1].x,
@@ -225,6 +233,10 @@ module.exports = {
                     }, this.duration + delay);
 
                     requestAnimationFrame(() => {
+                        if(!this.timeline){
+                            return;
+                        }
+
                         this.timeline.to(item, {
                             duration: this.duration - delay,
                             x: position[2].x,
@@ -232,6 +244,10 @@ module.exports = {
                         }, this.duration * 2 + delay);
 
                         requestAnimationFrame(() => {
+                            if(!this.timeline){
+                                return;
+                            }
+
                             this.timeline.to(item, {
                                 duration: this.duration - delay,
                                 x: position[3].x,
@@ -239,6 +255,10 @@ module.exports = {
                             }, this.duration * 3 + delay);
 
                             requestAnimationFrame(() => {
+                                if(!this.timeline){
+                                    return;
+                                }
+
                                 this.timeline.to(item, {
                                     duration: this.duration - delay,
                                     x: position[4].x,
@@ -246,6 +266,10 @@ module.exports = {
                                 }, this.duration * 4 + delay);
 
                                 requestAnimationFrame(() => {
+                                    if(!this.timeline){
+                                        return;
+                                    }
+
                                     this.timeline.to(item, {
                                         duration: this.duration - delay,
                                         x: position[5].x,
@@ -253,6 +277,10 @@ module.exports = {
                                     }, this.duration * 5 + delay);
 
                                     requestAnimationFrame(() => {
+                                        if(!this.timeline){
+                                            return;
+                                        }
+
                                         this.timeline.to(item, {
                                             duration: this.duration - delay,
                                             x: position[6].x,
@@ -260,6 +288,10 @@ module.exports = {
                                         }, this.duration * 6 + delay);
 
                                         requestAnimationFrame(() => {
+                                            if(!this.timeline){
+                                                return;
+                                            }
+
                                             this.timeline.to(item, {
                                                 duration: this.duration - delay,
                                                 x: x,
@@ -267,6 +299,10 @@ module.exports = {
                                             }, this.duration * 7 + delay);
 
                                             requestAnimationFrame(() => {
+                                                if(!this.timeline){
+                                                    return;
+                                                }
+
                                                 this.ready = true;
 
                                                 this.timeline.play();
@@ -287,6 +323,7 @@ module.exports = {
         }
 
         this.timeline.kill();
+        this.timeline = null;
     },
     draw: function () {
         this.context.globalAlpha = 1 / (this.trail * 2);
