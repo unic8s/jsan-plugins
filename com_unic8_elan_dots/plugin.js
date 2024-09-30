@@ -88,6 +88,10 @@ module.exports = {
     build: function () {
         this.killTweens();
 
+        this.context.fillStyle = "#000";
+        this.context.fillRect(0, 0, this.dimensions.width, this.dimensions.height);
+        this.context.globalAlpha = 1;
+
         this.timeline = new window.TimelineLite({
             paused: true,
             repeat: -1,
