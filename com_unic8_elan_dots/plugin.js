@@ -163,6 +163,7 @@ module.exports = {
 
             const centerX = this.dimensions.width >> 1;
             const centerY = this.dimensions.height >> 1;
+            const divider = Math.sqrt(this.dimensions.width);
 
             positions.push([
                 {
@@ -179,7 +180,7 @@ module.exports = {
                 },
                 {
                     x: x,
-                    y: Math.sin(x / (this.modulo + 2)) * (this.modulo + 2) + centerY
+                    y: Math.sin(x / divider) * divider + centerY
                 },
                 {
                     x: x / 2 + centerX / 2,
