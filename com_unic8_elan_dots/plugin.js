@@ -47,7 +47,7 @@ module.exports = {
     input: function (id, data) {
         switch (id) {
             case "modulo":
-                this.modulo = data > 1 ? data : 2;
+                this.modulo = data > 0 ? data : 1;
                 break;
             case "duration":
                 this.duration = data;
@@ -206,39 +206,69 @@ module.exports = {
             const posIndex = Math.random() * positions.length | 0;
             const position = this.random ? positions.splice(posIndex, 1)[0] : positions[c];
 
-            this.timeline.to(item, {
-                duration: this.duration - delay,
-                x: position[0].x,
-                y: position[0].y
-            }, delay).to(item, {
-                duration: this.duration - delay,
-                x: position[1].x,
-                y: position[1].y
-            }, this.duration + delay).to(item, {
-                duration: this.duration - delay,
-                x: position[2].x,
-                y: position[2].y
-            }, this.duration * 2 + delay).to(item, {
-                duration: this.duration - delay,
-                x: position[3].x,
-                y: position[3].y
-            }, this.duration * 3 + delay).to(item, {
-                duration: this.duration - delay,
-                x: position[4].x,
-                y: position[4].y
-            }, this.duration * 4 + delay).to(item, {
-                duration: this.duration - delay,
-                x: position[5].x,
-                y: position[5].y
-            }, this.duration * 5 + delay).to(item, {
-                duration: this.duration - delay,
-                x: position[6].x,
-                y: position[6].y
-            }, this.duration * 6 + delay).to(item, {
-                duration: this.duration - delay,
-                x: x,
-                y: y,
-            }, this.duration * 7 + delay);
+            requestAnimationFrame(() => {
+                this.timeline.to(item, {
+                    duration: this.duration - delay,
+                    x: position[0].x,
+                    y: position[0].y
+                }, delay);
+
+                requestAnimationFrame(() => {
+                    this.timeline.to(item, {
+                        duration: this.duration - delay,
+                        x: position[1].x,
+                        y: position[1].y
+                    }, this.duration + delay)
+
+                    requestAnimationFrame(() => {
+                        this.timeline.to(item, {
+                            duration: this.duration - delay,
+                            x: position[2].x,
+                            y: position[2].y
+                        }, this.duration * 2 + delay)
+
+                        requestAnimationFrame(() => {
+                            this.timeline.to(item, {
+                                duration: this.duration - delay,
+                                x: position[3].x,
+                                y: position[3].y
+                            }, this.duration * 3 + delay)
+
+                            requestAnimationFrame(() => {
+                                this.timeline.to(item, {
+                                    duration: this.duration - delay,
+                                    x: position[4].x,
+                                    y: position[4].y
+                                }, this.duration * 4 + delay)
+
+                                requestAnimationFrame(() => {
+                                    this.timeline.to(item, {
+                                        duration: this.duration - delay,
+                                        x: position[5].x,
+                                        y: position[5].y
+                                    }, this.duration * 5 + delay)
+
+                                    requestAnimationFrame(() => {
+                                        this.timeline.to(item, {
+                                            duration: this.duration - delay,
+                                            x: position[6].x,
+                                            y: position[6].y
+                                        }, this.duration * 6 + delay)
+
+                                        requestAnimationFrame(() => {
+                                            this.timeline.to(item, {
+                                                duration: this.duration - delay,
+                                                x: x,
+                                                y: y,
+                                            }, this.duration * 7 + delay);
+                                        });
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            });
         }
     },
     killTweens: function () {
