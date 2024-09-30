@@ -187,8 +187,8 @@ module.exports = {
                     y: this.dimensions.height - (x * 1.5 - centerX) * (x * 1.5 - centerX) / this.dimensions.height
                 },
                 {
-                    x: Math.sin(x / (this.modulo - 1)) * centerX + centerX,
-                    y: Math.cos(x / (this.modulo - 1)) * centerY + centerY
+                    x: Math.sin(x * y) * centerX + centerX,
+                    y: Math.cos(x * y) * centerY + centerY
                 },
                 {
                     x: centerX,
@@ -203,7 +203,7 @@ module.exports = {
             const y = item.y;
 
             const delay = Math.random() * (this.duration - this.duration / 5) + this.duration / 10;
-            const posIndex = Math.floor(Math.random() * positions.length);
+            const posIndex = Math.random() * positions.length | 0;
             const position = this.random ? positions.splice(posIndex, 1)[0] : positions[c];
 
             this.timeline.to(item, {
