@@ -16,6 +16,7 @@ module.exports = {
     mode: 0,
     width: 1,
     speed: 0,
+    trail: 1,
     gap: 1,
     freqData: null,
     timeData: null,
@@ -52,7 +53,7 @@ module.exports = {
 
         this.resize(this.dimensions);
     },
-    uninstall: function() {
+    uninstall: function () {
         this.sprite.destroy();
     },
     resize: function (bounds) {
@@ -74,7 +75,7 @@ module.exports = {
         this.peaks = new Array(this.dimensions.width);
         this.lengthFactor = this.dimensions.height / 255;
     },
-    blend: function(mode) {
+    blend: function (mode) {
         this.sprite.blendMode = mode;
     },
     input: function (id, data) {
@@ -89,6 +90,9 @@ module.exports = {
                 break;
             case "speed":
                 this.speed = data;
+                break;
+            case "trail":
+                this.trail = data > 0 ? data : 1;
                 break;
             case "scheme":
                 var schemeName = this.schemeList[data];
@@ -132,7 +136,6 @@ module.exports = {
         this.context.fillStyle = style;
         this.context.strokeStyle = style;
 
-        const alphaDec = 255 / this.dimensions.height;
         const speedMlt = this.dimensions.height;
         const increment = this.width + this.gap;
 
@@ -203,7 +206,7 @@ module.exports = {
                 this.context.stroke();
                 break;
             case 2:
-                this.context.globalAlpha = alphaDec * 0.1;
+                this.context.globalAlpha = 1 / (this.trail * 2);
                 this.context.fillStyle = "#000";
                 this.context.fillRect(0, 0, this.dimensions.width, this.dimensions.height);
                 this.context.globalAlpha = 1;
@@ -222,9 +225,9 @@ module.exports = {
                 this.context.stroke();
                 break;
             case 3:
-                this.context.globalAlpha = alphaDec * 0.1;
+                this.context.globalAlpha = 1 / (this.trail * 2);
                 this.context.drawImage(this.canvas, this.speed, -this.speed);
-                this.context.globalAlpha = alphaDec * 0.01;
+                this.context.globalAlpha = 1 / (this.trail * 2);
                 this.context.fillStyle = "#000";
                 this.context.fillRect(0, 0, this.dimensions.width, this.dimensions.height);
                 this.context.globalAlpha = 1;
@@ -250,7 +253,7 @@ module.exports = {
                 break;
             case 4:
                 this.context.drawImage(this.canvas, -this.speed, 0);
-                this.context.globalAlpha = alphaDec * 0.01;
+                this.context.globalAlpha = 1 / (this.trail * 2);
                 this.context.fillStyle = "#000";
                 this.context.fillRect(0, 0, this.dimensions.width, this.dimensions.height);
                 this.context.globalAlpha = 1;
@@ -274,9 +277,9 @@ module.exports = {
                 var step = Math.PI * 2 / (this.freqData.length / width);
                 var index = 0;
 
-                this.context.globalAlpha = alphaDec * 0.1;
+                this.context.globalAlpha = 1 / (this.trail * 2);
                 this.context.drawImage(this.canvas, -this.speed, -this.speed, this.dimensions.width + this.speed * 2, this.dimensions.height + this.speed * 2);
-                this.context.globalAlpha = alphaDec * 0.01;
+                this.context.globalAlpha = 1 / (this.trail * 2);
                 this.context.fillStyle = "#000";
                 this.context.fillRect(0, 0, this.dimensions.width, this.dimensions.height);
                 this.context.globalAlpha = 1;
@@ -289,7 +292,7 @@ module.exports = {
                 for (let c = 0; c < full; c += step) {
                     let adjustedLength = this.lengthFactor * 0.5 * this.freqData[index];
 
-                    if(this.gap > 0 && this.speed < 0) {
+                    if (this.gap > 0 && this.speed < 0) {
                         adjustedLength *= -1;
                     }
 
@@ -307,7 +310,7 @@ module.exports = {
 
                     let value = adjustedLength + this.gap;
 
-                    if(value < 0){
+                    if (value < 0) {
                         value = 0;
                     }
 
@@ -328,7 +331,7 @@ module.exports = {
         this.sprite.texture.update();
     },
 
-    buildGradients: function() {
+    buildGradients: function () {
         this.gradientList = [];
         this.schemeList = [];
 
