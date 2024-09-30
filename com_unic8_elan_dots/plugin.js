@@ -151,7 +151,6 @@ module.exports = {
 
         requestAnimationFrame(() => {
             this.addTweens();
-            this.timeline.play();
         });
     },
     addTweens: function () {
@@ -218,42 +217,42 @@ module.exports = {
                         duration: this.duration - delay,
                         x: position[1].x,
                         y: position[1].y
-                    }, this.duration + delay)
+                    }, this.duration + delay);
 
                     requestAnimationFrame(() => {
                         this.timeline.to(item, {
                             duration: this.duration - delay,
                             x: position[2].x,
                             y: position[2].y
-                        }, this.duration * 2 + delay)
+                        }, this.duration * 2 + delay);
 
                         requestAnimationFrame(() => {
                             this.timeline.to(item, {
                                 duration: this.duration - delay,
                                 x: position[3].x,
                                 y: position[3].y
-                            }, this.duration * 3 + delay)
+                            }, this.duration * 3 + delay);
 
                             requestAnimationFrame(() => {
                                 this.timeline.to(item, {
                                     duration: this.duration - delay,
                                     x: position[4].x,
                                     y: position[4].y
-                                }, this.duration * 4 + delay)
+                                }, this.duration * 4 + delay);
 
                                 requestAnimationFrame(() => {
                                     this.timeline.to(item, {
                                         duration: this.duration - delay,
                                         x: position[5].x,
                                         y: position[5].y
-                                    }, this.duration * 5 + delay)
+                                    }, this.duration * 5 + delay);
 
                                     requestAnimationFrame(() => {
                                         this.timeline.to(item, {
                                             duration: this.duration - delay,
                                             x: position[6].x,
                                             y: position[6].y
-                                        }, this.duration * 6 + delay)
+                                        }, this.duration * 6 + delay);
 
                                         requestAnimationFrame(() => {
                                             this.timeline.to(item, {
@@ -261,6 +260,12 @@ module.exports = {
                                                 x: x,
                                                 y: y,
                                             }, this.duration * 7 + delay);
+
+                                            requestAnimationFrame(() => {
+                                                this.ready = true;
+
+                                                this.timeline.play();
+                                            });
                                         });
                                     });
                                 });
