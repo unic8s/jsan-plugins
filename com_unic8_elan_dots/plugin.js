@@ -176,42 +176,42 @@ module.exports = {
                 {
                     x: x >= centerX ? this.dimensions.width - 1 : 0,
                     y: y >= centerY ? this.dimensions.height - 1 : 0,
-                    delay: this.getRandomDelay();
+                    delay: this.getRandomDelay()
                 },
                 {
                     x: Math.random() * this.dimensions.width,
                     y: Math.random() * this.dimensions.height,
-                    delay: this.getRandomDelay();
+                    delay: this.getRandomDelay()
                 },
                 {
                     x: x >= centerX ? this.dimensions.width - 1 : 0,
                     y: y,
-                    delay: this.getRandomDelay();
+                    delay: this.getRandomDelay()
                 },
                 {
                     x: x,
                     y: Math.sin(x / divider) * divider + centerY,
-                    delay: this.getRandomDelay();
+                    delay: this.getRandomDelay()
                 },
                 {
                     x: x / 2 + centerX / 2,
                     y: this.dimensions.height - (x * 1.5 - centerX) * (x * 1.5 - centerX) / this.dimensions.height,
-                    delay: this.getRandomDelay();
+                    delay: this.getRandomDelay()
                 },
                 {
                     x: Math.sin(x * y) * centerX + centerX,
                     y: Math.cos(x * y) * centerY + centerY,
-                    delay: this.getRandomDelay();
+                    delay: this.getRandomDelay()
                 },
                 {
                     x: centerX,
                     y: centerY,
-                    delay: this.getRandomDelay();
+                    delay: this.getRandomDelay()
                 },
                 {
                     x: x,
                     y: y,
-                    delay: this.getRandomDelay();
+                    delay: this.getRandomDelay()
                 }
             ]);
         }
