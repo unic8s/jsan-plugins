@@ -102,7 +102,9 @@ module.exports = {
             this.vertices.push(vertex);
         }
 
-        this.startAnimations();
+        if(this.auto){
+            this.startAnimations();
+        }
 
         this.context.rect(0, 0, this.dimensions.width, this.dimensions.height);
         this.context.fill();
