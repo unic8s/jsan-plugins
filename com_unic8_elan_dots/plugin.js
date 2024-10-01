@@ -157,6 +157,9 @@ module.exports = {
             this.addTweens();
         });
     },
+    getRandomDelay() {
+        return Math.random() * (this.duration - this.duration / 5) + this.duration / 10;
+    },
     addTweens: function () {
         const positions = [];
 
@@ -172,41 +175,50 @@ module.exports = {
             positions.push([
                 {
                     x: x >= centerX ? this.dimensions.width - 1 : 0,
-                    y: y >= centerY ? this.dimensions.height - 1 : 0
+                    y: y >= centerY ? this.dimensions.height - 1 : 0,
+                    delay: this.getRandomDelay();
                 },
                 {
                     x: Math.random() * this.dimensions.width,
-                    y: Math.random() * this.dimensions.height
+                    y: Math.random() * this.dimensions.height,
+                    delay: this.getRandomDelay();
                 },
                 {
                     x: x >= centerX ? this.dimensions.width - 1 : 0,
-                    y: y
+                    y: y,
+                    delay: this.getRandomDelay();
                 },
                 {
                     x: x,
-                    y: Math.sin(x / divider) * divider + centerY
+                    y: Math.sin(x / divider) * divider + centerY,
+                    delay: this.getRandomDelay();
                 },
                 {
                     x: x / 2 + centerX / 2,
-                    y: this.dimensions.height - (x * 1.5 - centerX) * (x * 1.5 - centerX) / this.dimensions.height
+                    y: this.dimensions.height - (x * 1.5 - centerX) * (x * 1.5 - centerX) / this.dimensions.height,
+                    delay: this.getRandomDelay();
                 },
                 {
                     x: Math.sin(x * y) * centerX + centerX,
-                    y: Math.cos(x * y) * centerY + centerY
+                    y: Math.cos(x * y) * centerY + centerY,
+                    delay: this.getRandomDelay();
                 },
                 {
                     x: centerX,
-                    y: centerY
+                    y: centerY,
+                    delay: this.getRandomDelay();
+                },
+                {
+                    x: x,
+                    y: y,
+                    delay: this.getRandomDelay();
                 }
             ]);
         }
 
         for (let c = 0; c < this.list.length; c++) {
             const item = this.list[c];
-            const x = item.x;
-            const y = item.y;
 
-            const delay = Math.random() * (this.duration - this.duration / 5) + this.duration / 10;
             const posIndex = Math.random() * positions.length | 0;
             const position = this.random ? positions.splice(posIndex, 1)[0] : positions[c];
 
@@ -216,10 +228,10 @@ module.exports = {
                 }
 
                 this.timeline.to(item, {
-                    duration: this.duration - delay,
+                    duration: this.duration - position[0].delay,
                     x: position[0].x,
                     y: position[0].y
-                }, delay);
+                }, position[0].delay);
 
                 requestAnimationFrame(() => {
                     if(!this.timeline){
@@ -227,10 +239,10 @@ module.exports = {
                     }
 
                     this.timeline.to(item, {
-                        duration: this.duration - delay,
+                        duration: this.duration - position[1].delay,
                         x: position[1].x,
                         y: position[1].y
-                    }, this.duration + delay);
+                    }, this.duration + position[1].delay);
 
                     requestAnimationFrame(() => {
                         if(!this.timeline){
@@ -238,10 +250,10 @@ module.exports = {
                         }
 
                         this.timeline.to(item, {
-                            duration: this.duration - delay,
+                            duration: this.duration - position[2].delay,
                             x: position[2].x,
                             y: position[2].y
-                        }, this.duration * 2 + delay);
+                        }, this.duration * 2 + position[2].delay);
 
                         requestAnimationFrame(() => {
                             if(!this.timeline){
@@ -249,10 +261,10 @@ module.exports = {
                             }
 
                             this.timeline.to(item, {
-                                duration: this.duration - delay,
+                                duration: this.duration - position[3].delay,
                                 x: position[3].x,
                                 y: position[3].y
-                            }, this.duration * 3 + delay);
+                            }, this.duration * 3 + position[3].delay);
 
                             requestAnimationFrame(() => {
                                 if(!this.timeline){
@@ -260,10 +272,10 @@ module.exports = {
                                 }
 
                                 this.timeline.to(item, {
-                                    duration: this.duration - delay,
+                                    duration: this.duration - position[4].delay,
                                     x: position[4].x,
                                     y: position[4].y
-                                }, this.duration * 4 + delay);
+                                }, this.duration * 4 + position[4].delay);
 
                                 requestAnimationFrame(() => {
                                     if(!this.timeline){
@@ -271,10 +283,10 @@ module.exports = {
                                     }
 
                                     this.timeline.to(item, {
-                                        duration: this.duration - delay,
+                                        duration: this.duration - position[5].delay,
                                         x: position[5].x,
                                         y: position[5].y
-                                    }, this.duration * 5 + delay);
+                                    }, this.duration * 5 + position[5].delay);
 
                                     requestAnimationFrame(() => {
                                         if(!this.timeline){
@@ -282,10 +294,10 @@ module.exports = {
                                         }
 
                                         this.timeline.to(item, {
-                                            duration: this.duration - delay,
+                                            duration: this.duration - position[6].delay,
                                             x: position[6].x,
                                             y: position[6].y
-                                        }, this.duration * 6 + delay);
+                                        }, this.duration * 6 + position[6].delay);
 
                                         requestAnimationFrame(() => {
                                             if(!this.timeline){
@@ -293,10 +305,10 @@ module.exports = {
                                             }
 
                                             this.timeline.to(item, {
-                                                duration: this.duration - delay,
-                                                x: x,
-                                                y: y,
-                                            }, this.duration * 7 + delay);
+                                                duration: this.duration - position[7].delay,
+                                                x: position[7].x,
+                                                y: position[7].y
+                                            }, this.duration * 7 + position[7].delay);
 
                                             requestAnimationFrame(() => {
                                                 if(!this.timeline){
