@@ -34,18 +34,6 @@ module.exports = {
         }
     },
 
-    startPolling: function () {
-        this.stopPolling();
-
-        this.intervalID = setInterval(() => {
-            this.resolveData();
-        }, this.intervalTime);
-
-        this.resolveData();
-    },
-    stopPolling: function () {
-        clearInterval(this.intervalID);
-    },
     resolveData: async function () {
         const url = [
             'https://api.giphy.com/v1/gifs/search?api_key=',
