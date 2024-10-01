@@ -11,6 +11,7 @@ module.exports = {
     speed: 1,
     trail: 10,
     bezier: false,
+    auto: true,
     vertices: [],
 
     install: function (options) {
@@ -73,6 +74,12 @@ module.exports = {
             case "Bezier":
                 this.bezier = data;
                 break;
+            case "Auto":
+                this.auto = data;
+                break;
+            case "Trigger":
+                this.startAnimations();
+                return;
         }
 
         this.setup();
@@ -88,21 +95,28 @@ module.exports = {
         }
     },
     setup: function () {
-        this.killAnimations();
-
         this.vertices = [];
 
         for (let c = 0; c < this.points; c++) {
             const vertex = this.randomVertex();
             this.vertices.push(vertex);
-
-            this.animateVertex(vertex);
         }
+
+        this.startAnimations();
 
         this.context.rect(0, 0, this.dimensions.width, this.dimensions.height);
         this.context.fill();
 
         this.draw();
+    },
+    startAnimations: function() {
+        this.killAnimations();
+
+        for (let c = 0; c < this.vertices.length; c++) {
+            const vertex = this.vertices[c];
+
+            this.animateVertex(vertex);
+        }
     },
     randomVertex: function () {
         return {
@@ -128,9 +142,9 @@ module.exports = {
                 ax2: next.ax2,
                 ay2: next.ay2,
                 ease: window.Linear.easeNone,
-                onComplete: () => {
+                onComplete: refThis.auto ? () => {
                     refThis.animateVertex(vertex);
-                }
+                } : null
             }
         );
     },
