@@ -18,7 +18,9 @@
         {"name": "Color", "type": "Color", "value": "#FFFFFF"},
         {"name": "Speed", "type": "Number", "value": 1},
         {"name": "Trail", "type": "Number", "value": 10},
-        {"name": "Bezier", "type": "Boolean", "value": false}
+        {"name": "Bezier", "type": "Boolean", "value": false},
+        {"name": "Auto", "type": "Boolean", "value": true},
+        {"name": "Trigger", "type": "Boolean", "value": false}
     ],
     "outputs": [
     ],
