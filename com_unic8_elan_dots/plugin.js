@@ -218,6 +218,8 @@ module.exports = {
 
         for (let c = 0; c < this.list.length; c++) {
             const item = this.list[c];
+            const x = item.x;
+            const y = item.y;
 
             const posIndex = Math.random() * positions.length | 0;
             const position = this.random ? positions.splice(posIndex, 1)[0] : positions[c];
@@ -306,8 +308,8 @@ module.exports = {
 
                                             this.timeline.to(item, {
                                                 duration: this.duration - position[7].delay,
-                                                x: position[7].x,
-                                                y: position[7].y
+                                                x: x,
+                                                y: y
                                             }, this.duration * 7 + position[7].delay);
 
                                             requestAnimationFrame(() => {
