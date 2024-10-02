@@ -225,7 +225,6 @@ module.exports = {
                 this.context.stroke();
                 break;
             case 3:
-                this.context.globalAlpha = 1 / (this.trail * 2);
                 this.context.drawImage(this.canvas, this.speed, -this.speed);
                 this.context.globalAlpha = 1 / (this.trail * 2);
                 this.context.fillStyle = "#000";
