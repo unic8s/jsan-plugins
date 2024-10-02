@@ -30,9 +30,10 @@ module.exports = {
     render: function () {
         if (this.active && (this.cycles == 0 || this.counter < this.cycles)) {
             const now = this.getTime();
+            const increment = this.delay > 0 ? this.delay : 1;
 
-            if (now - this.lastTime >= this.delay) {
-                this.lastTime = now;
+            while (now - this.lastTime >= this.delay) {
+                this.lastTime += increment;
 
                 this.tick();
             }
