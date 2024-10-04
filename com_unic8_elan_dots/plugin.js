@@ -194,7 +194,7 @@ module.exports = {
                     delay: this.getRandomDelay()
                 },
                 {
-                    x: x / 2 + centerX / 2,
+                    x: x >> 1 + centerX >> 1,
                     y: this.dimensions.height - (x * 1.5 - centerX) * (x * 1.5 - centerX) / this.dimensions.height,
                     delay: this.getRandomDelay()
                 },

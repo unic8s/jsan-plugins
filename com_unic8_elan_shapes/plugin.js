@@ -194,7 +194,7 @@ module.exports = {
     drawStar: function (target, x, y, points, innerRadius, outerRadius, angle = 0) {
         let step, halfStep, start, n, dx, dy;
         step = (Math.PI * 2) / points;
-        halfStep = step / 2;
+        halfStep = step >> 1;
         start = (angle / 180) * Math.PI;
         target.moveTo(x + (Math.cos(start) * outerRadius), y - (Math.sin(start) * outerRadius));
 
