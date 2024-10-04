@@ -153,8 +153,7 @@ module.exports = {
                     },
                     onCompleteParams: [width, height],
                     roundProps: {
-                        x: this.smooth ? 0.01 : 1,
-                        y: this.smooth ? 0.01 : 1
+                        x: this.smooth ? 0.01 : 1
                     }
                 }
             );
@@ -173,7 +172,6 @@ module.exports = {
                     },
                     onCompleteParams: [width, height],
                     roundProps: {
-                        x: this.smooth ? 0.01 : 1,
                         y: this.smooth ? 0.01 : 1
                     }
                 }
