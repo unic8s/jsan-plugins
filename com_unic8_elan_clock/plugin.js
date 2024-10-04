@@ -78,16 +78,16 @@ module.exports = {
         const milliseconds = this.smooth ? now.getMilliseconds() : 0;
         const seconds = now.getSeconds() + milliseconds / 1000;
 
+        const minutesSub = minutes + seconds / 60;
+        const hoursSub = hours + minutesSub / 60;
+
         if (this.modern) {
-            this.gfxSeconds.rotation = -Math.PI >> 1;
-            this.gfxMinutes.rotation = -Math.PI >> 1;
-            this.gfxHours.rotation = -Math.PI >> 1;
+            this.gfxSeconds.rotation = -Math.PI / 2;
+            this.gfxMinutes.rotation = -Math.PI / 2;
+            this.gfxHours.rotation = -Math.PI / 2;
 
             this.draw(hours, minutes, seconds);
         } else {
-            const minutesSub = minutes + seconds / 60;
-            const hoursSub = hours + minutesSub / 60;
-
             this.gfxSeconds.rotation = Math.PI * 2 / 60 * seconds;
             this.gfxMinutes.rotation = Math.PI * 2 / 60 * minutesSub;
             this.gfxHours.rotation = Math.PI * 2 / 12 * hoursSub;
@@ -118,7 +118,7 @@ module.exports = {
 
         let minutesSub = (minutes + seconds / 60);
 
-        let arcRadius = Math.min(this.dimensions.width, this.dimensions.height) >> 1;
+        let arcRadius = Math.min(this.dimensions.width, this.dimensions.height) / 2;
         const arcWidth = arcRadius / 10;
         arcRadius -= arcWidth;
 
