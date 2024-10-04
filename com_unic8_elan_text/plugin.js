@@ -7,6 +7,7 @@ module.exports = {
     scroll: null,
     speed: null,
     smooth: null,
+    vertical: false,
     label: null,
     style: null,
     container: null,
@@ -81,6 +82,9 @@ module.exports = {
             case "smooth":
                 this.smooth = data;
                 break;
+            case "vertical":
+                this.vertical = data;
+                break;
         }
 
         this.isDirty = true;
@@ -114,9 +118,7 @@ module.exports = {
         if (this.scroll && (this.label.width > this.dimensions.width || this.label.height > this.dimensions.height)) {
             this.animated = true;
 
-            const xAxis = this.label.height < this.dimensions.height;
-
-            this.animateLabel(xAxis, this.dimensions.width, this.dimensions.height);
+            this.animateLabel(this.dimensions.width, this.dimensions.height);
         }
 
         this.calcMetrics();
@@ -129,14 +131,14 @@ module.exports = {
             height: this.label.height
         }
     },
-    animateLabel: function (xAxis, width, height) {
+    animateLabel: function (width, height) {
         if (!this.animated) {
             return;
         }
 
         const refThis = this;
 
-        if (xAxis) {
+        if (!this.vertical) {
             const diff = width + this.label.width;
 
             this.tween = window.TweenLite.fromTo(this.label, Math.abs(diff / this.speed),
@@ -146,10 +148,10 @@ module.exports = {
                 {
                     x: -this.label.width,
                     ease: window.Linear.easeNone,
-                    onComplete: (xAxis, width, height) => {
-                        refThis.animateLabel(xAxis, width, height);
+                    onComplete: (width, height) => {
+                        refThis.animateLabel(width, height);
                     },
-                    onCompleteParams: [xAxis, width, height],
+                    onCompleteParams: [width, height],
                     roundProps: {
                         x: this.smooth ? 0.01 : 1,
                         y: this.smooth ? 0.01 : 1
@@ -166,10 +168,10 @@ module.exports = {
                 {
                     y: -this.label.height,
                     ease: window.Linear.easeNone,
-                    onComplete: (xAxis, width, height) => {
-                        refThis.animateLabel(xAxis, width, height);
+                    onComplete: (width, height) => {
+                        refThis.animateLabel(width, height);
                     },
-                    onCompleteParams: [xAxis, width, height],
+                    onCompleteParams: [width, height],
                     roundProps: {
                         x: this.smooth ? 0.01 : 1,
                         y: this.smooth ? 0.01 : 1
