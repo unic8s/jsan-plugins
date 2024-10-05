@@ -124,7 +124,7 @@ module.exports = {
         const THREE = this.options.THREE.module;
 
         const params = {
-            ease: window.Quad.easeInOut,
+            ease: this.options.GSAP.Quad.easeInOut,
             onComplete: () => {
                 if (refThis.auto) {
                     refThis.animteAxis(axis);
@@ -136,7 +136,7 @@ module.exports = {
 
         const diff = Math.abs(params[axis] - this.cube.rotation[axis]);
 
-        this["tween_" + axis] = window.TweenLite.to(this.cube.rotation, diff, params);
+        this["tween_" + axis] = this.options.GSAP.TweenLite.to(this.cube.rotation, diff, params);
     },
     convertColor: function (hex) {
         const result = parseInt(hex.replace("#", "0x"), 16);

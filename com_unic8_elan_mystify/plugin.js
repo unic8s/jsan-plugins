@@ -91,7 +91,7 @@ module.exports = {
         for (let c = 0; c < this.vertices.length; c++) {
             const vertex = this.vertices[c];
 
-            window.TweenLite.killTweensOf(vertex);
+            this.options.GSAP.TweenLite.killTweensOf(vertex);
         }
     },
     setup: function () {
@@ -135,7 +135,7 @@ module.exports = {
 
         const refThis = this;
 
-        window.TweenLite.to(vertex, Math.random() * this.speed + this.speed,
+        this.options.GSAP.TweenLite.to(vertex, Math.random() * this.speed + this.speed,
             {
                 x: next.x,
                 y: next.y,
@@ -143,7 +143,7 @@ module.exports = {
                 ay1: next.ay1,
                 ax2: next.ax2,
                 ay2: next.ay2,
-                ease: window.Linear.easeNone,
+                ease: this.options.GSAP.Linear.easeNone,
                 onComplete: refThis.auto ? () => {
                     refThis.animateVertex(vertex);
                 } : null

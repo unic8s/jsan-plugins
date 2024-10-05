@@ -164,12 +164,12 @@ module.exports = {
 
         const rotation = this.random.rotation ? Math.random() * Math.PI * 2 : 0;
 
-        window.TweenLite.to(item, this.duration,
+        this.options.GSAP.TweenLite.to(item, this.duration,
             {
                 alpha: this.alpha.end,
                 size: this.size.end,
                 rotation: rotation,
-                ease: window.Linear.easeNone,
+                ease: this.options.GSAP.Linear.easeNone,
                 onUpdate: () => {
                     const scale = item.size * 0.01;
 
@@ -194,7 +194,7 @@ module.exports = {
     drawStar: function (target, x, y, points, innerRadius, outerRadius, angle = 0) {
         let step, halfStep, start, n, dx, dy;
         step = (Math.PI * 2) / points;
-        halfStep = step >> 1;
+        halfStep = step / 2;
         start = (angle / 180) * Math.PI;
         target.moveTo(x + (Math.cos(start) * outerRadius), y - (Math.sin(start) * outerRadius));
 

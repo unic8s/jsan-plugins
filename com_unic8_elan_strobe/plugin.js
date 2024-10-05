@@ -83,13 +83,13 @@ module.exports = {
             this.tween = null;
         }
 
-        this.tween = window.TweenLite.fromTo(this.container, this.duration,
+        this.tween = this.options.GSAP.TweenLite.fromTo(this.container, this.duration,
             {
                 alpha: 1
             },
             {
                 alpha: 0,
-                ease: window.Linear.easeNone
+                ease: this.options.GSAP.Linear.easeNone
             }
         );
     }

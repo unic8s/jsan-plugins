@@ -92,11 +92,11 @@ module.exports = {
         this.context.fillRect(0, 0, this.dimensions.width, this.dimensions.height);
         this.context.globalAlpha = 1;
 
-        this.timeline = new window.TimelineLite({
+        this.timeline = new this.options.GSAP.TimelineLite({
             paused: true,
             repeat: -1,
             defaults: {
-                ease: window.Circ.easeOut,
+                ease: this.options.GSAP.Circ.easeOut,
                 roundProps: 'x,y'
             }
         });

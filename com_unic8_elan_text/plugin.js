@@ -141,13 +141,13 @@ module.exports = {
         if (!this.vertical) {
             const diff = width + this.label.width;
 
-            this.tween = window.TweenLite.fromTo(this.label, Math.abs(diff / this.speed),
+            this.tween = this.options.GSAP.TweenLite.fromTo(this.label, Math.abs(diff / this.speed),
                 {
                     x: width
                 },
                 {
                     x: -this.label.width,
-                    ease: window.Linear.easeNone,
+                    ease: this.options.GSAP.Linear.easeNone,
                     onComplete: (width, height) => {
                         refThis.animateLabel(width, height);
                     },
@@ -160,13 +160,13 @@ module.exports = {
         } else {
             const diff = height + this.label.height;
 
-            this.tween = window.TweenLite.fromTo(this.label, Math.abs(diff / this.speed),
+            this.tween = this.options.GSAP.TweenLite.fromTo(this.label, Math.abs(diff / this.speed),
                 {
                     y: height
                 },
                 {
                     y: -this.label.height,
-                    ease: window.Linear.easeNone,
+                    ease: this.options.GSAP.Linear.easeNone,
                     onComplete: (width, height) => {
                         refThis.animateLabel(width, height);
                     },

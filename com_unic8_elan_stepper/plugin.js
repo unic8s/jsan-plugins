@@ -61,10 +61,10 @@ module.exports = {
 
         const refThis = this;
 
-        this.tween = window.TweenLite.to(this, this.duration,
+        this.tween = this.options.GSAP.TweenLite.to(this, this.duration,
             {
                 value: to,
-                ease: window.Linear.easeNone,
+                ease: this.options.GSAP.Linear.easeNone,
                 onUpdate: () => {
                     refThis.options.nodes.outputs.query("value").data = this.value;
                 },

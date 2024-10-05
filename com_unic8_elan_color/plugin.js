@@ -47,7 +47,7 @@ module.exports = {
         if (this.duration > 0) {
             var refThis = this;
 
-            this.tween = window.TweenLite.to(this, this.duration, {
+            this.tween = this.options.GSAP.TweenLite.to(this, this.duration, {
                 red: colors.red,
                 green: colors.green,
                 blue: colors.blue,

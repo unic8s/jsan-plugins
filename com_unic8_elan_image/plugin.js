@@ -40,7 +40,7 @@ module.exports = {
 
             refThis.killTween();
 
-            refThis.tween = window.TweenLite.to(refThis.stage, refThis.fade, {
+            refThis.tween = refThis.options.GSAP.TweenLite.to(refThis.stage, refThis.fade, {
                 alpha: 1
             });
         };
@@ -105,7 +105,7 @@ module.exports = {
                     this.tween.kill();
                 }
 
-                this.tween = window.TweenLite.to(this.stage, this.fade, {
+                this.tween = this.options.GSAP.TweenLite.to(this.stage, this.fade, {
                     alpha: 0,
                     onComplete: () => {
                         this.killTween();
@@ -172,7 +172,7 @@ module.exports = {
 
                         this.killTween();
 
-                        this.tween = window.TweenLite.to(this.stage, this.fade, {
+                        this.tween = this.options.GSAP.TweenLite.to(this.stage, this.fade, {
                             alpha: 1
                         });
                         break;
