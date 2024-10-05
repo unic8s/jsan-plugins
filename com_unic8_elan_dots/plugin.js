@@ -173,42 +173,57 @@ module.exports = {
             const divider = Math.sqrt(this.dimensions.width);
 
             positions.push([
-                {
+                { // 0
                     x: x >= centerX ? this.dimensions.width - 1 : 0,
                     y: y >= centerY ? this.dimensions.height - 1 : 0,
                     delay: this.getRandomDelay()
                 },
-                {
+                { // 1
                     x: Math.random() * this.dimensions.width,
                     y: Math.random() * this.dimensions.height,
                     delay: this.getRandomDelay()
                 },
-                {
+                { // 2
                     x: x >= centerX ? this.dimensions.width - 1 : 0,
                     y: y,
                     delay: this.getRandomDelay()
                 },
-                {
+                { // 3
                     x: x,
                     y: Math.sin(x / divider) * divider + centerY,
                     delay: this.getRandomDelay()
                 },
-                {
+                { // 4
+                    x: (x >> 1) + (this.dimensions.width >> 2),
+                    y: (y >> 1) + (this.dimensions.height >> 2),
+                    delay: this.getRandomDelay()
+                },
+                { // 5
+                    x: y,
+                    y: y,
+                    delay: this.getRandomDelay()
+                },
+                { // 6
+                    x: Math.sqrt(x * y),
+                    y: y,
+                    delay: this.getRandomDelay()
+                },
+                { // 7
                     x: x / 2 + centerX / 2,
                     y: this.dimensions.height - Math.pow(x * 1.5 - centerX, 2) / this.dimensions.height,
                     delay: this.getRandomDelay()
                 },
-                {
+                { // 8
                     x: Math.sin(x * y) * centerX + centerX,
                     y: Math.cos(x * y) * centerY + centerY,
                     delay: this.getRandomDelay()
                 },
-                {
+                { // 9
                     x: centerX,
                     y: centerY,
                     delay: this.getRandomDelay()
                 },
-                {
+                { // 10
                     x: x,
                     y: y,
                     delay: this.getRandomDelay()
@@ -225,7 +240,7 @@ module.exports = {
             const position = this.random ? positions.splice(posIndex, 1)[0] : positions[c];
 
             requestAnimationFrame(() => {
-                if(!this.timeline){
+                if (!this.timeline) {
                     return;
                 }
 
@@ -236,7 +251,7 @@ module.exports = {
                 }, position[0].delay);
 
                 requestAnimationFrame(() => {
-                    if(!this.timeline){
+                    if (!this.timeline) {
                         return;
                     }
 
@@ -247,7 +262,7 @@ module.exports = {
                     }, this.duration + position[1].delay);
 
                     requestAnimationFrame(() => {
-                        if(!this.timeline){
+                        if (!this.timeline) {
                             return;
                         }
 
@@ -258,7 +273,7 @@ module.exports = {
                         }, this.duration * 2 + position[2].delay);
 
                         requestAnimationFrame(() => {
-                            if(!this.timeline){
+                            if (!this.timeline) {
                                 return;
                             }
 
@@ -269,7 +284,7 @@ module.exports = {
                             }, this.duration * 3 + position[3].delay);
 
                             requestAnimationFrame(() => {
-                                if(!this.timeline){
+                                if (!this.timeline) {
                                     return;
                                 }
 
@@ -280,7 +295,7 @@ module.exports = {
                                 }, this.duration * 4 + position[4].delay);
 
                                 requestAnimationFrame(() => {
-                                    if(!this.timeline){
+                                    if (!this.timeline) {
                                         return;
                                     }
 
@@ -291,7 +306,7 @@ module.exports = {
                                     }, this.duration * 5 + position[5].delay);
 
                                     requestAnimationFrame(() => {
-                                        if(!this.timeline){
+                                        if (!this.timeline) {
                                             return;
                                         }
 
@@ -302,24 +317,60 @@ module.exports = {
                                         }, this.duration * 6 + position[6].delay);
 
                                         requestAnimationFrame(() => {
-                                            if(!this.timeline){
+                                            if (!this.timeline) {
                                                 return;
                                             }
 
                                             this.timeline.to(item, {
                                                 duration: this.duration - position[7].delay,
-                                                x: x,
-                                                y: y
+                                                x: position[7].x,
+                                                y: position[7].y
                                             }, this.duration * 7 + position[7].delay);
 
                                             requestAnimationFrame(() => {
-                                                if(!this.timeline){
+                                                if (!this.timeline) {
                                                     return;
                                                 }
 
-                                                this.ready = true;
+                                                this.timeline.to(item, {
+                                                    duration: this.duration - position[8].delay,
+                                                    x: position[8].x,
+                                                    y: position[8].y
+                                                }, this.duration * 8 + position[8].delay);
 
-                                                this.timeline.play();
+                                                requestAnimationFrame(() => {
+                                                    if (!this.timeline) {
+                                                        return;
+                                                    }
+
+                                                    this.timeline.to(item, {
+                                                        duration: this.duration - position[8].delay,
+                                                        x: position[9].x,
+                                                        y: position[9].y
+                                                    }, this.duration * 9 + position[9].delay);
+
+                                                    requestAnimationFrame(() => {
+                                                        if (!this.timeline) {
+                                                            return;
+                                                        }
+
+                                                        this.timeline.to(item, {
+                                                            duration: this.duration - position[10].delay,
+                                                            x: x,
+                                                            y: y
+                                                        }, this.duration * 10 + position[10].delay);
+
+                                                        requestAnimationFrame(() => {
+                                                            if (!this.timeline) {
+                                                                return;
+                                                            }
+
+                                                            this.ready = true;
+
+                                                            this.timeline.play();
+                                                        });
+                                                    });
+                                                });
                                             });
                                         });
                                     });
