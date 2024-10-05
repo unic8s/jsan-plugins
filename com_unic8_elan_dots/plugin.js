@@ -195,7 +195,7 @@ module.exports = {
                 },
                 {
                     x: x / 2 + centerX / 2,
-                    y: this.dimensions.height - (x * 1.5 - centerX) * (x * 1.5 - centerX) / this.dimensions.height,
+                    y: this.dimensions.height - Math.pow(x * 1.5 - centerX, 2) / this.dimensions.height,
                     delay: this.getRandomDelay()
                 },
                 {
