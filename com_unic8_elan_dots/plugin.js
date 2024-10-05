@@ -239,148 +239,29 @@ module.exports = {
             const posIndex = Math.random() * positions.length | 0;
             const position = this.random ? positions.splice(posIndex, 1)[0] : positions[c];
 
-            requestAnimationFrame(() => {
-                if (!this.timeline) {
-                    return;
-                }
-
-                this.timeline.to(item, {
-                    duration: this.duration - position[0].delay,
-                    x: position[0].x,
-                    y: position[0].y
-                }, position[0].delay);
-
-                requestAnimationFrame(() => {
-                    if (!this.timeline) {
-                        return;
-                    }
-
-                    this.timeline.to(item, {
-                        duration: this.duration - position[1].delay,
-                        x: position[1].x,
-                        y: position[1].y
-                    }, this.duration + position[1].delay);
-
-                    requestAnimationFrame(() => {
-                        if (!this.timeline) {
-                            return;
-                        }
-
-                        this.timeline.to(item, {
-                            duration: this.duration - position[2].delay,
-                            x: position[2].x,
-                            y: position[2].y
-                        }, this.duration * 2 + position[2].delay);
-
-                        requestAnimationFrame(() => {
-                            if (!this.timeline) {
-                                return;
-                            }
-
-                            this.timeline.to(item, {
-                                duration: this.duration - position[3].delay,
-                                x: position[3].x,
-                                y: position[3].y
-                            }, this.duration * 3 + position[3].delay);
-
-                            requestAnimationFrame(() => {
-                                if (!this.timeline) {
-                                    return;
-                                }
-
-                                this.timeline.to(item, {
-                                    duration: this.duration - position[4].delay,
-                                    x: position[4].x,
-                                    y: position[4].y
-                                }, this.duration * 4 + position[4].delay);
-
-                                requestAnimationFrame(() => {
-                                    if (!this.timeline) {
-                                        return;
-                                    }
-
-                                    this.timeline.to(item, {
-                                        duration: this.duration - position[5].delay,
-                                        x: position[5].x,
-                                        y: position[5].y
-                                    }, this.duration * 5 + position[5].delay);
-
-                                    requestAnimationFrame(() => {
-                                        if (!this.timeline) {
-                                            return;
-                                        }
-
-                                        this.timeline.to(item, {
-                                            duration: this.duration - position[6].delay,
-                                            x: position[6].x,
-                                            y: position[6].y
-                                        }, this.duration * 6 + position[6].delay);
-
-                                        requestAnimationFrame(() => {
-                                            if (!this.timeline) {
-                                                return;
-                                            }
-
-                                            this.timeline.to(item, {
-                                                duration: this.duration - position[7].delay,
-                                                x: position[7].x,
-                                                y: position[7].y
-                                            }, this.duration * 7 + position[7].delay);
-
-                                            requestAnimationFrame(() => {
-                                                if (!this.timeline) {
-                                                    return;
-                                                }
-
-                                                this.timeline.to(item, {
-                                                    duration: this.duration - position[8].delay,
-                                                    x: position[8].x,
-                                                    y: position[8].y
-                                                }, this.duration * 8 + position[8].delay);
-
-                                                requestAnimationFrame(() => {
-                                                    if (!this.timeline) {
-                                                        return;
-                                                    }
-
-                                                    this.timeline.to(item, {
-                                                        duration: this.duration - position[8].delay,
-                                                        x: position[9].x,
-                                                        y: position[9].y
-                                                    }, this.duration * 9 + position[9].delay);
-
-                                                    requestAnimationFrame(() => {
-                                                        if (!this.timeline) {
-                                                            return;
-                                                        }
-
-                                                        this.timeline.to(item, {
-                                                            duration: this.duration - position[10].delay,
-                                                            x: x,
-                                                            y: y
-                                                        }, this.duration * 10 + position[10].delay);
-
-                                                        requestAnimationFrame(() => {
-                                                            if (!this.timeline) {
-                                                                return;
-                                                            }
-
-                                                            this.ready = true;
-
-                                                            this.timeline.play();
-                                                        });
-                                                    });
-                                                });
-                                            });
-                                        });
-                                    });
-                                });
-                            });
-                        });
-                    });
-                });
-            });
+            this.addAnimation(item, c, x, y, position, 0);
         }
+    },
+    addAnimation: function (item, index, x, y, position, offset) {
+        requestAnimationFrame(() => {
+            if (!this.timeline) {
+                return;
+            }
+            
+            if(offset < position.length) {
+                this.timeline.to(item, {
+                    duration: this.duration - position[offset].delay,
+                    x: offset < 10 ? position[offset].x : x,
+                    y: offset < 10 ? position[offset].y : y
+                }, this.duration * offset + position[offset].delay);
+    
+                this.addAnimation(item, index, x, y, position, ++offset);
+            }else if(index == this.list.length - 1){
+                this.ready = true;
+
+                this.timeline.play();
+            }
+        });
     },
     killTweens: function () {
         if (!this.timeline) {
