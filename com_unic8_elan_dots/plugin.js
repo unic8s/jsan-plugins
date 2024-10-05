@@ -251,8 +251,8 @@ module.exports = {
             if(offset < position.length) {
                 this.timeline.to(item, {
                     duration: this.duration - position[offset].delay,
-                    x: offset < 10 ? position[offset].x : x,
-                    y: offset < 10 ? position[offset].y : y
+                    x: offset < position.length - 1 ? position[offset].x : x,
+                    y: offset < position.length - 1 ? position[offset].y : y
                 }, this.duration * offset + position[offset].delay);
     
                 this.addAnimation(item, index, x, y, position, ++offset);
