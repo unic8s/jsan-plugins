@@ -16,10 +16,12 @@
     ],
     "inputs": [
         {"name": "shape", "type": "Number", "value": 0},
+        {"name": "color", "type": "Color", "value": "#FFFFFF"},
+        {"name": "image", "type": "File", "value": ""},
+        {"name": "opacity", "type": "Number", "value": 1},
         {"name": "rotationX", "type": "Number", "value": 0},
         {"name": "rotationY", "type": "Number", "value": 0},
         {"name": "rotationZ", "type": "Number", "value": 0},
-        {"name": "color", "type": "Color", "value": "#FFFFFF"},
         {"name": "auto", "type": "Boolean", "value": true}
     ],
     "outputs": [

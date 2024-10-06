@@ -8,7 +8,8 @@ module.exports = {
     container3d: null,
     render3D: null,
     resize3D: null,
-    material: null,
+    materialColor: null,
+    materialImage: null,
     auto: null,
     tween_x: null,
     tween_y: null,
@@ -35,9 +36,16 @@ module.exports = {
         spotLight.position.set(16, 16, 64);
         this.container3D.add(spotLight);
 
-        this.material = new THREE.MeshStandardMaterial({
+        this.materialColor = new THREE.MeshStandardMaterial({
             color: this.color
         });
+
+        this.materialImage = new THREE.MeshStandardMaterial({
+            transparent: true
+        });
+
+        let texture = new THREE.DataTexture(null, this.dimensions.width, this.dimensions.height);
+        this.materialImage.map = texture;
 
         this.addPrimitive();
 
@@ -85,7 +93,13 @@ module.exports = {
                 this.primitive.rotation.z = THREE.MathUtils.degToRad(data);
                 break;
             case "color":
-                this.material.color.set(this.convertColor(data));
+                this.materialColor.color.set(this.convertColor(data));
+                break;
+            case "image":
+                this.materialImage.map = new THREE.TextureLoader().load(data);
+                break;
+            case "opacity":
+                this.materialImage.opacity = data;
                 break;
         }
     },
@@ -130,7 +144,11 @@ module.exports = {
             return;
         }
 
-        this.primitive = new THREE.Mesh(geometry, this.material);
+        geometry.clearGroups();
+        geometry.addGroup(0, Infinity, 0);
+        geometry.addGroup(0, Infinity, 1);
+
+        this.primitive = new THREE.Mesh(geometry, [this.materialColor, this.materialImage]);
         this.container3D.add(this.primitive);
 
         this.primitive.rotation.x = THREE.MathUtils.degToRad(this.options.nodes.inputs.query("rotationX").data);
