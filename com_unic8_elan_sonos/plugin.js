@@ -58,11 +58,15 @@ module.exports = {
         switch(this.state){
             case "playing":
                 info = this.track;
+
+                this.options.nodes.outputs.query("playing").data = true;
                 break;
             case "paused":
                 var fileID = this.options.files[this.coverPath];
 
                 info = {title: "", artist: "", album: "", progress: 0, duration: 1, albumArtURI: fileID};
+
+                this.options.nodes.outputs.query("playing").data = false;
                 break;
         }
 
