@@ -7,11 +7,15 @@ module.exports = {
     track: null,
     state: "paused",
     killed: false,
+    intervalTime: 2000,
+    intervalID: null,
 
     install: function (options) {
         this.options = options;
     },
     uninstall: function () {
+        clearInterval(this.intervalID);
+
         this.killed = true;
     },
     input(id, data) {
@@ -34,6 +38,20 @@ module.exports = {
         this.input(event.data);
     },
 
+    startPolling: function () {
+        this.stopPolling();
+
+        this.intervalID = setInterval(() => {
+            this.options.SonosHelper.currentTrack();
+        }, this.intervalTime);
+
+        this.options.SonosHelper.currentTrack();
+    },
+    stopPolling: function () {
+        clearInterval(this.intervalID);
+
+        this.intervalID = null;
+    },
     sonos: function (event) {
         if (this.killed) {
             return;
@@ -60,6 +78,10 @@ module.exports = {
                 info = this.track;
 
                 this.options.nodes.outputs.query("playing").data = true;
+
+                if(!this.intervalID){
+                    this.startPolling();
+                }
                 break;
             case "paused":
                 var fileID = this.options.files[this.coverPath];
@@ -67,6 +89,8 @@ module.exports = {
                 info = {title: "", artist: "", album: "", progress: 0, duration: 1, albumArtURI: fileID};
 
                 this.options.nodes.outputs.query("playing").data = false;
+
+                this.stopPolling();
                 break;
         }
 
