@@ -3,16 +3,19 @@ module.exports = {
     dimensions: null,
     container: null,
     vinyl: null,
-    mask: null,
     hole: null,
+    grain: null,
+    grainMask: null,
     playhead: null,
     playheadSize: 0,
     cover: null,
+    coverMask: null,
     playheadMin: -0.563,
     playheadMax: -0.078,
     progress: 0,
     ready: false,
     playing: false,
+    speed: 0.005,
 
     install: function (options) {
         this.options = options;
@@ -24,8 +27,7 @@ module.exports = {
     input: function (id, data) {
         switch (id) {
             case "cover":
-                this.cover.texture = this.options.PIXI.module.Texture.from(data);
-
+                this.loadCover(data);
                 this.scaleAndPosition();
                 break;
             case "progress":
@@ -56,11 +58,15 @@ module.exports = {
     build: async function () {
         const PIXI = this.options.PIXI.module;
 
-        this.mask = new PIXI.Graphics();
+        this.coverMask = new PIXI.Graphics();
         this.cover = new PIXI.Sprite();
-        this.cover.mask = this.mask;       
+        this.cover.mask = this.coverMask;
 
         this.hole = new PIXI.Graphics();
+
+        this.grain = new PIXI.Graphics();
+        this.grainMask = new PIXI.Graphics();
+        this.grain.mask = this.grainMask;
 
         const vinylTexture = await PIXI.Assets.load({
             src: this.options.files["assets/vinyl.png"],
@@ -77,14 +83,19 @@ module.exports = {
         this.playhead.pivot.set(353, 58);
 
         this.container.addChild(this.vinyl);
+        this.container.addChild(this.grain);
+        this.container.addChild(this.grainMask);
         this.container.addChild(this.cover);
-        this.container.addChild(this.mask);
+        this.container.addChild(this.coverMask);
         this.container.addChild(this.hole);
         this.container.addChild(this.playhead);
 
         this.ready = true;
 
         this.scaleAndPosition();
+    },
+    loadCover: async function (file) {
+        this.cover.texture = await this.options.PIXI.module.Texture.from(file);
     },
     scaleAndPosition: function () {
         if (!this.ready) {
@@ -103,21 +114,39 @@ module.exports = {
 
         this.cover.position.set(this.vinyl.width >> 1, this.vinyl.height >> 1);
 
-        setTimeout(() => {
-            this.cover.scale.set(1, 1);
-            this.cover.pivot.set(this.cover.width >> 1, this.cover.height >> 1);
-            this.cover.scale.set(scale * 1.05, scale * 1.05);
-        }, 50);
+        this.cover.scale.set(1, 1);
+        this.cover.pivot.set(this.cover.width >> 1, this.cover.height >> 1);
+        this.cover.scale.set(scale * 1.25, scale * 1.25);
 
-        this.mask.clear();
-        this.mask.beginFill("#FF0000");
-        this.mask.drawCircle(this.vinyl.width >> 1, this.vinyl.height >> 1, 160 * scale);
-        this.mask.endFill();
+        this.coverMask.clear();
+        this.coverMask.beginFill("#FF0000");
+        this.coverMask.drawCircle(this.vinyl.width >> 1, this.vinyl.height >> 1, 160 * scale);
+        this.coverMask.endFill();
 
         this.hole.clear();
         this.hole.beginFill("#000000");
         this.hole.drawCircle(this.vinyl.width >> 1, this.vinyl.height >> 1, 11 * scale);
         this.hole.endFill();
+
+        this.grainMask.clear();
+        this.grainMask.beginFill("#FF0000");
+        this.grainMask.drawCircle(this.vinyl.width >> 1, this.vinyl.height >> 1, minSize >> 1);
+        this.grainMask.endFill();
+
+        this.grain.position.set(this.vinyl.width >> 1, this.vinyl.height >> 1);
+        this.grain.pivot.set(this.dimensions.width >> 1, this.dimensions.height >> 1);
+        this.grain.clear();
+        this.grain.beginFill("#000000", Math.random() * 0.25 + 0.25);
+
+        for(let y = 0; y < this.dimensions.height; y++) {
+            for(let x = 0; x < this.dimensions.width; x++) {
+                if(Math.round(Math.random() * 0.52) == 1) {
+                    this.grain.drawRect(x, y, 1, 1);
+                }
+            }
+        }
+
+        this.grain.endFill();
     },
     update: function () {
         if (!this.ready) {
@@ -131,7 +160,8 @@ module.exports = {
         );
 
         if (this.playing) {
-            this.cover.rotation += 0.005;
+            this.cover.rotation += this.speed;
+            this.grain.rotation += this.speed;
         } else {
             this.cover.rotation = 0;
         }
