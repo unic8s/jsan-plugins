@@ -8,7 +8,6 @@ module.exports = {
     resize3D: null,
     material: null,
     auto: null,
-    camData: null,
     tween_x: null,
     tween_y: null,
     tween_z: null,
@@ -68,11 +67,6 @@ module.exports = {
         //this.container.scale.set(scale, scale);
     },
     render: function () {
-        if(this.camData){
-            this.material.map.image = this.camData;
-            this.material.map.needsUpdate = true;
-        }
-
         this.render3D(this.dimensions, this.container3D, this.container);
     },
     input: function (id, data) {
@@ -100,7 +94,8 @@ module.exports = {
         }
     },
     cameraUpdate: function (event) {
-        this.camData = event.data;
+        this.material.map.image = event.data;
+        this.material.map.needsUpdate = true;
     },
     cameraActive: function () {
         this.container.visible = true;
@@ -114,7 +109,7 @@ module.exports = {
         this.stop();
     },
 
-    stop: function(){
+    stop: function () {
         if (this.tween_x) {
             this.tween_x.kill();
             this.tween_y.kill();
@@ -132,8 +127,8 @@ module.exports = {
         this.animteAxis("y");
         this.animteAxis("z");
     },
-    animteAxis: function(axis){
-        if(this.killed){
+    animteAxis: function (axis) {
+        if (this.killed) {
             return;
         }
 
