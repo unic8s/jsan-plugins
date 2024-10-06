@@ -105,7 +105,7 @@ module.exports = {
         }
 
         let geometry;
-        const dimension = Math.max(this.dimensions.width, this.dimensions.height) >> 2;
+        const dimension = 20;
 
         switch (this.shape) {
             case 0:
@@ -121,7 +121,7 @@ module.exports = {
                 geometry = new THREE.TorusGeometry(dimension >> 1, dimension >> 2, dimension, dimension);
                 break;
             case 4:
-                geometry = new THREE.TorusKnotGeometry(10, 3, 128, 16);
+                geometry = new THREE.TorusKnotGeometry(dimension >> 1, 3, 128, 16);
                 break;
         }
 
