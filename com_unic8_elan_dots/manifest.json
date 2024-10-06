@@ -14,6 +14,7 @@
         "2d"
     ],
     "inputs": [
+        {"name": "size", "type": "Number", "value": 1},
         {"name": "modulo", "type": "Number", "value": 4},
         {"name": "duration", "type": "Number", "value": 8},
         {"name": "scheme", "type": "Number", "value": 0},

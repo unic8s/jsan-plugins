@@ -6,6 +6,7 @@ module.exports = {
     sprite: null,
     canvas: null,
     context: null,
+    size: 1,
     modulo: 4,
     duration: 8,
     smooth: false,
@@ -46,6 +47,9 @@ module.exports = {
     },
     input: function (id, data) {
         switch (id) {
+            case "size":
+                this.size = data > 1 ? data : 1;
+                break;
             case "modulo":
                 this.modulo = data > 0 ? data : 1;
                 break;
@@ -174,8 +178,8 @@ module.exports = {
 
             positions.push([
                 { // 0
-                    x: x >= centerX ? this.dimensions.width - 1 : 0,
-                    y: y >= centerY ? this.dimensions.height - 1 : 0,
+                    x: x >= centerX ? this.dimensions.width - this.size : 0,
+                    y: y >= centerY ? this.dimensions.height - this.size : 0,
                     delay: this.getRandomDelay()
                 },
                 { // 1
@@ -184,7 +188,7 @@ module.exports = {
                     delay: this.getRandomDelay()
                 },
                 { // 2
-                    x: x >= centerX ? this.dimensions.width - 1 : 0,
+                    x: x >= centerX ? this.dimensions.width - this.size : 0,
                     y: y,
                     delay: this.getRandomDelay()
                 },
@@ -281,7 +285,7 @@ module.exports = {
             const gfx = this.list[c];
 
             this.context.fillStyle = gfx.color;
-            this.context.fillRect(gfx.x, gfx.y, 1, 1);
+            this.context.fillRect(gfx.x, gfx.y, this.size, this.size);
         }
 
         this.sprite.texture.update();
