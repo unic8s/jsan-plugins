@@ -184,10 +184,10 @@ module.exports = {
                         if (Math.abs(progress - refThis.progress) > 5) {
                             refThis.options.nodes.outputs.query("progress").data = refThis.progress = progress;
                         } else {
-                            refThis.tween = this.options.GSAP.TweenLite.to(refThis, 1.9,
+                            refThis.tween = refThis.options.GSAP.TweenLite.to(refThis, 1.9,
                                 {
                                     progress: progress,
-                                    ease: this.options.GSAP.Linear.easeNone,
+                                    ease: refThis.options.GSAP.Linear.easeNone,
                                     roundProps: {
                                         progress: 0.001
                                     },

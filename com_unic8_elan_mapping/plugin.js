@@ -33,9 +33,16 @@ module.exports = {
 
     calculate() {
         const fromRange = this.fromHigh - this.fromLow;
-        const toRange = this.toHigh - this.toLow;
-        const fromPercentage = 100 / fromRange * this.value;
-        const calculated = toRange / 100 * fromPercentage + this.toLow;
+        let calculated = 0;
+
+        if (fromRange > 0) {
+            const toRange = this.toHigh - this.toLow;
+            
+            if (toRange > 0) {
+                const fromPercentage = 100 / fromRange * this.value;
+                calculated = toRange / 100 * fromPercentage + this.toLow;
+            }
+        }
 
         this.options.nodes.outputs.query("Output").data = calculated;
     }

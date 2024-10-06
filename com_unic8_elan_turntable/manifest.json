@@ -1,0 +1,27 @@
+{
+    "name": "Turntable",
+    "uid": "com_unic8_elan_turntable",
+    "description": "Turntable plugin",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+    ],
+    "features": [
+        "2d"
+    ],
+    "inputs": [
+        {"name": "cover", "type": "File", "value": ""},
+        {"name": "progress", "type": "Number", "value": 0},
+        {"name": "playing", "type": "Boolean", "value": false}
+    ],
+    "outputs": [
+    ],
+    "files": [
+        "assets/vinyl.png",
+        "assets/playhead.png"
+    ]
+}
