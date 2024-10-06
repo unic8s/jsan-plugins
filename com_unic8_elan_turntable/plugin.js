@@ -103,11 +103,11 @@ module.exports = {
 
         this.cover.position.set(this.vinyl.width >> 1, this.vinyl.height >> 1);
 
-        requestAnimationFrame(() => {
+        setTimeout(() => {
             this.cover.scale.set(1, 1);
             this.cover.pivot.set(this.cover.width >> 1, this.cover.height >> 1);
             this.cover.scale.set(scale * 1.05, scale * 1.05);
-        });
+        }, 50);
 
         this.mask.clear();
         this.mask.beginFill("#FF0000");
