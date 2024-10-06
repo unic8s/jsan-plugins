@@ -1,15 +1,15 @@
 module.exports = {
     options: null,
     dimensions: null,
+    shape: 0,
     color: null,
-    cube: null,
+    primitive: null,
     container: null,
     container3d: null,
     render3D: null,
     resize3D: null,
     material: null,
     auto: null,
-    camData: null,
     tween_x: null,
     tween_y: null,
     tween_z: null,
@@ -35,18 +35,11 @@ module.exports = {
         spotLight.position.set(16, 16, 64);
         this.container3D.add(spotLight);
 
-        const geometry = new THREE.TorusKnotGeometry(10, 3, 128, 16);
-
         this.material = new THREE.MeshStandardMaterial({
             color: this.color
         });
 
-        this.cube = new THREE.Mesh(geometry, this.material);
-        this.container3D.add(this.cube);
-
-        this.cube.rotation.x = THREE.MathUtils.degToRad(options.nodes.inputs.query("rotationX").data);
-        this.cube.rotation.y = THREE.MathUtils.degToRad(options.nodes.inputs.query("rotationY").data);
-        this.cube.rotation.z = THREE.MathUtils.degToRad(options.nodes.inputs.query("rotationZ").data);
+        this.addPrimitive();
 
         if (this.auto) {
             this.animate();
@@ -68,6 +61,11 @@ module.exports = {
         const THREE = this.options.THREE.module;
 
         switch (id) {
+            case "shape":
+                this.shape = data;
+
+                this.addPrimitive();
+                break;
             case "auto":
                 this.auto = data;
 
@@ -78,13 +76,13 @@ module.exports = {
                 }
                 break;
             case "rotationX":
-                this.cube.rotation.x = THREE.MathUtils.degToRad(data);
+                this.primitive.rotation.x = THREE.MathUtils.degToRad(data);
                 break;
             case "rotationY":
-                this.cube.rotation.y = THREE.MathUtils.degToRad(data);
+                this.primitive.rotation.y = THREE.MathUtils.degToRad(data);
                 break;
             case "rotationZ":
-                this.cube.rotation.z = THREE.MathUtils.degToRad(data);
+                this.primitive.rotation.z = THREE.MathUtils.degToRad(data);
                 break;
             case "color":
                 this.material.color.set(this.convertColor(data));
@@ -97,6 +95,52 @@ module.exports = {
         this.stop();
     },
 
+    addPrimitive: function () {
+        const THREE = this.options.THREE.module;
+
+        if (this.primitive) {
+            this.container3D.remove(this.primitive);
+
+            this.primitive = null;
+        }
+
+        let geometry;
+        const dimension = Math.max(this.dimensions.width, this.dimensions.height) >> 2;
+
+        switch (this.shape) {
+            case 0:
+                geometry = new THREE.BoxGeometry(dimension, dimension, dimension);
+                break;
+            case 1:
+                geometry = new THREE.ConeGeometry(dimension >> 1, dimension, dimension);
+                break;
+            case 2:
+                geometry = new THREE.CylinderGeometry(dimension >> 1, dimension >> 1, dimension, dimension);
+                break;
+            case 3:
+                geometry = new THREE.TorusGeometry(dimension >> 1, dimension >> 2, dimension, dimension);
+                break;
+            case 4:
+                geometry = new THREE.TorusKnotGeometry(10, 3, 128, 16);
+                break;
+        }
+
+        if (!geometry) {
+            this.stop();
+            return;
+        }
+
+        this.primitive = new THREE.Mesh(geometry, this.material);
+        this.container3D.add(this.primitive);
+
+        this.primitive.rotation.x = THREE.MathUtils.degToRad(this.options.nodes.inputs.query("rotationX").data);
+        this.primitive.rotation.y = THREE.MathUtils.degToRad(this.options.nodes.inputs.query("rotationY").data);
+        this.primitive.rotation.z = THREE.MathUtils.degToRad(this.options.nodes.inputs.query("rotationZ").data);
+
+        if (this.auto) {
+            this.animate();
+        }
+    },
     stop: function () {
         if (this.tween_x) {
             this.tween_x.kill();
@@ -132,11 +176,11 @@ module.exports = {
             }
         };
 
-        params[axis] = this.cube.rotation[axis] + THREE.MathUtils.degToRad(Math.random() * 720 - 360);
+        params[axis] = this.primitive.rotation[axis] + THREE.MathUtils.degToRad(Math.random() * 720 - 360);
 
-        const diff = Math.abs(params[axis] - this.cube.rotation[axis]);
+        const diff = Math.abs(params[axis] - this.primitive.rotation[axis]);
 
-        this["tween_" + axis] = this.options.GSAP.TweenLite.to(this.cube.rotation, diff, params);
+        this["tween_" + axis] = this.options.GSAP.TweenLite.to(this.primitive.rotation, diff, params);
     },
     convertColor: function (hex) {
         const result = parseInt(hex.replace("#", "0x"), 16);

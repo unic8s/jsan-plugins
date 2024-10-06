@@ -1,7 +1,7 @@
 {
-    "name": "Torus",
-    "uid": "com_unic8_elan_torus",
-    "description": "Torus plugin",
+    "name": "Primitive",
+    "uid": "com_unic8_elan_primitive",
+    "description": "THREE primitive plugin",
     "author": "unic8 Studios",
     "version": "0.1.0",
     "process": {
@@ -15,6 +15,7 @@
         "3d"
     ],
     "inputs": [
+        {"name": "shape", "type": "Number", "value": 0},
         {"name": "rotationX", "type": "Number", "value": 0},
         {"name": "rotationY", "type": "Number", "value": 0},
         {"name": "rotationZ", "type": "Number", "value": 0},
