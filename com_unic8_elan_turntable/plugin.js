@@ -25,10 +25,17 @@ module.exports = {
         this.build();
     },
     input: function (id, data) {
+        const refThis = this;
+
         switch (id) {
             case "cover":
-                this.loadCover(data);
-                this.scaleAndPosition();
+                var texture = this.options.PIXI.module.Texture.from(data);
+                
+                texture.on("update", () => {
+                    this.cover.texture = texture;
+
+                    refThis.scaleAndPosition();
+                });
                 break;
             case "progress":
                 this.progress = data;
@@ -43,8 +50,6 @@ module.exports = {
                 this.playing = data;
                 break;
         }
-
-        this.update();
     },
     resize: function (bounds) {
         this.dimensions = bounds;
@@ -94,9 +99,6 @@ module.exports = {
 
         this.scaleAndPosition();
     },
-    loadCover: async function (file) {
-        this.cover.texture = await this.options.PIXI.module.Texture.from(file);
-    },
     scaleAndPosition: function () {
         if (!this.ready) {
             return;
@@ -114,9 +116,10 @@ module.exports = {
 
         this.cover.position.set(this.vinyl.width >> 1, this.vinyl.height >> 1);
 
-        this.cover.scale.set(1, 1);
-        this.cover.pivot.set(this.cover.width >> 1, this.cover.height >> 1);
-        this.cover.scale.set(scale * 1.25, scale * 1.25);
+        const coverScale = 256 / this.cover.texture.width * scale * 1.25;
+
+        this.cover.pivot.set(this.cover.texture.width >> 1, this.cover.texture.height >> 1);
+        this.cover.scale.set(coverScale, coverScale);
 
         this.coverMask.clear();
         this.coverMask.beginFill("#FF0000");
@@ -138,9 +141,9 @@ module.exports = {
         this.grain.clear();
         this.grain.beginFill("#000000", Math.random() * 0.25 + 0.25);
 
-        for(let y = 0; y < this.dimensions.height; y++) {
-            for(let x = 0; x < this.dimensions.width; x++) {
-                if(Math.round(Math.random() * 0.52) == 1) {
+        for (let y = 0; y < this.dimensions.height; y++) {
+            for (let x = 0; x < this.dimensions.width; x++) {
+                if (Math.round(Math.random() * 0.52) == 1) {
                     this.grain.drawRect(x, y, 1, 1);
                 }
             }
