@@ -101,7 +101,7 @@ module.exports = {
         this.options.nodes.outputs.query("song").data = info.title;
         this.options.nodes.outputs.query("artist").data = info.artist;
         this.options.nodes.outputs.query("album").data = info.album;
-        this.options.nodes.outputs.query("progress").data = info.position;
+        this.options.nodes.outputs.query("progress").data = info.position ? info.position : 0;
         this.options.nodes.outputs.query("duration").data = info.duration;
 
         if (this.previousCover != info.albumArtURI) {
