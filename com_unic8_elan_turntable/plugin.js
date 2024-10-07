@@ -16,6 +16,7 @@ module.exports = {
     ready: false,
     playing: false,
     speed: 0.005,
+    coverCache: [],
 
     install: function (options) {
         this.options = options;
@@ -25,17 +26,23 @@ module.exports = {
         this.build();
     },
     input: function (id, data) {
-        const refThis = this;
-
         switch (id) {
             case "cover":
                 var texture = this.options.PIXI.module.Texture.from(data);
                 
-                texture.on("update", () => {
+                if(this.coverCache.indexOf(data) >= 0){
                     this.cover.texture = texture;
 
-                    refThis.scaleAndPosition();
-                });
+                    this.scaleAndPosition();
+                }else{
+                    this.coverCache.push(data);
+
+                    texture.on("update", () => {
+                        this.cover.texture = texture;
+    
+                        this.scaleAndPosition();
+                    });
+                }
                 break;
             case "progress":
                 this.progress = data;
