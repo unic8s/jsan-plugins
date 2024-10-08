@@ -121,9 +121,17 @@ module.exports = {
         this.timeData = event.data;
     },
     microphoneActive: function () {
+        if(!this.container){
+            return;
+        }
+
         this.container.visible = true;
     },
     microphoneInactive: function () {
+        if(!this.container){
+            return;
+        }
+
         this.container.visible = false;
     },
     render() {

@@ -140,7 +140,7 @@ module.exports = {
 
         this.grainMask.clear();
         this.grainMask.beginFill("#FF0000");
-        this.grainMask.drawCircle(this.vinyl.width >> 1, this.vinyl.height >> 1, minSize >> 1);
+        this.grainMask.drawCircle(this.vinyl.width >> 1, this.vinyl.height >> 1, 470 * scale);
         this.grainMask.endFill();
 
         this.grain.position.set(this.vinyl.width >> 1, this.vinyl.height >> 1);
