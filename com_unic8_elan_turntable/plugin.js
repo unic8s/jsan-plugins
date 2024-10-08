@@ -15,7 +15,7 @@ module.exports = {
     progress: 0,
     ready: false,
     playing: false,
-    speed: 0.005,
+    speed: 0.1,
     coverCache: [],
 
     install: function (options) {
@@ -170,8 +170,17 @@ module.exports = {
         );
 
         if (this.playing) {
-            this.cover.rotation += this.speed;
-            this.grain.rotation += this.speed;
+            this.options.GSAP.TweenLite.to(this.cover, 2,
+                {
+                    rotation: this.cover.rotation + this.speed
+                }
+            );
+
+            this.options.GSAP.TweenLite.to(this.grain, 2,
+                {
+                    rotation: this.grain.rotation + this.speed
+                }
+            );
         } else {
             this.cover.rotation = 0;
         }
