@@ -28,21 +28,7 @@ module.exports = {
     input: function (id, data) {
         switch (id) {
             case "cover":
-                var texture = this.options.PIXI.module.Texture.from(data);
-                
-                if(this.coverCache.indexOf(data) >= 0){
-                    this.cover.texture = texture;
-
-                    this.scaleAndPosition();
-                }else{
-                    this.coverCache.push(data);
-
-                    texture.on("update", () => {
-                        this.cover.texture = texture;
-    
-                        this.scaleAndPosition();
-                    });
-                }
+                this.updateCover(data);
                 break;
             case "progress":
                 this.progress = data;
@@ -105,6 +91,25 @@ module.exports = {
         this.ready = true;
 
         this.scaleAndPosition();
+    },
+    updateCover: async function (data) {
+        try {
+            var texture = await this.options.PIXI.module.Texture.from(data);
+
+            if (this.coverCache.indexOf(data) >= 0) {
+                this.cover.texture = texture;
+
+                this.scaleAndPosition();
+            } else {
+                this.coverCache.push(data);
+
+                texture.on("update", () => {
+                    this.cover.texture = texture;
+
+                    this.scaleAndPosition();
+                });
+            }
+        } catch (err) { }
     },
     scaleAndPosition: function () {
         if (!this.ready) {
