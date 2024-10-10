@@ -92,6 +92,8 @@ module.exports = {
         this.scaleAndPosition();
     },
     updateCover: async function (data) {
+        const PIXI = this.options.PIXI.module;
+
         PIXI.Assets.load({
             src: data,
             loadParser: 'loadTextures'
