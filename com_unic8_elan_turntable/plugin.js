@@ -16,7 +16,6 @@ module.exports = {
     ready: false,
     playing: false,
     speed: 0.1,
-    coverCache: [],
 
     install: function (options) {
         this.options = options;
@@ -93,23 +92,16 @@ module.exports = {
         this.scaleAndPosition();
     },
     updateCover: async function (data) {
-        try {
-            var texture = await this.options.PIXI.module.Texture.from(data);
+        PIXI.Assets.load({
+            src: data,
+            loadParser: 'loadTextures'
+        }).then((texure) => {
+            this.cover.texture = texure;
 
-            if (this.coverCache.indexOf(data) >= 0) {
-                this.cover.texture = texture;
-
-                this.scaleAndPosition();
-            } else {
-                this.coverCache.push(data);
-
-                texture.on("update", () => {
-                    this.cover.texture = texture;
-
-                    this.scaleAndPosition();
-                });
-            }
-        } catch (err) { }
+            this.scaleAndPosition();
+        }).catch((error) => {
+            console.log(error);
+        });
     },
     scaleAndPosition: function () {
         if (!this.ready) {
