@@ -19,13 +19,7 @@ module.exports = {
     install: function (options) {
         this.options = options;
 
-        const SpotifyWebApi = options.SpotifyWebApi;
-
-        this.spotifyApi = new SpotifyWebApi({
-            clientId: '7e51b167651046ee98c97391d5b5aece',
-            clientSecret: 'c96b0d8e8ece4d41a4f8885e9fd093d6',
-            redirectUri: 'http://localhost:8888/spotify/callback'
-        });
+        this.spotifyApi = options.SpotifyWebApi;
 
         this.dimensions = this.options.params.canvas;
 
