@@ -1,0 +1,28 @@
+{
+    "name": "Home Assistant",
+    "uid": "com_unic8_elan_homeassistant",
+    "description": "Home Assistant plugin",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+    ],
+    "features": [
+    ],
+    "inputs": [
+        {"name": "token", "type": "String", "value": ""},
+        {"name": "url", "type": "String", "value": ""},
+        {"name": "entity", "type": "String", "value": ""},
+        {"name": "selector", "type": "String", "value": ""},
+        {"name": "interval", "type": "Number", "value": 10},
+        {"name": "trigger", "type": "Boolean", "value": false}
+    ],
+    "outputs": [
+        {"name": "value", "type": "String", "value": ""}
+    ],
+    "files": [
+    ]
+}
