@@ -75,9 +75,10 @@ module.exports = {
             src: this.options.files["assets/playhead.png"],
             loadParser: 'loadTextures'
         });
-        window.playhead = this.playhead = new PIXI.Sprite(playheadTexture);
-        this.playheadSize = this.playhead.height;
+        this.playhead = new PIXI.Sprite(playheadTexture);
         this.playhead.pivot.set(353, 58);
+
+        this.playheadSize = this.playhead.height;
 
         this.container.addChild(this.vinyl);
         this.container.addChild(this.grain);
