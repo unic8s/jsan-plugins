@@ -9,6 +9,7 @@
         "priority": 0
     },
     "permissions": [
+        "request"
     ],
     "features": [
     ],

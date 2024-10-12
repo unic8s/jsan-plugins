@@ -49,47 +49,44 @@ module.exports = {
             }, this.interval * 1000);
         }
     },
-
-    grab: async function () {
-        try {
-            const headers = {
-                "Content-Type": "application/json"
-            };
-
-            if(this.token.length > 0){
-                headers["Authorization"] = "Bearer " + this.token;
-            }
-
-            const response = await fetch(this.url, headers);
-
-            if(this.killed){
-                return;
-            }
-
-            const body = await response.text();
+    response: function (event) {
+        if (event.data.error) {
+            this.options.nodes.outputs.query("value").data = "";
+            this.options.nodes.outputs.query("error").data = event.data.error;
+        } else {
+            const body = event.data.response;
             const data = JSON.parse(body);
 
             const result = this.queryData(data, this.query.split("."));
 
             this.options.nodes.outputs.query("value").data = result ? result : "";
             this.options.nodes.outputs.query("error").data = result ? "" : body;
-        } catch (ex) {
-            this.options.nodes.outputs.query("value").data = "";
-            this.options.nodes.outputs.query("error").data = ex.toString();
         }
     },
-    queryData(data, segments){
+
+    grab: async function () {
+        const headers = {
+            "Content-Type": "application/json"
+        };
+
+        if (this.token.length > 0) {
+            headers["Authorization"] = "Bearer " + this.token;
+        }
+
+        this.options.webRequest(this.url, { headers });
+    },
+    queryData(data, segments) {
         const segment = segments.shift();
 
-        if(data[segment]){
+        if (data[segment]) {
             const fragment = data[segment];
 
-            if(segments.length > 0) {
+            if (segments.length > 0) {
                 data = this.queryData(fragment, segments);
-            }else{
+            } else {
                 data = fragment;
             }
-        }else{
+        } else {
             data = null;
         }
 
