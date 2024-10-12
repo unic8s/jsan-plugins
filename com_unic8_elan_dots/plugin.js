@@ -89,7 +89,7 @@ module.exports = {
         this.draw();
     },
 
-    build: function () {
+    build: async function () {
         this.killTweens();
 
         this.context.fillStyle = "#000";

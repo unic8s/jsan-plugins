@@ -30,7 +30,7 @@ module.exports = {
     render: function () {
         if (this.active && (this.cycles == 0 || this.counter < this.cycles)) {
             const now = this.getTime();
-            const increment = this.delay >= 10 ? this.delay : 10;
+            const increment = this.delay >= 1 ? this.delay : 1;
 
             while (now - this.lastTime >= this.delay) {
                 this.lastTime += increment;
