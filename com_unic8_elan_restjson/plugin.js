@@ -55,12 +55,19 @@ module.exports = {
             this.options.nodes.outputs.query("error").data = event.data.error;
         } else {
             const body = event.data.response;
-            const data = JSON.parse(body);
+            let data;
 
-            const result = this.queryData(data, this.query.split("."));
+            try {
+                data = JSON.parse(body);
 
-            this.options.nodes.outputs.query("value").data = result ? result : "";
-            this.options.nodes.outputs.query("error").data = result ? "" : body;
+                const result = this.queryData(data, this.query.split("."));
+
+                this.options.nodes.outputs.query("value").data = result ? result : "";
+                this.options.nodes.outputs.query("error").data = "";
+            } catch (error) {
+                this.options.nodes.outputs.query("value").data = body;
+                this.options.nodes.outputs.query("error").data = error;
+            }
         }
     },
 
