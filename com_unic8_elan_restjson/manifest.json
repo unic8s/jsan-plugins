@@ -14,7 +14,7 @@
     ],
     "inputs": [
         {"name": "url", "type": "String", "value": ""},
-        {"name": "selector", "type": "String", "value": ""},
+        {"name": "query", "type": "String", "value": ""},
         {"name": "token", "type": "String", "value": ""},
         {"name": "interval", "type": "Number", "value": 0},
         {"name": "trigger", "type": "Boolean", "value": false}

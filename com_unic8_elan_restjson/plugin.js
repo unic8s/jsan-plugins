@@ -2,7 +2,7 @@ module.exports = {
     token: "",
     url: "",
     entity: "",
-    selector: "",
+    query: "",
     interval: 0,
     intervalID: null,
     killed: false,
@@ -23,8 +23,8 @@ module.exports = {
             case "url":
                 this.url = data;
                 break;
-            case "selector":
-                this.selector = data;
+            case "query":
+                this.query = data;
                 break;
             case "trigger":
                 this.grab();
@@ -41,7 +41,7 @@ module.exports = {
             clearInterval(this.intervalID);
         }
 
-        if (this.selector && this.interval > 0) {
+        if (this.query && this.interval > 0) {
             const refThis = this;
 
             this.intervalID = setInterval(() => {
@@ -69,23 +69,23 @@ module.exports = {
             const body = await response.text();
             const data = JSON.parse(body);
 
-            const selection = this.selectData(data, this.selector.split("."));
+            const result = this.queryData(data, this.query.split("."));
 
-            this.options.nodes.outputs.query("value").data = selection ? selection : "";
-            this.options.nodes.outputs.query("error").data = selection ? "" : body;
+            this.options.nodes.outputs.query("value").data = result ? result : "";
+            this.options.nodes.outputs.query("error").data = result ? "" : body;
         } catch (ex) {
             this.options.nodes.outputs.query("value").data = "";
             this.options.nodes.outputs.query("error").data = ex.toString();
         }
     },
-    selectData(data, segments){
+    queryData(data, segments){
         const segment = segments.shift();
 
         if(data[segment]){
             const fragment = data[segment];
 
             if(segments.length > 0) {
-                data = this.selectData(fragment, segments);
+                data = this.queryData(fragment, segments);
             }else{
                 data = fragment;
             }
