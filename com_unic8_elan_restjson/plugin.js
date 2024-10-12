@@ -50,15 +50,14 @@ module.exports = {
         }
     },
     response: function (event) {
+        const body = event.data.response;
+
         if (event.data.error) {
-            this.options.nodes.outputs.query("value").data = "";
+            this.options.nodes.outputs.query("value").data = body;
             this.options.nodes.outputs.query("error").data = event.data.error;
         } else {
-            const body = event.data.response;
-            let data;
-
             try {
-                data = JSON.parse(body);
+                var data = JSON.parse(body);
 
                 const result = this.queryData(data, this.query.split("."));
 
