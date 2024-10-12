@@ -1,7 +1,7 @@
 {
-    "name": "Home Assistant",
-    "uid": "com_unic8_elan_homeassistant",
-    "description": "Home Assistant plugin",
+    "name": "REST JSON Client",
+    "uid": "com_unic8_elan_restjson",
+    "description": "REST JSON Client plugin",
     "author": "unic8 Studios",
     "version": "0.1.0",
     "process": {
@@ -13,10 +13,9 @@
     "features": [
     ],
     "inputs": [
-        {"name": "token", "type": "String", "value": ""},
         {"name": "url", "type": "String", "value": ""},
-        {"name": "entity", "type": "String", "value": ""},
         {"name": "selector", "type": "String", "value": ""},
+        {"name": "token", "type": "String", "value": ""},
         {"name": "interval", "type": "Number", "value": 0},
         {"name": "trigger", "type": "Boolean", "value": false}
     ],

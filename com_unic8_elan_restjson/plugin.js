@@ -52,12 +52,15 @@ module.exports = {
 
     grab: async function () {
         try {
-            const response = await fetch(this.url + "/api/" + this.entity, {
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": "Bearer " + this.token
-                }
-            });
+            const headers = {
+                "Content-Type": "application/json"
+            };
+
+            if(this.token.length > 0){
+                headers["Authorization"] = "Bearer " + this.token;
+            }
+
+            const response = await fetch(this.url, headers);
 
             if(this.killed){
                 return;
