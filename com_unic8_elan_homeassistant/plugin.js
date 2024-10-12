@@ -3,7 +3,7 @@ module.exports = {
     url: "",
     entity: "",
     selector: "",
-    interval: 10,
+    interval: 0,
     intervalID: null,
 
     install: function (options) {
@@ -55,9 +55,13 @@ module.exports = {
             const body = await response.text();
             const data = JSON.parse(body);
 
-            this.options.nodes.outputs.query("value").data = this.selectData(data, this.selector.split("."));
+            const selection = this.selectData(data, this.selector.split("."));
+
+            this.options.nodes.outputs.query("value").data = selection ? selection : "";
+            this.options.nodes.outputs.query("error").data = selection ? "" : body;
         } catch (ex) {
-            this.options.nodes.outputs.query("value").data = ex.toString();
+            this.options.nodes.outputs.query("value").data = "";
+            this.options.nodes.outputs.query("error").data = ex.toString();
         }
     },
     selectData(data, segments){
@@ -67,10 +71,12 @@ module.exports = {
             const fragment = data[segment];
 
             if(segments.length > 0) {
-                return this.selectData(fragment, segments);
+                data = this.selectData(fragment, segments);
             }else{
                 data = fragment;
             }
+        }else{
+            data = null;
         }
 
         return data;
