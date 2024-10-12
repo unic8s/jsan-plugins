@@ -3,9 +3,15 @@ module.exports = {
     interval: 10,
     selector: "",
     intervalID: null,
+    killed: false,
 
     install: function (options) {
         this.options = options;
+    },
+    uninstall: function () {
+        clearInterval(this.intervalID);
+
+        this.killed = true;
     },
     input: function (id, data) {
         switch (id) {
@@ -39,6 +45,11 @@ module.exports = {
     grab: async function () {
         try {
             const response = await fetch(this.url);
+
+            if(this.killed){
+                return;
+            }
+
             const body = await response.text();
             const myDOM = new DOMParser().parseFromString(body, "text/html");
             const myElement = myDOM.querySelector(this.selector);

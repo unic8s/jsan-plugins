@@ -5,9 +5,15 @@ module.exports = {
     selector: "",
     interval: 0,
     intervalID: null,
+    killed: false,
 
     install: function (options) {
         this.options = options;
+    },
+    uninstall: function () {
+        clearInterval(this.intervalID);
+
+        this.killed = true;
     },
     input: function (id, data) {
         switch (id) {
@@ -52,6 +58,11 @@ module.exports = {
                     "Authorization": "Bearer " + this.token
                 }
             });
+
+            if(this.killed){
+                return;
+            }
+
             const body = await response.text();
             const data = JSON.parse(body);
 
