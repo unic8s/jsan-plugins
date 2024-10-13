@@ -1,0 +1,38 @@
+{
+    "name": "Math",
+    "uid": "com_unic8_elan_math",
+    "description": "Math plugin",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+    ],
+    "features": [
+    ],
+    "inputs": [
+        {"name": "abs", "type": "Number", "value": 0},
+        {"name": "ceil", "type": "Number", "value": 0},
+        {"name": "cos", "type": "Number", "value": 0},
+        {"name": "floor", "type": "Number", "value": 0},
+        {"name": "pow base", "type": "Number", "value": 0},
+        {"name": "pow exp", "type": "Number", "value": 0},
+        {"name": "round", "type": "Number", "value": 0},
+        {"name": "sin", "type": "Number", "value": 0},
+        {"name": "sqrt", "type": "Number", "value": 0}
+    ],
+    "outputs": [
+        {"name": "abs", "type": "Number", "value": 0},
+        {"name": "ceil", "type": "Number", "value": 0},
+        {"name": "cos", "type": "Number", "value": 0},
+        {"name": "floor", "type": "Number", "value": 0},
+        {"name": "pow", "type": "Number", "value": 0},
+        {"name": "round", "type": "Number", "value": 0},
+        {"name": "sin", "type": "Number", "value": 0},
+        {"name": "sqrt", "type": "Number", "value": 0}
+    ],
+    "files": [
+    ]
+}
