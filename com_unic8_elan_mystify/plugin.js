@@ -95,6 +95,7 @@ module.exports = {
         }
     },
     setup: function () {
+        this.killAnimations();
         this.vertices = [];
 
         for (let c = 0; c < this.points; c++) {
