@@ -2,6 +2,7 @@ module.exports = {
     options: null,
     counter: 0,
     limit: 0,
+    repeat: true,
     delay: 1000,
     active: false,
 
@@ -18,7 +19,7 @@ module.exports = {
                 } else {
                     this.options.nodes.outputs.query("active").data = false;
 
-                    if (this.reset) {
+                    if (this.repeat || this.reset) {
                         this.counter = 0;
                     }
                 }
@@ -29,6 +30,9 @@ module.exports = {
                 }
 
                 this.limit = data;
+                break;
+            case "Repeat":
+                this.repeat = data;
                 break;
             case "Reset":
                 this.counter = 0;

@@ -15,6 +15,7 @@
     "inputs": [
         {"name": "Trigger", "type": "Boolean", "value": false},
         {"name": "Limit", "type": "Number", "value": 0},
+        {"name": "Repeat", "type": "Boolean", "value": true},
         {"name": "Reset", "type": "Boolean", "value": true}
     ],
     "outputs": [
