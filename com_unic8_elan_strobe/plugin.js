@@ -9,10 +9,10 @@ module.exports = {
     isDirty: false,
     tween: null,
 
-    install: function (options) {
+    install: function (options, inputs) {
         this.options = options;
 
-        this.color = options.nodes.inputs.query("color").data;
+        this.color = inputs.color;
 
         this.dimensions = this.options.params.canvas;
 

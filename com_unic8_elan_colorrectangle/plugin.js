@@ -8,12 +8,12 @@ module.exports = {
     gfx: null,
     isDirty: false,
 
-    install: function (options) {
+    install: function (options, inputs) {
         this.options = options;
 
-        this.color = options.nodes.inputs.query("color").data;
-        this.radius = options.nodes.inputs.query("radius").data;
-        this.chamfer = options.nodes.inputs.query("chamfer").data;
+        this.color = inputs.color;
+        this.radius = inputs.radius;
+        this.chamfer = inputs.chamfer;
 
         this.dimensions = this.options.params.canvas;
 

@@ -10,14 +10,14 @@ module.exports = {
     isDirty: false,
     gfx: null,
 
-    install: function (options) {
+    install: function (options, inputs) {
         this.options = options;
 
-        this.track = options.nodes.inputs.query("track").data;
-        this.fill = options.nodes.inputs.query("fill").data;
-        this.minimum = options.nodes.inputs.query("minimum").data;
-        this.maximum = options.nodes.inputs.query("maximum").data;
-        this.value = options.nodes.inputs.query("value").data;
+        this.track = inputs.track;
+        this.fill = inputs.fill;
+        this.minimum = inputs.minimum;
+        this.maximum = inputs.maximum;
+        this.value = inputs.value;
 
         this.dimensions = this.options.params.canvas;
 

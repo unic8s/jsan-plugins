@@ -7,12 +7,12 @@ module.exports = {
     camData: null,
     stage: null,
 
-    install: function (options) {
+    install: function (options, inputs) {
         this.options = options;
 
         this.dimensions = this.options.params.canvas;
 
-        this.contains = options.nodes.inputs.query("contains").data;
+        this.contains = inputs.contains;
 
         this.container = options.PIXI.instance;
         this.PIXI = options.PIXI.module;

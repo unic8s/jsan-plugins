@@ -65,8 +65,8 @@ module.exports = {
         this.stage.texture = PIXI.Texture.from(this.canvas);
         this.container.addChild(this.stage);
 
-        this.contains = options.nodes.inputs.query("contains").data;
-        this.fade = options.nodes.inputs.query("fade").data;
+        this.contains = inputs.contains;
+        this.fade = inputs.fade;
 
         this.gifData = {
             frames: [],
