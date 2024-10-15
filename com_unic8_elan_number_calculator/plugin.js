@@ -1,5 +1,6 @@
 module.exports = {
     options: null,
+    outputs: null,
     addA: 0,
     addB: 0,
     subA: 0,
@@ -9,8 +10,9 @@ module.exports = {
     divA: 0,
     divB: 0,
 
-    install: function (options) {
+    install: function (options, inputs, outputs) {
         this.options = options;
+        this.outputs = outputs;
     },
     input: function (id, data) {
         switch (id) {
@@ -43,19 +45,19 @@ module.exports = {
         switch (id) {
             case "Add A":
             case "Add B":
-                this.options.nodes.outputs.query("Add").data = this.addA + this.addB;
+                this.outputs.Add = this.addA + this.addB;
                 break;
             case "Sub A":
             case "Sub B":
-                this.options.nodes.outputs.query("Sub").data = this.subA - this.subB;
+                this.outputs.Sub = this.subA - this.subB;
                 break;
             case "Mlt A":
             case "Mlt B":
-                this.options.nodes.outputs.query("Mlt").data = this.mltA * this.mltB;
+                this.outputs.Mlt = this.mltA * this.mltB;
                 break;
             case "Div A":
             case "Div B":
-                this.options.nodes.outputs.query("Div").data = this.divB != 0 ? this.divA * this.divB : this.divA;
+                this.outputs.Div = this.divB != 0 ? this.divA * this.divB : this.divA;
                 break;
         }
     }

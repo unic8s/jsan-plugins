@@ -1,23 +1,25 @@
 module.exports = {
     options: null,
+    outputs: null,
     counter: 0,
     limit: 0,
     repeat: true,
     delay: 1000,
     active: false,
 
-    install: function (options) {
+    install: function (options, inputs, outputs) {
         this.options = options;
+        this.outputs = outputs;
     },
     input: function (id, data) {
         switch (id) {
             case "Trigger":
                 if (this.limit == 0 || this.counter < this.limit) {
-                    this.options.nodes.outputs.query("active").data = true;
+                    this.outputs.active = true;
 
                     this.counter++;
                 } else {
-                    this.options.nodes.outputs.query("active").data = false;
+                    this.outputs.active = false;
 
                     if (this.repeat || this.reset) {
                         this.counter = 0;
@@ -39,6 +41,6 @@ module.exports = {
                 break;
         }
 
-        this.options.nodes.outputs.query("Counter").data = this.counter;
+        this.outputs.Counter = this.counter;
     }
 }

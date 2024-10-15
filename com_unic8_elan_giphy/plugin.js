@@ -1,13 +1,15 @@
 module.exports = {
     options: null,
+    outputs: null,
     apiKey: '1IIOEdd2okuoCnzL9c93LJSqSpolOuh5',
     inputTimeout: null,
     search: "",
     index: 0,
     jsonData: null,
 
-    install: function (options) {
+    install: function (options, inputs, outputs) {
         this.options = options;
+        this.outputs = outputs;
     },
     input: function (id, data) {
         switch (id) {
@@ -64,7 +66,7 @@ module.exports = {
             return;
         }
 
-        this.options.nodes.outputs.query("image").data = {
+        this.outputs.image = {
             fileID: item.images.preview_gif.url,
             path: item.images.preview_gif.url
         };

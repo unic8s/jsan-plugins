@@ -1,5 +1,6 @@
 module.exports = {
     options: null,
+    output: null,
     red: 0,
     green: 0,
     blue: 0,
@@ -7,8 +8,9 @@ module.exports = {
     random: true,
     tween: null,
 
-    install: function (options) {
+    install: function (options, inputs, outputs) {
         this.options = options;
+        this.outputs = outputs;
     },
     uninstall: function () {
         if (this.tween) {
@@ -69,7 +71,7 @@ module.exports = {
     },
 
     updateColor() {
-        this.options.nodes.outputs.query("color").data = this.rgbToHex(this.red, this.green, this.blue);
+        this.outputs.color = this.rgbToHex(this.red, this.green, this.blue);
     },
     rgbToHex(r, g, b) {
         return "#" + (1 << 24 | r << 16 | g << 8 | b).toString(16).slice(1);

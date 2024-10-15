@@ -1,5 +1,6 @@
 module.exports = {
     options: null,
+    outputs: null,
     andA: false,
     andB: false,
     orA: false,
@@ -11,8 +12,9 @@ module.exports = {
     norA: false,
     norB: false,
 
-    install: function (options) {
+    install: function (options, inputs, outputs) {
         this.options = options;
+        this.outputs = outputs;
     },
     input: function (id, data) {
         switch (id) {
@@ -50,27 +52,27 @@ module.exports = {
 
         switch (id) {
             case "NOT":
-                this.options.nodes.outputs.query("NOT").data = !data;
+                this.outputs.NOT = !data;
                 break;
             case "AND A":
             case "AND B":
-                this.options.nodes.outputs.query("AND").data = this.andA && this.andB;
+                this.outputs.AND = this.andA && this.andB;
                 break;
             case "OR A":
             case "OR B":
-                this.options.nodes.outputs.query("OR").data = this.orA || this.orB;
+                this.outputs.OR = this.orA || this.orB;
                 break;
             case "XOR A":
             case "XOR B":
-                this.options.nodes.outputs.query("XOR").data = this.xorA ^ this.xorB;
+                this.outputs.XOR = this.xorA ^ this.xorB;
                 break;
             case "NAND A":
             case "NAND B":
-                this.options.nodes.outputs.query("NAND").data = !(this.nandA && this.andB);
+                this.outputs.NAND = !(this.nandA && this.andB);
                 break;
             case "NOR A":
             case "NOR B":
-                this.options.nodes.outputs.query("NOR").data = !(this.norA || this.norB);
+                this.outputs.NOR = !(this.norA || this.norB);
                 break;
         }
     }

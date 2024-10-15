@@ -12,7 +12,7 @@ module.exports = {
     gfxMinutes: null,
     gfxHours: null,
 
-    install: function (options) {
+    install: function (options, inputs) {
         this.options = options;
 
         const PIXI = this.options.PIXI.module;
@@ -20,10 +20,10 @@ module.exports = {
 
         this.dimensions = this.options.params.canvas;
 
-        this.timeStamp = options.nodes.inputs.query("time").data;
-        this.colorHours = options.nodes.inputs.query("hours").data;
-        this.colorMinutes = options.nodes.inputs.query("minutes").data;
-        this.colorSeconds = options.nodes.inputs.query("seconds").data;
+        this.timeStamp = inputs.time;
+        this.colorHours = inputs.hours;
+        this.colorMinutes = inputs.minutes;
+        this.colorSeconds = inputs.seconds;
 
         this.gfxSeconds = new PIXI.Graphics();
         this.gfxMinutes = new PIXI.Graphics();

@@ -1,13 +1,15 @@
 module.exports = {
     options: null,
+    outputs: null,
     fromLow: 0,
     fromHigh: 1,
     toLow: 0,
     toHigh: 1,
     value: 0,
 
-    install: function (options) {
+    install: function (options, inputs, outputs) {
         this.options = options;
+        this.outputs = outputs;
     },
     input: function (id, data) {
         switch (id) {
@@ -44,6 +46,6 @@ module.exports = {
             }
         }
 
-        this.options.nodes.outputs.query("Output").data = calculated;
+        this.outputs.Output.data = calculated;
     }
 }

@@ -1,12 +1,15 @@
 module.exports = {
+    options: null,
+    outputs: null,
     url: "",
     interval: 10,
     selector: "",
     intervalID: null,
     killed: false,
 
-    install: function (options) {
+    install: function (options, inputs, outputs) {
         this.options = options;
+        this.outputs = outputs;
     },
     uninstall: function () {
         clearInterval(this.intervalID);
@@ -67,10 +70,10 @@ module.exports = {
                         data = myElement.innerText;
                 }
 
-                this.options.nodes.outputs.query("Content").data = data;
+                this.outputs.Content = data;
             }
         } catch (ex) {
-            this.options.nodes.outputs.query("Content").data = ex.toString();
+            this.outputs.Content = ex.toString();
         }
     }
 }

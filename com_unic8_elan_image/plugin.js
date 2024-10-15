@@ -1,5 +1,6 @@
 module.exports = {
     options: null,
+    outputs: null,
     dimensions: null,
     contains: null,
     image: null,
@@ -23,8 +24,9 @@ module.exports = {
     patchCanvas: null,
     patchContext: null,
 
-    install: function (options) {
+    install: function (options, inputs, outputs) {
         this.options = options;
+        this.outputs = outputs;
 
         const refThis = this;
 
@@ -253,8 +255,8 @@ module.exports = {
             const average = this.options.helpers.color.calculateAverage(pixels);
             const accent = this.options.helpers.color.calculateAccent(pixels);
 
-            this.options.nodes.outputs.query("average").data = this.options.helpers.color.rgbToHex.apply(this, average);
-            this.options.nodes.outputs.query("accent").data = this.options.helpers.color.rgbToHex.apply(this, accent);
+            this.outputs.average = this.options.helpers.color.rgbToHex.apply(this, average);
+            this.outputs.accent = this.options.helpers.color.rgbToHex.apply(this, accent);
         } else {
             this.prescale(this.gifDims.width, this.gifDims.height);
         }
