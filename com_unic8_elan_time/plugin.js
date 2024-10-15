@@ -1,10 +1,12 @@
 module.exports = {
     options: null,
+    outputs: null,
     timestamp: -1,
     lastUpdate: 0,
 
-    install: function (options) {
+    install: function (options, inputs, outputs) {
         this.options = options;
+        this.outputs = outputs;
     },
     input: function (id, data) {
         switch (id) {
@@ -18,10 +20,10 @@ module.exports = {
         const time = now.getTime();
 
         if(Math.abs(time - this.lastUpdate) > 1000) {
-            this.options.nodes.outputs.query("timestamp").data = Math.round(time / 1000);
-            this.options.nodes.outputs.query("hours").data = now.getHours();
-            this.options.nodes.outputs.query("minutes").data = now.getMinutes();
-            this.options.nodes.outputs.query("seconds").data = now.getSeconds();
+            this.outputs.timestamp = Math.round(time / 1000);
+            this.outputs.hours = now.getHours();
+            this.outputs.minutes = now.getMinutes();
+            this.outputs.seconds = now.getSeconds();
 
             this.lastUpdate = now;
         }

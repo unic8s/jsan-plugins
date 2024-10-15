@@ -1,5 +1,6 @@
 module.exports = {
     options: null,
+    outputs: null,
     dimensions: null,
     tween: null,
     isDirty: false,
@@ -12,8 +13,9 @@ module.exports = {
     style: null,
     container: null,
 
-    install: function (options) {
+    install: function (options, inputs, outputs) {
         this.options = options;
+        this.outputs = outputs;
 
         this.dimensions = this.options.params.canvas;
 
@@ -21,11 +23,11 @@ module.exports = {
         this.container = options.PIXI.instance;
 
         this.style = new PIXI.TextStyle();
-        this.style.fill = this.convertColor(options.nodes.inputs.query("color").data);
-        this.style.fontSize = options.nodes.inputs.query("size").data;
-        this.style.fontFamily = options.nodes.inputs.query("font").data;
+        this.style.fill = this.convertColor(inputs.color);
+        this.style.fontSize = inputs.size;
+        this.style.fontFamily = inputs.font;
 
-        let wordWrapWidth = options.nodes.inputs.query("width").data;
+        let wordWrapWidth = inputs.width;
 
         if (wordWrapWidth < 0) {
             wordWrapWidth = 0;
@@ -35,11 +37,11 @@ module.exports = {
         this.style.wordWrap = this.style.wordWrapWidth > 0;
 
         this.label = new PIXI.Text("", this.style);
-        this.label.text = options.nodes.inputs.query("label").data;
+        this.label.text = inputs.label;
 
-        this.scroll = options.nodes.inputs.query("scroll").data;
-        this.speed = options.nodes.inputs.query("speed").data;
-        this.smooth = options.nodes.inputs.query("smooth").data;
+        this.scroll = inputs.scroll;
+        this.speed = inputs.speed;
+        this.smooth = inputs.smooth;
 
         this.container.addChild(this.label);
     },
@@ -124,7 +126,7 @@ module.exports = {
         this.calcMetrics();
     },
     calcMetrics: function () {
-        this.options.nodes.outputs.query("metrics").data = {
+        this.outputs.metrics = {
             x: this.label.x,
             y: this.label.y,
             width: this.label.width,

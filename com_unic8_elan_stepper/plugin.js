@@ -1,5 +1,6 @@
 module.exports = {
     options: null,
+    outputs: null,
     from: 0,
     to: 1,
     duration: 1,
@@ -8,8 +9,9 @@ module.exports = {
     yoyo: false,
     tween: null,
 
-    install: function (options) {
+    install: function (options, inputs, outputs) {
         this.options = options;
+        this.outputs = outputs;
     },
     input: function (id, data) {
         let needsUpdate = false;
@@ -39,7 +41,7 @@ module.exports = {
                 break;
         }
 
-        if (needsUpdate && this.options.nodes.outputs.query("active").data) {
+        if (needsUpdate && this.outputs.active) {
             this.step(this.from, this.to);
         }
     },
@@ -57,7 +59,7 @@ module.exports = {
         }
 
         this.value = from;
-        this.options.nodes.outputs.query("active").data = true;
+        this.outputs.active = true;
 
         const refThis = this;
 
@@ -66,7 +68,7 @@ module.exports = {
                 value: to,
                 ease: this.options.GSAP.Linear.easeNone,
                 onUpdate: () => {
-                    refThis.options.nodes.outputs.query("value").data = this.value;
+                    refThis.outputs.value = this.value;
                 },
                 onComplete: () => {
                     if (refThis.repeat) {
@@ -76,7 +78,7 @@ module.exports = {
                             this.step(from, to);
                         }
                     } else {
-                        refThis.options.nodes.outputs.query("active").data = false;
+                        refThis.outputs.active = false;
                     }
                 }
             }

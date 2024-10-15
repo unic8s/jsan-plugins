@@ -1,5 +1,6 @@
 module.exports = {
     options: null,
+    outputs: null,
     hasHay: "",
     hasNdl: "",
     conA: "",
@@ -12,13 +13,14 @@ module.exports = {
     subBgn: 0,
     subEnd: 0,
 
-    install: function (options) {
+    install: function (options, inputs, outputs) {
         this.options = options;
+        this.outputs = outputs;
     },
     input: function (id, data) {
         switch (id) {
             case "Len":
-                this.options.nodes.outputs.query("Len").data = data.length;
+                this.outputs.Len = data.length;
                 break;
             case "Has hay":
                 this.hasHay = data;
@@ -58,12 +60,12 @@ module.exports = {
         switch (id) {
             case "Has hay":
             case "Has ndl":
-                this.options.nodes.outputs.query("Has").data = this.hasHay.indexOf(this.hasNdl) >= 0;
+                this.outputs.Has = this.hasHay.indexOf(this.hasNdl) >= 0;
                 break;
             case "Con A":
             case "Con B":
             case "Con sep":
-                this.options.nodes.outputs.query("Con").data = this.conA + this.conSep + this.conB;
+                this.outputs.Con = this.conA + this.conSep + this.conB;
                 break;
             case "Rep hay":
             case "Rep ndl":
@@ -76,14 +78,14 @@ module.exports = {
                     }
                 }
 
-                this.options.nodes.outputs.query("Rep").data = replaced;
+                this.outputs.Rep = replaced;
                 break;
             case "Sub src":
             case "Sub bgn":
             case "Sub end":
                 var end = this.subEnd == 0 ? this.subSrc.length - 1 : this.subEnd;
 
-                this.options.nodes.outputs.query("Sub").data = this.subSrc.substr(this.subBgn, end);
+                this.outputs.Sub = this.subSrc.substr(this.subBgn, end);
                 break;
         }
     }

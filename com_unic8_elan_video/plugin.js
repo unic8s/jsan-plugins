@@ -1,5 +1,6 @@
 module.exports = {
     options: null,
+    outputs: null,
     dimensions: null,
     contains: null,
     PIXI: null,
@@ -8,8 +9,9 @@ module.exports = {
     stage: null,
     speed: 1,
 
-    install: function (options) {
+    install: function (options, inputs, outputs) {
         this.options = options;
+        this.outputs = outputs;
 
         this.dimensions = this.options.params.canvas;
         this.dimensions.x = 0;
@@ -18,12 +20,12 @@ module.exports = {
         this.player = document.createElement("video");
         this.player.crossOrigin = "anonymous";
 
-        this.player.loop = options.nodes.inputs.query("loop").data;
-        this.player.autoplay = options.nodes.inputs.query("autoplay").data;
-        this.player.muted = options.nodes.inputs.query("muted").data;
-        this.player.src = options.nodes.inputs.query("path").data;
-        this.contains = options.nodes.inputs.query("contains").data;
-        this.speed = options.nodes.inputs.query("speed").data;
+        this.player.loop = inputs.loop;
+        this.player.autoplay = inputs.autoplay;
+        this.player.muted = inputs.muted;
+        this.player.src = inputs.path;
+        this.contains = inputs.contains;
+        this.speed = inputs.speed;
 
         this.container = options.PIXI.instance;
         this.PIXI = options.PIXI.module;
@@ -34,7 +36,7 @@ module.exports = {
         const refThis = this;
 
         this.player.onloadedmetadata = function () {
-            refThis.options.nodes.outputs.query("duration").data = refThis.player.duration;
+            refThis.outputs.duration = refThis.player.duration;
 
             refThis.player.playbackRate = refThis.speed;
 
@@ -50,15 +52,15 @@ module.exports = {
 
             refThis.scaleVideo();
 
-            refThis.options.nodes.outputs.query("progress").data = refThis.player.currentTime;
+            refThis.outputs.progress = refThis.player.currentTime;
         }
 
         this.player.onplay = function () {
-            refThis.options.nodes.outputs.query("paused").data = false;
+            refThis.outputs.paused = false;
         }
 
         this.player.onpause = function () {
-            refThis.options.nodes.outputs.query("paused").data = true;
+            refThis.outputs.paused = true;
         }
 
         this.player.onstream = function (data) {
@@ -83,7 +85,7 @@ module.exports = {
         }
 
         this.player.onended = function () {
-            refThis.options.nodes.outputs.query("ended").data = !refThis.options.nodes.outputs.query("ended").data;
+            refThis.outputs.ended = !refThis.outputs.ended;
         };
     },
     uninstall: function () {

@@ -1,5 +1,6 @@
 module.exports = {
     options: null,
+    outputs: null,
     counter: 0,
     cycles: 0,
     delay: 1000,
@@ -8,8 +9,9 @@ module.exports = {
     timeoutID: null,
     lastTime: 0,
 
-    install: function (options) {
+    install: function (options, inputs, outputs) {
         this.options = options;
+        this.outputs = outputs;
     },
     input: function (id, data) {
         switch (id) {
@@ -47,6 +49,6 @@ module.exports = {
         this.counter++;
         this.toggle = !this.toggle;
 
-        this.options.nodes.outputs.query("Toggle").data = this.toggle;
+        this.outputs.Toggle = this.toggle;
     }
 }

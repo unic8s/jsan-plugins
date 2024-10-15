@@ -1,10 +1,12 @@
 module.exports = {
     options: null,
+    outputs: null,
     min: 0,
     max: 0,
 
-    install: function (options) {
+    install: function (options, inputs, outputs) {
         this.options = options;
+        this.outputs = outputs;
     },
     input: function (id, data) {
         switch (id) {
@@ -15,7 +17,7 @@ module.exports = {
                 this.max = data;
                 break;
             case "Trigger":
-                this.options.nodes.outputs.query("Random").data = Math.random() * (this.max - this.min) + this.min;
+                this.outputs.Random = Math.random() * (this.max - this.min) + this.min;
                 break;
         }
     }

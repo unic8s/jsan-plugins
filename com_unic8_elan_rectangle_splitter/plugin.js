@@ -1,13 +1,15 @@
 module.exports = {
     options: null,
+    outputs: null,
 
-    install: function (options) {
+    install: function (options, inputs, outputs) {
         this.options = options;
+        this.outputs = outputs;
     },
     input: function (id, data) {
-        this.options.nodes.outputs.query("x").data = data.x;
-        this.options.nodes.outputs.query("y").data = data.y;
-        this.options.nodes.outputs.query("width").data = data.width;
-        this.options.nodes.outputs.query("height").data = data.height;
+        this.outputs.x = data.x;
+        this.outputs.y = data.y;
+        this.outputs.width = data.width;
+        this.outputs.height = data.height;
     }
 }

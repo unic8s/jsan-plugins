@@ -13,12 +13,12 @@
     "features": [
     ],
     "inputs": [
-        {"name": "file A", "type": "File", "value": ""},
-        {"name": "url B", "type": "String", "value": ""}
+        {"name": "fileA", "type": "File", "value": ""},
+        {"name": "urlB", "type": "String", "value": ""}
     ],
     "outputs": [
-        {"name": "url A", "type": "String", "value": ""},
-        {"name": "file B", "type": "File", "value": ""}
+        {"name": "urlA", "type": "String", "value": ""},
+        {"name": "fileB", "type": "File", "value": ""}
     ],
     "files": [
     ]

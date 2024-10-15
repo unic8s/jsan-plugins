@@ -1,5 +1,6 @@
 module.exports = {
     options: null,
+    outputs: null,
     eqA: 0,
     eqB: 0,
     grA: 0,
@@ -7,52 +8,53 @@ module.exports = {
     mdA: 0,
     mdB: 0,
 
-    install: function (options) {
+    install: function (options, inputs, outputs) {
         this.options = options;
+        this.outputs = outputs;
     },
     input: function (id, data) {
         switch (id) {
-            case "= A":
+            case "EqA":
                 this.eqA = data;
                 break;
-            case "= B":
+            case "EqB":
                 this.eqB = data;
                 break;
-            case "> A":
+            case "GtA":
                 this.grA = data;
                 break;
-            case "> B":
+            case "GtB":
                 this.grB = data;
                 break;
-            case "% A":
+            case "ModA":
                 this.mdA = data;
                 break;
-            case "% B":
+            case "ModB":
                 this.mdB = data;
                 break;
         }
 
         switch (id) {
-            case "= A":
-            case "= B":
-                this.options.nodes.outputs.query("= Out").data = this.eqA === this.eqB;
+            case "EqA":
+            case "EqB":
+                this.options.EqOut = this.eqA === this.eqB;
                 break;
-            case "> A":
-            case "> B":
-                this.options.nodes.outputs.query("> Out").data = this.grA > this.grB;
+            case "GtA":
+            case "GtB":
+                this.options.GtOut = this.grA > this.grB;
                 break;
-            case "% A":
-            case "% B":
-                this.options.nodes.outputs.query("% Out").data = this.mdA % this.mdB;
+            case "ModA":
+            case "ModB":
+                this.options.ModOut = this.mdA % this.mdB;
                 break;
             case "Floor":
-                this.options.nodes.outputs.query("Floor").data = Math.floor(data);
+                this.options.Floor = Math.floor(data);
                 break;
             case "Ceil":
-                this.options.nodes.outputs.query("Ceil").data = Math.ceil(data);
+                this.options.Ceil = Math.ceil(data);
                 break;
             case "Round":
-                this.options.nodes.outputs.query("Round").data = Math.round(data);
+                this.options.Round = Math.round(data);
                 break;
         }
     }

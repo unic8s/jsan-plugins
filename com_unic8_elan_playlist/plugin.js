@@ -1,5 +1,6 @@
 module.exports = {
     options: null,
+    outputs: null,
     dimensions: null,
     list: null,
     interval: null,
@@ -7,11 +8,12 @@ module.exports = {
     index: 0,
     files: [],
 
-    install: function (options) {
+    install: function (options, inputs, outputs) {
         this.options = options;
+        this.outputs = outputs;
 
-        this.list = options.nodes.inputs.query("list").data;
-        this.interval = options.nodes.inputs.query("interval").data;
+        this.list = inputs.list;
+        this.interval = inputs.interval;
 
         this.getFiles();
     },
@@ -70,13 +72,13 @@ module.exports = {
             return;
         }
 
-        this.options.nodes.outputs.query("index").data = this.index = 0;
+        this.outputs.index = this.index = 0;
 
         try {
             const response = await fetch(this.list);
             this.files = await response.json();
 
-            this.options.nodes.outputs.query("amount").data = this.files.length;
+            this.outputs.amount = this.files.length;
 
             this.updateFile();
             this.startTimer();
@@ -92,10 +94,10 @@ module.exports = {
         this.updateFile();
     },
     updateFile: function () {
-        this.options.nodes.outputs.query("index").data = this.index;
+        this.outputs.index = this.index;
 
         if (this.files.length > 0) {
-            this.options.nodes.outputs.query("file").data = this.files[this.index];
+            this.outputs.file = this.files[this.index];
         }
     }
 }

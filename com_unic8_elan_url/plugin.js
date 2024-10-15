@@ -1,16 +1,18 @@
 module.exports = {
     options: null,
+    outputs: null,
 
-    install: function (options) {
+    install: function (options, inputs, outputs) {
         this.options = options;
+        this.outputs = outputs;
     },
     input: function (id, data) {
         switch (id) {
-            case "file A":
-                this.options.nodes.outputs.query("url A").data = data;
+            case "fileA":
+                this.outputs.urlA = data;
                 break;
-            case "url B":
-                this.options.nodes.outputs.query("file B").data = {
+            case "urlB":
+                this.outputs.fileB = {
                     fileID: data,
                     path: data
                 };

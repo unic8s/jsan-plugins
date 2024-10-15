@@ -1,5 +1,6 @@
 module.exports = {
     options: null,
+    outputs: null,
     appID: '6426bd9b96736f6bab6469bf72afa05c',
     intervalTime: 10000,
     intervalID: null,
@@ -8,12 +9,13 @@ module.exports = {
     precision: null,
     jsonData: null,
 
-    install: function (options) {
+    install: function (options, inputs, outputs) {
         this.options = options;
+        this.outputs = outputs;
 
-        this.location = options.nodes.inputs.query("location").data;
-        this.unit = options.nodes.inputs.query("unit").data;
-        this.precision = options.nodes.inputs.query("precision").data;
+        this.location = inputs.location;
+        this.unit = inputs.unit;
+        this.precision = inputs.precision;
 
         this.startPolling();
     },
@@ -79,13 +81,13 @@ module.exports = {
 
         const iconURL = 'https://openweathermap.org/img/wn/' + this.jsonData.weather[0].icon + '.png';
 
-        this.options.nodes.outputs.query("temp_cur").data = this.jsonData.main.temp.toFixed(this.precision);
-        this.options.nodes.outputs.query("temp_min").data = this.jsonData.main.temp_min.toFixed(this.precision);
-        this.options.nodes.outputs.query("temp_max").data = this.jsonData.main.temp_max.toFixed(this.precision);
-        this.options.nodes.outputs.query("humidity").data = this.jsonData.main.humidity;
-        this.options.nodes.outputs.query("sunrise").data = this.jsonData.sys.sunrise;
-        this.options.nodes.outputs.query("sunset").data = this.jsonData.sys.sunset;
-        this.options.nodes.outputs.query("icon").data = {
+        this.outputs.temp_cur = this.jsonData.main.temp.toFixed(this.precision);
+        this.outputs.temp_min = this.jsonData.main.temp_min.toFixed(this.precision);
+        this.outputs.temp_max = this.jsonData.main.temp_max.toFixed(this.precision);
+        this.outputs.humidity = this.jsonData.main.humidity;
+        this.outputs.sunrise = this.jsonData.sys.sunrise;
+        this.outputs.sunset = this.jsonData.sys.sunset;
+        this.outputs.icon = {
             fileID: iconURL,
             path: iconURL
         };

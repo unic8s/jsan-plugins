@@ -1,5 +1,6 @@
 module.exports = {
     options: null,
+    outputs: null,
     timestamp: -1,
     intervalId: null,
     previousCover: null,
@@ -10,8 +11,9 @@ module.exports = {
     intervalTime: 2000,
     intervalID: null,
 
-    install: function (options) {
+    install: function (options, inputs, outputs) {
         this.options = options;
+        this.outputs = outputs;
     },
     uninstall: function () {
         clearInterval(this.intervalID);
@@ -77,7 +79,7 @@ module.exports = {
             case "playing":
                 info = this.track;
 
-                this.options.nodes.outputs.query("playing").data = true;
+                this.outputs.playing = true;
 
                 if(!this.intervalID){
                     this.startPolling();
@@ -88,7 +90,7 @@ module.exports = {
 
                 info = {title: "", artist: "", album: "", progress: 0, duration: 1, albumArtURI: fileID};
 
-                this.options.nodes.outputs.query("playing").data = false;
+                this.outputs.playing = false;
 
                 this.stopPolling();
                 break;
@@ -98,14 +100,14 @@ module.exports = {
             return;
         }
 
-        this.options.nodes.outputs.query("song").data = info.title;
-        this.options.nodes.outputs.query("artist").data = info.artist;
-        this.options.nodes.outputs.query("album").data = info.album;
-        this.options.nodes.outputs.query("progress").data = info.position ? info.position : 0;
-        this.options.nodes.outputs.query("duration").data = info.duration;
+        this.outputs.song = info.title;
+        this.outputs.artist = info.artist;
+        this.outputs.album = info.album;
+        this.outputs.progress = info.position ? info.position : 0;
+        this.outputs.duration = info.duration;
 
         if (this.previousCover != info.albumArtURI) {
-            this.options.nodes.outputs.query("cover").data = {
+            this.outputs.cover = {
                 fileID: info.albumArtURI,
                 path: info.albumArtURI
             };

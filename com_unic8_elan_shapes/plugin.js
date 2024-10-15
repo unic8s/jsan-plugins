@@ -1,5 +1,6 @@
 module.exports = {
     options: null,
+    outputs: null,
     dimensions: null,
     container: null,
     duration: 2,
@@ -29,8 +30,9 @@ module.exports = {
     },
     alive: true,
 
-    install: function (options) {
+    install: function (options, inputs, outputs) {
         this.options = options;
+        this.outputs = outputs;
         this.dimensions = this.options.params.canvas;
         this.container = options.PIXI.instance;
     },
@@ -124,7 +126,7 @@ module.exports = {
 
         this.container.addChild(gfx);
 
-        this.options.nodes.outputs.query("amount").data++;
+        this.outputs.amount++;
 
         const color = this.random.color ? Math.round(Math.random() * 0xFFFFFF) : this.color;
 
@@ -185,7 +187,7 @@ module.exports = {
                     item = null;
 
                     if(refThis.alive){
-                        refThis.options.nodes.outputs.query("amount").data--;
+                        refThis.outputs.amount--;
                     }
                 }
             }

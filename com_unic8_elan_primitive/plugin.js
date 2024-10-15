@@ -1,5 +1,6 @@
 module.exports = {
     options: null,
+    inputs: null,
     dimensions: null,
     shape: 0,
     color: null,
@@ -16,13 +17,14 @@ module.exports = {
     tween_z: null,
     killed: false,
 
-    install: function (options) {
+    install: function (options, inputs) {
         this.options = options;
+        this.inputs = inputs;
 
         this.dimensions = this.options.params.canvas;
 
-        this.color = this.convertColor(options.nodes.inputs.query("color").data);
-        this.auto = options.nodes.inputs.query("auto").data;
+        this.color = this.convertColor(inputs.color);
+        this.auto = inputs.auto;
 
         const THREE = options.THREE.module;
         this.container3D = options.THREE.instance;
@@ -151,9 +153,9 @@ module.exports = {
         this.primitive = new THREE.Mesh(geometry, [this.materialColor, this.materialImage]);
         this.container3D.add(this.primitive);
 
-        this.primitive.rotation.x = THREE.MathUtils.degToRad(this.options.nodes.inputs.query("rotationX").data);
-        this.primitive.rotation.y = THREE.MathUtils.degToRad(this.options.nodes.inputs.query("rotationY").data);
-        this.primitive.rotation.z = THREE.MathUtils.degToRad(this.options.nodes.inputs.query("rotationZ").data);
+        this.primitive.rotation.x = THREE.MathUtils.degToRad(this.inputs.rotationX);
+        this.primitive.rotation.y = THREE.MathUtils.degToRad(this.inputs.rotationY);
+        this.primitive.rotation.z = THREE.MathUtils.degToRad(this.inputs.rotationZ);
 
         if (this.auto) {
             this.animate();
