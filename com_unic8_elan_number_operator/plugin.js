@@ -37,24 +37,24 @@ module.exports = {
         switch (id) {
             case "EqA":
             case "EqB":
-                this.options.EqOut = this.eqA === this.eqB;
+                this.outputs.EqOut = this.eqA === this.eqB;
                 break;
             case "GtA":
             case "GtB":
-                this.options.GtOut = this.grA > this.grB;
+                this.outputs.GtOut = this.grA > this.grB;
                 break;
             case "ModA":
             case "ModB":
-                this.options.ModOut = this.mdA % this.mdB;
+                this.outputs.ModOut = this.mdA % this.mdB;
                 break;
             case "Floor":
-                this.options.Floor = Math.floor(data);
+                this.outputs.Floor = Math.floor(data);
                 break;
             case "Ceil":
-                this.options.Ceil = Math.ceil(data);
+                this.outputs.Ceil = Math.ceil(data);
                 break;
             case "Round":
-                this.options.Round = Math.round(data);
+                this.outputs.Round = Math.round(data);
                 break;
         }
     }
