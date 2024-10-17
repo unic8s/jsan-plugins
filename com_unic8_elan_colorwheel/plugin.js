@@ -7,7 +7,7 @@ module.exports = {
     steps: 25,
     palette: [],
 
-    install: function (options, inputs) {
+    install: function (options) {
         this.options = options;
 
         const PIXI = this.options.PIXI.module;
@@ -15,7 +15,7 @@ module.exports = {
 
         this.dimensions = this.options.params.canvas;
 
-        this.steps = inputs.steps;
+        this.steps = options.inputs.steps;
 
         this.gfx = new PIXI.Graphics();
 
