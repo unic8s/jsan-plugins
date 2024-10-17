@@ -1,6 +1,5 @@
 module.exports = {
     options: null,
-    outputs: null,
     timestamp: -1,
     intervalId: null,
     previousCover: null,
@@ -11,9 +10,8 @@ module.exports = {
     intervalTime: 2000,
     intervalID: null,
 
-    install: function (options, inputs, outputs) {
+    install: function (options) {
         this.options = options;
-        this.outputs = outputs;
     },
     uninstall: function () {
         clearInterval(this.intervalID);
@@ -74,23 +72,24 @@ module.exports = {
     },
     generateOutput(){
         let info = null;
+        const outputs = this.options.outputs;
 
         switch(this.state){
             case "playing":
                 info = this.track;
 
-                this.outputs.playing = true;
+                outputs.playing = true;
 
                 if(!this.intervalID){
                     this.startPolling();
                 }
                 break;
             case "paused":
-                var fileID = this.options.files[this.coverPath];
+                var fileID = options.files[this.coverPath];
 
                 info = {title: "", artist: "", album: "", progress: 0, duration: 1, albumArtURI: fileID};
 
-                this.outputs.playing = false;
+                outputs.playing = false;
 
                 this.stopPolling();
                 break;
@@ -100,14 +99,14 @@ module.exports = {
             return;
         }
 
-        this.outputs.song = info.title;
-        this.outputs.artist = info.artist;
-        this.outputs.album = info.album;
-        this.outputs.progress = info.position ? info.position : 0;
-        this.outputs.duration = info.duration;
+        outputs.song = info.title;
+        outputs.artist = info.artist;
+        outputs.album = info.album;
+        outputs.progress = info.position ? info.position : 0;
+        outputs.duration = info.duration;
 
         if (this.previousCover != info.albumArtURI) {
-            this.outputs.cover = {
+            outputs.cover = {
                 fileID: info.albumArtURI,
                 path: info.albumArtURI
             };
