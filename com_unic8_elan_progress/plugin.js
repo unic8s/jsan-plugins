@@ -10,8 +10,10 @@ module.exports = {
     isDirty: false,
     gfx: null,
 
-    install: function (options, inputs) {
+    install: function (options) {
         this.options = options;
+
+        const inputs = options.inputs;
 
         this.track = inputs.track;
         this.fill = inputs.fill;
