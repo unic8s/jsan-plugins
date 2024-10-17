@@ -1,6 +1,5 @@
 module.exports = {
     options: null,
-    outputs: null,
     params: {
         errorCorrectionLevel: "L",
         margin: 1,
@@ -12,9 +11,8 @@ module.exports = {
     },
     text: "",
 
-    install: function (options, inputs, outputs) {
+    install: function (options) {
         this.options = options;
-        this.outputs = outputs;
 
         this.params.width = this.options.params.canvas.width;
     },
@@ -41,7 +39,7 @@ module.exports = {
         const refThis = this;
 
         this.options.helpers.qrcode.toDataURL(this.text, this.params, function (err, url) {
-            refThis.outputs.image = {
+            refThis.options.outputs.image = {
                 fileID: url,
                 path: url
             };
