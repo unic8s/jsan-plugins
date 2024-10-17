@@ -1,6 +1,5 @@
 module.exports = {
     options: null,
-    outputs: null,
     dimensions: null,
     appKey: 'AIzaSyCHOF_NybstWKYn_VlT-wMduGQGVshLNEE',
     inputTimeout: null,
@@ -15,9 +14,8 @@ module.exports = {
     subscriberCount: 0,
     videoCount: 0,
 
-    install: function (options, inputs, outputs) {
+    install: function (options) {
         this.options = options;
-        this.outputs = outputs;
 
         this.dimensions = this.options.params.canvas;
 
@@ -116,17 +114,18 @@ module.exports = {
 
             if (jsonData.items && jsonData.items.length > 0) {
                 const stats = jsonData.items[0].statistics;
+                const outputs = this.options.outputs;
 
-                this.outputs.viewCount = stats.viewCount;
-                this.outputs.subscriberCount = stats.subscriberCount;
-                this.outputs.videoCount = stats.videoCount;
+                outputs.viewCount = stats.viewCount;
+                outputs.subscriberCount = stats.subscriberCount;
+                outputs.videoCount = stats.videoCount;
             }
         } catch (ex) { }
     },
     showLogo() {
         const fileID = this.options.files[this.coverPath];
 
-        this.outputs.cover = {
+        this.options.outputs.cover = {
             fileID: fileID,
             path: this.coverPath
         };
@@ -155,7 +154,7 @@ module.exports = {
         const coverURL = this.thumbList[sizeIndex];
 
         if (this.previousCover != coverURL) {
-            this.outputs.cover = {
+            this.options.outputs.cover = {
                 fileID: coverURL,
                 path: coverURL
             };
