@@ -85,7 +85,7 @@ module.exports = {
                 }
                 break;
             case "paused":
-                var fileID = options.files[this.coverPath];
+                var fileID = this.options.files[this.coverPath];
 
                 info = {title: "", artist: "", album: "", progress: 0, duration: 1, albumArtURI: fileID};
 
