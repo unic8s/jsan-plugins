@@ -1,6 +1,5 @@
 module.exports = {
     options: null,
-    outputs: null,
     from: 0,
     to: 1,
     duration: 1,
@@ -9,9 +8,8 @@ module.exports = {
     yoyo: false,
     tween: null,
 
-    install: function (options, inputs, outputs) {
+    install: function (options) {
         this.options = options;
-        this.outputs = outputs;
     },
     input: function (id, data) {
         let needsUpdate = false;
@@ -62,13 +60,14 @@ module.exports = {
         this.outputs.active = true;
 
         const refThis = this;
+        const outputs = this.options.outputs;
 
         this.tween = this.options.GSAP.TweenLite.to(this, this.duration,
             {
                 value: to,
                 ease: this.options.GSAP.Linear.easeNone,
                 onUpdate: () => {
-                    refThis.outputs.value = this.value;
+                    outputs.value = this.value;
                 },
                 onComplete: () => {
                     if (refThis.repeat) {
@@ -78,7 +77,7 @@ module.exports = {
                             this.step(from, to);
                         }
                     } else {
-                        refThis.outputs.active = false;
+                        outputs.active = false;
                     }
                 }
             }
