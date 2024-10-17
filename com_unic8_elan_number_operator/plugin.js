@@ -1,6 +1,5 @@
 module.exports = {
     options: null,
-    outputs: null,
     eqA: 0,
     eqB: 0,
     grA: 0,
@@ -8,9 +7,8 @@ module.exports = {
     mdA: 0,
     mdB: 0,
 
-    install: function (options, inputs, outputs) {
+    install: function (options) {
         this.options = options;
-        this.outputs = outputs;
     },
     input: function (id, data) {
         switch (id) {
@@ -34,27 +32,29 @@ module.exports = {
                 break;
         }
 
+        const outputs = this.options.outputs;
+
         switch (id) {
             case "EqA":
             case "EqB":
-                this.outputs.EqOut = this.eqA === this.eqB;
+                outputs.EqOut = this.eqA === this.eqB;
                 break;
             case "GtA":
             case "GtB":
-                this.outputs.GtOut = this.grA > this.grB;
+                outputs.GtOut = this.grA > this.grB;
                 break;
             case "ModA":
             case "ModB":
-                this.outputs.ModOut = this.mdA % this.mdB;
+                outputs.ModOut = this.mdA % this.mdB;
                 break;
             case "Floor":
-                this.outputs.Floor = Math.floor(data);
+                outputs.Floor = Math.floor(data);
                 break;
             case "Ceil":
-                this.outputs.Ceil = Math.ceil(data);
+                outputs.Ceil = Math.ceil(data);
                 break;
             case "Round":
-                this.outputs.Round = Math.round(data);
+                outputs.Round = Math.round(data);
                 break;
         }
     }
