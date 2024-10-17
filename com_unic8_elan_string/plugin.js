@@ -1,6 +1,5 @@
 module.exports = {
     options: null,
-    outputs: null,
     hasHay: "",
     hasNdl: "",
     conA: "",
@@ -13,9 +12,8 @@ module.exports = {
     subBgn: 0,
     subEnd: 0,
 
-    install: function (options, inputs, outputs) {
+    install: function (options) {
         this.options = options;
-        this.outputs = outputs;
     },
     input: function (id, data) {
         switch (id) {
@@ -57,15 +55,17 @@ module.exports = {
                 break;
         }
 
+        const outputs = this.options.outputs;
+
         switch (id) {
             case "Has hay":
             case "Has ndl":
-                this.outputs.Has = this.hasHay.indexOf(this.hasNdl) >= 0;
+                outputs.Has = this.hasHay.indexOf(this.hasNdl) >= 0;
                 break;
             case "Con A":
             case "Con B":
             case "Con sep":
-                this.outputs.Con = this.conA + this.conSep + this.conB;
+                outputs.Con = this.conA + this.conSep + this.conB;
                 break;
             case "Rep hay":
             case "Rep ndl":
@@ -78,14 +78,14 @@ module.exports = {
                     }
                 }
 
-                this.outputs.Rep = replaced;
+                outputs.Rep = replaced;
                 break;
             case "Sub src":
             case "Sub bgn":
             case "Sub end":
                 var end = this.subEnd == 0 ? this.subSrc.length - 1 : this.subEnd;
 
-                this.outputs.Sub = this.subSrc.substr(this.subBgn, end);
+                outputs.Sub = this.subSrc.substr(this.subBgn, end);
                 break;
         }
     }
