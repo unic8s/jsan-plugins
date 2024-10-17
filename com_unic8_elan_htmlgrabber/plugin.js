@@ -1,15 +1,13 @@
 module.exports = {
     options: null,
-    outputs: null,
     url: "",
     interval: 10,
     selector: "",
     intervalID: null,
     killed: false,
 
-    install: function (options, inputs, outputs) {
+    install: function (options) {
         this.options = options;
-        this.outputs = outputs;
     },
     uninstall: function () {
         clearInterval(this.intervalID);
@@ -73,7 +71,7 @@ module.exports = {
                 this.outputs.Content = data;
             }
         } catch (ex) {
-            this.outputs.Content = ex.toString();
+            this.options.outputs.Content = ex.toString();
         }
     }
 }
