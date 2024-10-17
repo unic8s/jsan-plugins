@@ -1,6 +1,5 @@
 module.exports = {
     options: null,
-    outputs: null,
     dimensions: null,
     contains: null,
     image: null,
@@ -24,9 +23,8 @@ module.exports = {
     patchCanvas: null,
     patchContext: null,
 
-    install: function (options, inputs, outputs) {
+    install: function (options) {
         this.options = options;
-        this.outputs = outputs;
 
         const refThis = this;
 
@@ -65,8 +63,8 @@ module.exports = {
         this.stage.texture = PIXI.Texture.from(this.canvas);
         this.container.addChild(this.stage);
 
-        this.contains = inputs.contains;
-        this.fade = inputs.fade;
+        this.contains = options.inputs.contains;
+        this.fade = options.inputs.fade;
 
         this.gifData = {
             frames: [],
@@ -255,8 +253,8 @@ module.exports = {
             const average = this.options.helpers.color.calculateAverage(pixels);
             const accent = this.options.helpers.color.calculateAccent(pixels);
 
-            this.outputs.average = this.options.helpers.color.rgbToHex.apply(this, average);
-            this.outputs.accent = this.options.helpers.color.rgbToHex.apply(this, accent);
+            this.options.outputs.average = this.options.helpers.color.rgbToHex.apply(this, average);
+            this.options.outputs.accent = this.options.helpers.color.rgbToHex.apply(this, accent);
         } else {
             this.prescale(this.gifDims.width, this.gifDims.height);
         }
