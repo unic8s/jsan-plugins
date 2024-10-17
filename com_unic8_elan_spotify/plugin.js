@@ -1,6 +1,5 @@
 module.exports = {
     options: null,
-    outputs: null,
     dimensions: null,
     reAuthDone: false,
     previousCover: "",
@@ -17,9 +16,8 @@ module.exports = {
     tween: null,
     killed: false,
 
-    install: function (options, inputs, outputs) {
+    install: function (options) {
         this.options = options;
-        this.outputs = outputs;
 
         this.spotifyApi = options.SpotifyWebApi;
 
@@ -108,7 +106,7 @@ module.exports = {
     showLogo() {
         const fileID = this.options.files[this.coverPath];
 
-        this.outputs.cover = {
+        this.options.outputs.cover = {
             fileID: fileID,
             path: this.coverPath
         };
@@ -148,7 +146,7 @@ module.exports = {
         const coverURL = this.thumbList[sizeIndex].url;
 
         if (this.previousCover != coverURL) {
-            this.outputs.cover = {
+            this.options.outputs.cover = {
                 fileID: coverURL,
                 path: coverURL
             };
@@ -158,6 +156,7 @@ module.exports = {
     },
     resolveData: function () {
         const refThis = this;
+        const outputs = this.options.outputs;
 
         this.spotifyApi.getMyCurrentPlaybackState()
             .then(function (data) {
@@ -169,7 +168,7 @@ module.exports = {
                     if (refThis.wasPlaying != data.body.is_playing) {
                         refThis.wasPlaying = data.body.is_playing;
 
-                        refThis.outputs.playing = data.body.is_playing;
+                        outputs.playing = data.body.is_playing;
                     }
 
                     let itemID = data.body.item ? data.body.item.id : null;
@@ -178,7 +177,7 @@ module.exports = {
                         const progress = data.body.progress_ms / 1000;
 
                         if (Math.abs(progress - refThis.progress) > 5) {
-                            refThis.outputs.progress = refThis.progress = progress;
+                            outputs.progress = refThis.progress = progress;
                         } else {
                             refThis.tween = refThis.options.GSAP.TweenLite.to(refThis, 1.9,
                                 {
@@ -188,7 +187,7 @@ module.exports = {
                                         progress: 0.001
                                     },
                                     onUpdate: () => {
-                                        refThis.outputs.progress = refThis.progress;
+                                        outputs.progress = refThis.progress;
                                     }
                                 }
                             );
@@ -197,10 +196,10 @@ module.exports = {
                         if (data.body.item && refThis.previousID != itemID) {
                             refThis.previousID = itemID;
 
-                            refThis.outputs.song = data.body.item.name;
-                            refThis.outputs.album = data.body.item.album.name;
-                            refThis.outputs.artist = data.body.item.artists[0].name;
-                            refThis.outputs.duration = data.body.item.duration_ms / 1000;
+                            outputs.song = data.body.item.name;
+                            outputs.album = data.body.item.album.name;
+                            outputs.artist = data.body.item.artists[0].name;
+                            outputs.duration = data.body.item.duration_ms / 1000;
 
                             refThis.spotifyApi.getMyCurrentPlayingTrack()
                                 .then(function (data) {
@@ -227,15 +226,16 @@ module.exports = {
     },
     resetState: function () {
         const itemID = null;
+        const outputs = this.options.outputs;
 
         if (this.previousID != itemID) {
             this.previousID = itemID;
 
-            this.outputs.progress = 0;
-            this.outputs.song = "";
-            this.outputs.album = "";
-            this.outputs.artist = "";
-            this.outputs.duration = 0;
+            outputs.progress = 0;
+            outputs.song = "";
+            outputs.album = "";
+            outputs.artist = "";
+            outputs.duration = 0;
         }
 
         if (this.previousCover != this.coverPath) {
