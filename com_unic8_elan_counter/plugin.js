@@ -1,15 +1,13 @@
 module.exports = {
     options: null,
-    outputs: null,
     counter: 0,
     limit: 0,
     repeat: true,
     delay: 1000,
     active: false,
 
-    install: function (options, inputs, outputs) {
+    install: function (options) {
         this.options = options;
-        this.outputs = outputs;
     },
     input: function (id, data) {
         switch (id) {
@@ -41,6 +39,6 @@ module.exports = {
                 break;
         }
 
-        this.outputs.Counter = this.counter;
+        this.options.outputs.Counter = this.counter;
     }
 }
