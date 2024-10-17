@@ -13,12 +13,12 @@ module.exports = {
     tween_z: null,
     killed: false,
 
-    install: function (options, inputs) {
+    install: function (options) {
         this.options = options;
 
         this.dimensions = this.options.params.canvas;
 
-        this.auto = inputs.auto;
+        this.auto = options.inputs.auto;
 
         const THREE = options.THREE.module;
         this.container3D = options.THREE.instance;
@@ -42,9 +42,9 @@ module.exports = {
         this.cube = new THREE.Mesh(geometry, this.material);
         this.container3D.add(this.cube);
 
-        this.cube.rotation.x = THREE.MathUtils.degToRad(inputs.rotationX);
-        this.cube.rotation.y = THREE.MathUtils.degToRad(inputs.rotationY);
-        this.cube.rotation.z = THREE.MathUtils.degToRad(inputs.rotationZ);
+        this.cube.rotation.x = THREE.MathUtils.degToRad(options.inputs.rotationX);
+        this.cube.rotation.y = THREE.MathUtils.degToRad(options.inputs.rotationY);
+        this.cube.rotation.z = THREE.MathUtils.degToRad(options.inputs.rotationZ);
 
         if (this.auto) {
             this.animate();
