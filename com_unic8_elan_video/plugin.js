@@ -1,6 +1,5 @@
 module.exports = {
     options: null,
-    outputs: null,
     dimensions: null,
     contains: null,
     PIXI: null,
@@ -9,9 +8,8 @@ module.exports = {
     stage: null,
     speed: 1,
 
-    install: function (options, inputs, outputs) {
+    install: function (options) {
         this.options = options;
-        this.outputs = outputs;
 
         this.dimensions = this.options.params.canvas;
         this.dimensions.x = 0;
@@ -19,6 +17,8 @@ module.exports = {
 
         this.player = document.createElement("video");
         this.player.crossOrigin = "anonymous";
+
+        const inputs = options.inputs;
 
         this.player.loop = inputs.loop;
         this.player.autoplay = inputs.autoplay;
@@ -34,9 +34,10 @@ module.exports = {
         this.container.addChild(this.stage);
 
         const refThis = this;
+        const outputs = options.outputs;
 
         this.player.onloadedmetadata = function () {
-            refThis.outputs.duration = refThis.player.duration;
+            outputs.duration = refThis.player.duration;
 
             refThis.player.playbackRate = refThis.speed;
 
@@ -52,15 +53,15 @@ module.exports = {
 
             refThis.scaleVideo();
 
-            refThis.outputs.progress = refThis.player.currentTime;
+            outputs.progress = refThis.player.currentTime;
         }
 
         this.player.onplay = function () {
-            refThis.outputs.paused = false;
+            outputs.paused = false;
         }
 
         this.player.onpause = function () {
-            refThis.outputs.paused = true;
+            outputs.paused = true;
         }
 
         this.player.onstream = function (data) {
@@ -85,7 +86,7 @@ module.exports = {
         }
 
         this.player.onended = function () {
-            refThis.outputs.ended = !refThis.outputs.ended;
+            outputs.ended = !outputs.ended;
         };
     },
     uninstall: function () {
