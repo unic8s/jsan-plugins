@@ -7,12 +7,12 @@ module.exports = {
     screenData: null,
     stage: null,
 
-    install: function (options, inputs) {
+    install: function (options) {
         this.options = options;
 
         this.dimensions = this.options.params.canvas;
 
-        this.contains = inputs.contains;
+        this.contains = options.inputs.contains;
 
         this.container = options.PIXI.instance;
         this.PIXI = options.PIXI.module;
