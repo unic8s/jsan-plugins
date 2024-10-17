@@ -1,10 +1,8 @@
 module.exports = {
     options: null,
-    outputs: null,
 
-    install: function (options, inputs, outputs) {
+    install: function (options) {
         this.options = options;
-        this.outputs = outputs;
 
         window.addEventListener("keyup", this.onKey.bind(this));
     },
@@ -12,11 +10,9 @@ module.exports = {
         window.removeEventListener("keyup", this.onKey);
     },
     webhook(event) {
-        const node = this.outputs[event.data];
-
-        if (node) {
-            node.data = !node.data;
-        }
+        const type = event.data;
+        
+        this.options.outputs[type] = !this.options.outputs[type];
     },
 
     onKey(event) {
@@ -45,10 +41,6 @@ module.exports = {
                 return;
         }
 
-        const node = this.outputs[type];
-
-        if (node) {
-            node.data = !node.data;
-        }
+        this.options.outputs[type] = !this.options.outputs[type];
     }
 }
