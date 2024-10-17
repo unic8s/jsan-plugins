@@ -1,6 +1,5 @@
 module.exports = {
     options: null,
-    inputs: null,
     dimensions: null,
     shape: 0,
     color: null,
@@ -17,9 +16,10 @@ module.exports = {
     tween_z: null,
     killed: false,
 
-    install: function (options, inputs) {
+    install: function (options) {
         this.options = options;
-        this.inputs = inputs;
+        
+        const inputs = this.options.inputs;
 
         this.dimensions = this.options.params.canvas;
 
@@ -153,9 +153,11 @@ module.exports = {
         this.primitive = new THREE.Mesh(geometry, [this.materialColor, this.materialImage]);
         this.container3D.add(this.primitive);
 
-        this.primitive.rotation.x = THREE.MathUtils.degToRad(this.inputs.rotationX);
-        this.primitive.rotation.y = THREE.MathUtils.degToRad(this.inputs.rotationY);
-        this.primitive.rotation.z = THREE.MathUtils.degToRad(this.inputs.rotationZ);
+        const inputs = this.options.inputs;
+
+        this.primitive.rotation.x = THREE.MathUtils.degToRad(inputs.rotationX);
+        this.primitive.rotation.y = THREE.MathUtils.degToRad(inputs.rotationY);
+        this.primitive.rotation.z = THREE.MathUtils.degToRad(inputs.rotationZ);
 
         if (this.auto) {
             this.animate();
