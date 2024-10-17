@@ -1,6 +1,5 @@
 module.exports = {
     options: null,
-    outputs: null,
     token: "",
     url: "",
     entity: "",
@@ -9,9 +8,8 @@ module.exports = {
     intervalID: null,
     killed: false,
 
-    install: function (options, inputs, outputs) {
+    install: function (options) {
         this.options = options;
-        this.outputs = outputs;
     },
     uninstall: function () {
         clearInterval(this.intervalID);
@@ -54,21 +52,22 @@ module.exports = {
     },
     response: function (event) {
         const body = event.data.response;
+        const outputs = this.options.outputs;
 
         if (event.data.error) {
-            this.outputs.value = body;
-            this.outputs.error = event.data.error;
+            outputs.value = body;
+            outputs.error = event.data.error;
         } else {
             try {
                 var data = JSON.parse(body);
 
                 const result = this.queryData(data, this.query.split("."));
 
-                this.outputs.value = result ? result : "";
-                this.outputs.error = "";
+                outputs.value = result ? result : "";
+                outputs.error = "";
             } catch (error) {
-                this.outputs.value = body;
-                this.outputs.error = error;
+                outputs.value = body;
+                outputs.error = error;
             }
         }
     },
