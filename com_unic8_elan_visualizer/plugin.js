@@ -21,7 +21,7 @@ module.exports = {
     freqData: null,
     timeData: null,
 
-    install: function (options, inputs) {
+    install: function (options) {
         this.options = options;
 
         this.dimensions = this.options.params.canvas;
@@ -46,6 +46,8 @@ module.exports = {
 
         this.peaks = new Array(this.dimensions.width);
         this.lengthFactor = this.dimensions.height / 255;
+
+        const inputs = options.inputs;
 
         this.mode = inputs.mode;
         this.width = inputs.width;
