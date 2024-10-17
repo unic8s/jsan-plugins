@@ -1,6 +1,5 @@
 module.exports = {
     options: null,
-    outputs: null,
     appID: '6426bd9b96736f6bab6469bf72afa05c',
     intervalTime: 10000,
     intervalID: null,
@@ -9,9 +8,10 @@ module.exports = {
     precision: null,
     jsonData: null,
 
-    install: function (options, inputs, outputs) {
+    install: function (options) {
         this.options = options;
-        this.outputs = outputs;
+
+        const inputs = options.inputs;
 
         this.location = inputs.location;
         this.unit = inputs.unit;
@@ -80,14 +80,15 @@ module.exports = {
         }
 
         const iconURL = 'https://openweathermap.org/img/wn/' + this.jsonData.weather[0].icon + '.png';
+        const outputs = this.options.outputs;
 
-        this.outputs.temp_cur = this.jsonData.main.temp.toFixed(this.precision);
-        this.outputs.temp_min = this.jsonData.main.temp_min.toFixed(this.precision);
-        this.outputs.temp_max = this.jsonData.main.temp_max.toFixed(this.precision);
-        this.outputs.humidity = this.jsonData.main.humidity;
-        this.outputs.sunrise = this.jsonData.sys.sunrise;
-        this.outputs.sunset = this.jsonData.sys.sunset;
-        this.outputs.icon = {
+        outputs.temp_cur = this.jsonData.main.temp.toFixed(this.precision);
+        outputs.temp_min = this.jsonData.main.temp_min.toFixed(this.precision);
+        outputs.temp_max = this.jsonData.main.temp_max.toFixed(this.precision);
+        outputs.humidity = this.jsonData.main.humidity;
+        outputs.sunrise = this.jsonData.sys.sunrise;
+        outputs.sunset = this.jsonData.sys.sunset;
+        outputs.icon = {
             fileID: iconURL,
             path: iconURL
         };
