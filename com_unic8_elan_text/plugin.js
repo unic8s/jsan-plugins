@@ -1,6 +1,5 @@
 module.exports = {
     options: null,
-    outputs: null,
     dimensions: null,
     tween: null,
     isDirty: false,
@@ -13,14 +12,15 @@ module.exports = {
     style: null,
     container: null,
 
-    install: function (options, inputs, outputs) {
+    install: function (options) {
         this.options = options;
-        this.outputs = outputs;
 
         this.dimensions = this.options.params.canvas;
 
         const PIXI = options.PIXI.module;
         this.container = options.PIXI.instance;
+
+        const inputs = options.inputs;
 
         this.style = new PIXI.TextStyle();
         this.style.fill = this.convertColor(inputs.color);
@@ -126,7 +126,7 @@ module.exports = {
         this.calcMetrics();
     },
     calcMetrics: function () {
-        this.outputs.metrics = {
+        this.options.outputs.metrics = {
             x: this.label.x,
             y: this.label.y,
             width: this.label.width,
