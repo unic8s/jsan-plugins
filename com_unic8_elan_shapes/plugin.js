@@ -152,37 +152,27 @@ module.exports = {
                 break;
         }
 
-        let item = {
-            type: randomShape,
-            gfx: gfx,
-            alpha: this.alpha.start,
-            size: this.size.start,
-            rotation: gfx.rotation
-        };
-
         const refThis = this;
+
+        gfx.size = this.size.start;
 
         const rotation = this.random.rotation ? Math.random() * Math.PI * 2 : 0;
 
-        this.options.GSAP.TweenLite.to(item, this.duration,
+        this.options.GSAP.TweenLite.to(gfx, this.duration,
             {
                 alpha: this.alpha.end,
                 size: this.size.end,
                 rotation: rotation,
                 ease: this.options.GSAP.Linear.easeNone,
                 onUpdate: () => {
-                    const scale = item.size * 0.01;
+                    const scale = gfx.size * 0.01;
 
-                    item.gfx.alpha = item.alpha;
-                    item.gfx.scale.set(scale, scale);
-                    item.gfx.rotation = item.rotation
+                    gfx.scale.set(scale, scale);
                 },
                 onComplete: () => {
-                    refThis.container.removeChild(item.gfx);
+                    refThis.container.removeChild(gfx);
 
-                    item.gfx.destroy();
-
-                    item = null;
+                    gfx.destroy();
 
                     if(refThis.alive){
                         refThis.options.outputs.amount--;
