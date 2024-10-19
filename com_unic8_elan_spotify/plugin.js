@@ -39,32 +39,24 @@ module.exports = {
                 this.publishCover();
                 break;
             case "next":
-                this.spotifyApi.skipToNext()
-                    .then(function () {
-                    }, function (err) {
-                        console.log('Something went wrong!', err);
-                    });
+                this.spotifyApi.skipToNext();
                 break;
             case "previous":
-                this.spotifyApi.skipToPrevious()
-                    .then(function () {
-                    }, function (err) {
-                        console.log('Something went wrong!', err);
-                    });
+                this.spotifyApi.skipToPrevious();
                 break;
             case "play":
-                this.spotifyApi.play()
-                    .then(function () {
-                    }, function (err) {
-                        console.log('Something went wrong!', err);
-                    });
+                if(this.playing){
+                    return;
+                }
+
+                this.spotifyApi.play();
                 break;
             case "pause":
-                this.spotifyApi.pause()
-                    .then(function () {
-                    }, function (err) {
-                        console.log('Something went wrong!', err);
-                    });
+                if(!this.playing){
+                    return;
+                }
+
+                this.spotifyApi.pause();
                 break;
         }
     },
