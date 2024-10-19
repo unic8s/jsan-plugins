@@ -13,25 +13,25 @@
     "features": [
     ],
     "inputs": [
-        {"name": "NOT", "type": "Boolean", "value": false},
-        {"name": "AND A", "type": "Boolean", "value": false},
-        {"name": "AND B", "type": "Boolean", "value": false},
-        {"name": "OR A", "type": "Boolean", "value": false},
-        {"name": "OR B", "type": "Boolean", "value": false},
-        {"name": "XOR A", "type": "Boolean", "value": false},
-        {"name": "XOR B", "type": "Boolean", "value": false},
-        {"name": "NAND A", "type": "Boolean", "value": false},
-        {"name": "NAND B", "type": "Boolean", "value": false},
-        {"name": "NOR A", "type": "Boolean", "value": false},
-        {"name": "NOR B", "type": "Boolean", "value": false}
+        {"name": "not", "type": "Boolean", "value": false},
+        {"name": "andA", "type": "Boolean", "value": false},
+        {"name": "andB", "type": "Boolean", "value": false},
+        {"name": "orA", "type": "Boolean", "value": false},
+        {"name": "orB", "type": "Boolean", "value": false},
+        {"name": "xorA", "type": "Boolean", "value": false},
+        {"name": "xorB", "type": "Boolean", "value": false},
+        {"name": "nandA", "type": "Boolean", "value": false},
+        {"name": "nandB", "type": "Boolean", "value": false},
+        {"name": "norA", "type": "Boolean", "value": false},
+        {"name": "norB", "type": "Boolean", "value": false}
     ],
     "outputs": [
-        {"name": "NOT", "type": "Boolean", "value": false},
-        {"name": "AND", "type": "Boolean", "value": false},
-        {"name": "OR", "type": "Boolean", "value": false},
-        {"name": "XOR", "type": "Boolean", "value": false},
-        {"name": "NAND", "type": "Boolean", "value": false},
-        {"name": "NOR", "type": "Boolean", "value": false}
+        {"name": "not", "type": "Boolean", "value": false},
+        {"name": "and", "type": "Boolean", "value": false},
+        {"name": "or", "type": "Boolean", "value": false},
+        {"name": "xor", "type": "Boolean", "value": false},
+        {"name": "nand", "type": "Boolean", "value": false},
+        {"name": "nor", "type": "Boolean", "value": false}
     ],
     "files": [
     ]

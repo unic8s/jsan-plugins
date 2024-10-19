@@ -11,9 +11,7 @@ module.exports = {
     materialColor: null,
     materialImage: null,
     auto: null,
-    tween_x: null,
-    tween_y: null,
-    tween_z: null,
+    tweens: [],
     killed: false,
 
     install: function (options) {
@@ -164,15 +162,11 @@ module.exports = {
         }
     },
     stop: function () {
-        if (this.tween_x) {
-            this.tween_x.kill();
-            this.tween_y.kill();
-            this.tween_z.kill();
-
-            this.tween_x = null;
-            this.tween_y = null;
-            this.tween_z = null;
+        for (let c in this.tweens) {
+            this.tweens[c].kill();
         }
+
+        this.tweens = [];
     },
     animate: function () {
         this.stop();
@@ -202,7 +196,7 @@ module.exports = {
 
         const diff = Math.abs(params[axis] - this.primitive.rotation[axis]);
 
-        this["tween_" + axis] = this.options.GSAP.TweenLite.to(this.primitive.rotation, diff, params);
+        this.tweens[axis] = this.options.GSAP.TweenLite.to(this.primitive.rotation, diff, params);
     },
     convertColor: function (hex) {
         const result = parseInt(hex.replace("#", "0x"), 16);

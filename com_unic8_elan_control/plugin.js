@@ -1,5 +1,13 @@
 module.exports = {
     options: null,
+    map: {
+        "ArrowLeft": "left",
+        "ArrowUp": "up",
+        "ArrowRight": "right",
+        "ArrowDown": "down",
+        "Escape": "back",
+        "Enter": "enter"
+    },
 
     install: function (options) {
         this.options = options;
@@ -16,31 +24,10 @@ module.exports = {
     },
 
     onKey(event) {
-        let type = null;
+        const type = this.map[event.code];
 
-        switch (event.code) {
-            case "ArrowLeft":
-                type = "left";
-                break;
-            case "ArrowUp":
-                type = "up";
-                break;
-            case "ArrowRight":
-                type = "right";
-                break;
-            case "ArrowDown":
-                type = "down";
-                break;
-            case "Escape":
-                type = "back";
-                break;
-            case "Enter":
-                type = "enter";
-                break;
-            default:
-                return;
+        if(type){
+            this.options.outputs[type] = !this.options.outputs[type];
         }
-
-        this.options.outputs[type] = !this.options.outputs[type];
     }
 }

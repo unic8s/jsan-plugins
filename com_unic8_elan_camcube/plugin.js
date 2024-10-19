@@ -8,17 +8,13 @@ module.exports = {
     resize3D: null,
     material: null,
     auto: null,
-    tween_x: null,
-    tween_y: null,
-    tween_z: null,
+    tweens: [],
     killed: false,
 
     install: function (options) {
         this.options = options;
 
         this.dimensions = this.options.params.canvas;
-
-        this.auto = options.inputs.auto;
 
         const THREE = options.THREE.module;
         this.container3D = options.THREE.instance;
@@ -42,9 +38,7 @@ module.exports = {
         this.cube = new THREE.Mesh(geometry, this.material);
         this.container3D.add(this.cube);
 
-        this.cube.rotation.x = THREE.MathUtils.degToRad(options.inputs.rotationX);
-        this.cube.rotation.y = THREE.MathUtils.degToRad(options.inputs.rotationY);
-        this.cube.rotation.z = THREE.MathUtils.degToRad(options.inputs.rotationZ);
+        this.auto = options.inputs.auto;
 
         if (this.auto) {
             this.animate();
@@ -110,15 +104,11 @@ module.exports = {
     },
 
     stop: function () {
-        if (this.tween_x) {
-            this.tween_x.kill();
-            this.tween_y.kill();
-            this.tween_z.kill();
-
-            this.tween_x = null;
-            this.tween_y = null;
-            this.tween_z = null;
+        for (let c in this.tweens) {
+            this.tweens[c].kill();
         }
+
+        this.tweens = [];
     },
     animate: function () {
         this.stop();
@@ -149,6 +139,6 @@ module.exports = {
 
         const diff = Math.abs(params[axis] - this.cube.rotation[axis]);
 
-        this["tween_" + axis] = GSAP.TweenLite.to(this.cube.rotation, diff, params);
+        this.tweens[axis] = GSAP.TweenLite.to(this.cube.rotation, diff, params);
     }
 }
