@@ -15,8 +15,9 @@ module.exports = {
                 this.max = data;
                 break;
             case "Trigger":
-                this.options.outputs.Random = Math.random() * (this.max - this.min) + this.min;
                 break;
         }
+
+        this.options.outputs.Random = Math.random() * (this.max - this.min) + this.min;
     }
 }

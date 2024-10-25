@@ -14,7 +14,14 @@ module.exports = {
     install: function (options) {
         this.options = options;
 
-        this.params.width = this.options.params.canvas.width;
+        this.params.width = Math.max(this.options.params.canvas.width, this.options.params.canvas.width);
+    },
+    resize: function (bounds) {
+        this.dimensions = bounds;
+
+        this.params.width = Math.max(this.dimensions.width, this.dimensions.height);
+
+        this.generate();
     },
     input: function (id, data) {
         switch (id) {
