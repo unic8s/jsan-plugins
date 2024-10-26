@@ -90,16 +90,11 @@ module.exports = {
     },
 
     build: async function () {
-        this.killTweens();
+        this.buildTimeline();
 
         this.context.fillStyle = "#000";
         this.context.fillRect(0, 0, this.dimensions.width, this.dimensions.height);
         this.context.globalAlpha = 1;
-
-        this.timeline = new this.options.GSAP.TimelineLite({
-            paused: true,
-            repeat: -1
-        });
 
         this.list = [];
 
@@ -157,78 +152,32 @@ module.exports = {
             this.addTweens();
         });
     },
+    buildTimeline() {
+        this.killTweens();
+
+        this.timeline = new this.options.GSAP.TimelineLite({
+            paused: true,
+            repeat: -1
+        });
+    },
     getRandomDelay() {
         return Math.random() * (this.duration - this.duration / 5) + this.duration / 10;
     },
     addTweens: function () {
-        const positions = [];
+        let positions = [];
 
-        for (let c = 0; c < this.list.length; c++) {
-            const item = this.list[c];
+        for (let c1 = 0; c1 < this.list.length; c1++) {
+            const item = this.list[c1];
             const x = item.x;
             const y = item.y;
 
-            const centerX = this.dimensions.width >> 1;
-            const centerY = this.dimensions.height >> 1;
-            const divider = Math.sqrt(this.dimensions.width);
+            const fx = [];
 
-            positions.push([
-                { // 0
-                    x: x >= centerX ? this.dimensions.width - this.size : 0,
-                    y: y >= centerY ? this.dimensions.height - this.size : 0,
-                    delay: this.getRandomDelay()
-                },
-                { // 1
-                    x: Math.random() * this.dimensions.width,
-                    y: Math.random() * this.dimensions.height,
-                    delay: this.getRandomDelay()
-                },
-                { // 2
-                    x: x >= centerX ? this.dimensions.width - this.size : 0,
-                    y: y,
-                    delay: this.getRandomDelay()
-                },
-                { // 3
-                    x: x,
-                    y: Math.sin(x / divider) * divider + centerY,
-                    delay: this.getRandomDelay()
-                },
-                { // 4
-                    x: (x >> 1) + (this.dimensions.width >> 2),
-                    y: (y >> 1) + (this.dimensions.height >> 2),
-                    delay: this.getRandomDelay()
-                },
-                { // 5
-                    x: y,
-                    y: y,
-                    delay: this.getRandomDelay()
-                },
-                { // 6
-                    x: Math.sqrt(x * y),
-                    y: y,
-                    delay: this.getRandomDelay()
-                },
-                { // 7
-                    x: x / 2 + centerX / 2,
-                    y: this.dimensions.height - Math.pow(x * 1.5 - centerX, 2) / this.dimensions.height,
-                    delay: this.getRandomDelay()
-                },
-                { // 8
-                    x: Math.sin(x * y) * centerX + centerX,
-                    y: Math.cos(x * y) * centerY + centerY,
-                    delay: this.getRandomDelay()
-                },
-                { // 9
-                    x: centerX,
-                    y: centerY,
-                    delay: this.getRandomDelay()
-                },
-                { // 10
-                    x: x,
-                    y: y,
-                    delay: this.getRandomDelay()
-                }
-            ]);
+            for (let c2 = 0; c2 < 11; c2++) {
+                fx.push(this.generateFX(c2, x, y));
+            }
+
+            positions.push(fx);
         }
 
         for (let c = 0; c < this.list.length; c++) {
@@ -241,6 +190,86 @@ module.exports = {
 
             this.addAnimation(item, c, x, y, position, 0);
         }
+    },
+    generateFX(index, x, y) {
+        let data;
+
+        const centerX = this.dimensions.width >> 1;
+        const centerY = this.dimensions.height >> 1;
+        const divider = Math.sqrt(this.dimensions.width);
+
+        switch (index) {
+            case 0:
+                data = { // sides
+                    x: x >= centerX ? this.dimensions.width - this.size : 0,
+                    y: y >= centerY ? this.dimensions.height - this.size : 0
+                };
+                break;
+            case 1:
+                data = { // chaos
+                    x: Math.random() * this.dimensions.width,
+                    y: Math.random() * this.dimensions.height
+                };
+                break;
+            case 2:
+                data = { // edges
+                    x: x >= centerX ? this.dimensions.width - this.size : 0,
+                    y: y
+                };
+                break;
+            case 3:
+                data = { // sine
+                    x: x,
+                    y: Math.sin(x / divider) * divider + centerY + Math.sqrt(y)
+                };
+                break;
+            case 4:
+                data = { // block
+                    x: (x >> 1) + (this.dimensions.width >> 2),
+                    y: (y >> 1) + (this.dimensions.height >> 2)
+                };
+                break;
+            case 5:
+                data = { // diagonal
+                    x: y,
+                    y: y
+                };
+                break;
+            case 6:
+                data = { // sphere
+                    x: Math.sqrt(x * y),
+                    y: y
+                };
+                break;
+            case 7:
+                data = { // parabel
+                    x: x / 2 + centerX / 2,
+                    y: this.dimensions.height - Math.pow(x * 1.5 - centerX, 2) / this.dimensions.height
+                };
+                break;
+            case 8:
+                data = { // circle
+                    x: Math.sin(x * y) * centerX + centerX,
+                    y: Math.cos(x * y) * centerY + centerY
+                };
+                break;
+            case 9:
+                data = { // center
+                    x: centerX,
+                    y: centerY
+                };
+                break;
+            case 10:
+                data = { // origin
+                    x: x,
+                    y: y
+                };
+                break;
+        }
+
+        data.delay = this.getRandomDelay();
+
+        return data;
     },
     addAnimation: function (item, index, x, y, position, offset) {
         requestAnimationFrame(() => {
@@ -258,8 +287,6 @@ module.exports = {
 
                 this.addAnimation(item, index, x, y, position, ++offset);
             } else if (index == this.list.length - 1) {
-                this.ready = true;
-
                 this.timeline.play();
             }
         });
