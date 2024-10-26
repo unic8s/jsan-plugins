@@ -253,11 +253,7 @@ module.exports = {
                     duration: this.duration - position[offset].delay,
                     x: offset < position.length - 1 ? position[offset].x : x,
                     y: offset < position.length - 1 ? position[offset].y : y,
-                    ease: this.options.GSAP.Circ.easeOut,
-                    roundProps: {
-                        x: 1,
-                        y: 1
-                    }
+                    ease: this.options.GSAP.Circ.easeOut
                 }, this.duration * offset + position[offset].delay);
 
                 this.addAnimation(item, index, x, y, position, ++offset);

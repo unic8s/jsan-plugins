@@ -175,11 +175,8 @@ module.exports = {
                                 {
                                     progress: progress,
                                     ease: refThis.options.GSAP.Linear.easeNone,
-                                    roundProps: {
-                                        progress: 0.001
-                                    },
                                     onUpdate: () => {
-                                        outputs.progress = refThis.progress;
+                                        outputs.progress = Number(refThis.progress).toFixed(3);
                                     }
                                 }
                             );
