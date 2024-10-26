@@ -44,6 +44,6 @@ module.exports = {
             }
         }
 
-        this.options.outputs.Output.data = calculated;
+        this.options.outputs.Output = calculated;
     }
 }
