@@ -98,11 +98,7 @@ module.exports = {
 
         this.timeline = new this.options.GSAP.TimelineLite({
             paused: true,
-            repeat: -1,
-            defaults: {
-                ease: this.options.GSAP.Circ.easeOut,
-                roundProps: 'x,y'
-            }
+            repeat: -1
         });
 
         this.list = [];
@@ -251,16 +247,21 @@ module.exports = {
             if (!this.timeline) {
                 return;
             }
-            
-            if(offset < position.length) {
+
+            if (offset < position.length) {
                 this.timeline.to(item, {
                     duration: this.duration - position[offset].delay,
                     x: offset < position.length - 1 ? position[offset].x : x,
-                    y: offset < position.length - 1 ? position[offset].y : y
+                    y: offset < position.length - 1 ? position[offset].y : y,
+                    ease: this.options.GSAP.Circ.easeOut,
+                    roundProps: {
+                        x: 1,
+                        y: 1
+                    }
                 }, this.duration * offset + position[offset].delay);
-    
+
                 this.addAnimation(item, index, x, y, position, ++offset);
-            }else if(index == this.list.length - 1){
+            } else if (index == this.list.length - 1) {
                 this.ready = true;
 
                 this.timeline.play();
