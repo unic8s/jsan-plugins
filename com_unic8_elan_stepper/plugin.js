@@ -17,7 +17,7 @@ module.exports = {
         switch (id) {
             case "trigger":
                 this.step(this.from, this.to);
-                break;
+                return;
             case "from":
                 this.from = data;
 
@@ -39,7 +39,7 @@ module.exports = {
                 break;
         }
 
-        if (needsUpdate && this.outputs.active) {
+        if (needsUpdate) {
             this.step(this.from, this.to);
         }
     },
@@ -56,11 +56,11 @@ module.exports = {
             this.tween = null;
         }
 
-        this.value = from;
-        this.outputs.active = true;
-
         const refThis = this;
         const outputs = this.options.outputs;
+
+        this.value = from;
+        outputs.active = true;
 
         this.tween = this.options.GSAP.TweenLite.to(this, this.duration,
             {
