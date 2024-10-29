@@ -6,6 +6,10 @@ module.exports = {
     grB: 0,
     mdA: 0,
     mdB: 0,
+    mnA: 0,
+    mnB: 0,
+    mxA: 0,
+    mxB: 0,
 
     install: function (options) {
         this.options = options;
@@ -30,6 +34,18 @@ module.exports = {
             case "ModB":
                 this.mdB = data;
                 break;
+            case "MinA":
+                this.mnA = data;
+                break;
+            case "MinB":
+                this.mnB = data;
+                break;
+            case "MaxA":
+                this.mxA = data;
+                break;
+            case "MaxB":
+                this.mxB = data;
+                break;
         }
 
         const outputs = this.options.outputs;
@@ -37,15 +53,15 @@ module.exports = {
         switch (id) {
             case "EqA":
             case "EqB":
-                outputs.EqOut = this.eqA === this.eqB;
+                outputs.Eq = this.eqA === this.eqB;
                 break;
             case "GtA":
             case "GtB":
-                outputs.GtOut = this.grA > this.grB;
+                outputs.Gt = this.grA > this.grB;
                 break;
             case "ModA":
             case "ModB":
-                outputs.ModOut = this.mdA % this.mdB;
+                outputs.Mod = this.mdA % this.mdB;
                 break;
             case "Floor":
                 outputs.Floor = Math.floor(data);
@@ -55,6 +71,14 @@ module.exports = {
                 break;
             case "Round":
                 outputs.Round = Math.round(data);
+                break;
+            case "MinA":
+            case "MinB":
+                outputs.Min = Math.min(this.mnA, this.mnB);
+                break;
+            case "MaxA":
+            case "MaxB":
+                outputs.Max = Math.max(this.mxA, this.mxB);
                 break;
         }
     }

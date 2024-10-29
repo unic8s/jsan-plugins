@@ -21,15 +21,21 @@
         {"name": "ModB", "type": "Number", "value": 0},
         {"name": "Floor", "type": "Number", "value": 0},
         {"name": "Ceil", "type": "Number", "value": 0},
-        {"name": "Round", "type": "Number", "value": 0}
+        {"name": "Round", "type": "Number", "value": 0},
+        {"name": "MinA", "type": "Number", "value": 0},
+        {"name": "MinB", "type": "Number", "value": 0},
+        {"name": "MaxA", "type": "Number", "value": 0},
+        {"name": "MaxB", "type": "Number", "value": 0}
     ],
     "outputs": [
-        {"name": "EqOut", "type": "Boolean", "value": true},
-        {"name": "GtOut", "type": "Boolean", "value": false},
-        {"name": "ModOut", "type": "Number", "value": 0},
+        {"name": "Eq", "type": "Boolean", "value": true},
+        {"name": "Gt", "type": "Boolean", "value": false},
+        {"name": "Mod", "type": "Number", "value": 0},
         {"name": "Floor", "type": "Number", "value": 0},
         {"name": "Ceil", "type": "Number", "value": 0},
-        {"name": "Round", "type": "Number", "value": 0}
+        {"name": "Round", "type": "Number", "value": 0},
+        {"name": "Min", "type": "Number", "value": 0},
+        {"name": "Max", "type": "Number", "value": 0}
     ],
     "files": [
     ]
