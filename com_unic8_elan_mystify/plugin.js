@@ -103,7 +103,7 @@ module.exports = {
             this.vertices.push(vertex);
         }
 
-        if(this.auto){
+        if (this.auto) {
             this.startAnimations();
         }
 
@@ -112,7 +112,7 @@ module.exports = {
 
         this.draw();
     },
-    startAnimations: function() {
+    startAnimations: function () {
         this.killAnimations();
 
         for (let c = 0; c < this.vertices.length; c++) {
@@ -122,34 +122,45 @@ module.exports = {
         }
     },
     randomVertex: function () {
-        return {
+        const points = {
             x: Math.random() * this.dimensions.width | 0,
-            y: Math.random() * this.dimensions.height | 0,
-            ax1: Math.random() * this.dimensions.width | 0,
-            ay1: Math.random() * this.dimensions.height | 0,
-            ax2: Math.random() * this.dimensions.width | 0,
-            ay2: Math.random() * this.dimensions.height | 0
+            y: Math.random() * this.dimensions.height | 0
         };
+
+        if (this.bezier) {
+            Object.assign(points, {
+                ax1: Math.random() * this.dimensions.width | 0,
+                ay1: Math.random() * this.dimensions.height | 0,
+                ax2: Math.random() * this.dimensions.width | 0,
+                ay2: Math.random() * this.dimensions.height | 0
+            });
+        }
+
+        return points;
     },
     animateVertex: function (vertex) {
         const next = this.randomVertex();
-
         const refThis = this;
 
-        this.options.GSAP.TweenLite.to(vertex, Math.random() * this.speed + this.speed,
-            {
-                x: next.x,
-                y: next.y,
+        const tweenParams = {
+            x: next.x,
+            y: next.y,
+            ease: this.options.GSAP.Linear.easeNone,
+            onComplete: refThis.auto ? () => {
+                refThis.animateVertex(vertex);
+            } : null
+        };
+
+        if (this.bezier) {
+            Object.assign(tweenParams, {
                 ax1: next.ax1,
                 ay1: next.ay1,
                 ax2: next.ax2,
                 ay2: next.ay2,
-                ease: this.options.GSAP.Linear.easeNone,
-                onComplete: refThis.auto ? () => {
-                    refThis.animateVertex(vertex);
-                } : null
-            }
-        );
+            });
+        }
+
+        this.options.GSAP.TweenLite.to(vertex, Math.random() * this.speed + this.speed, tweenParams);
     },
     draw: function () {
         this.context.strokeStyle = this.color;
@@ -160,7 +171,7 @@ module.exports = {
         this.context.beginPath();
 
         for (let c = 0; c < this.vertices.length; c++) {
-            const vertex = this.vertices[c]
+            const vertex = this.vertices[c];
 
             if (c == 0) {
                 this.context.moveTo(vertex.x, vertex.y);
