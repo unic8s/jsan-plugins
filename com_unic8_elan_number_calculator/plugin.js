@@ -14,28 +14,28 @@ module.exports = {
     },
     input: function (id, data) {
         switch (id) {
-            case "Add A":
+            case "addA":
                 this.addA = data;
                 break;
-            case "Add B":
+            case "addB":
                 this.addB = data;
                 break;
-            case "Sub A":
+            case "subA":
                 this.subA = data;
                 break;
-            case "Sub B":
+            case "subB":
                 this.subB = data;
                 break;
-            case "Mlt A":
+            case "mltA":
                 this.mltA = data;
                 break;
-            case "Mlt B":
+            case "mltB":
                 this.mltB = data;
                 break;
-            case "Div A":
+            case "divA":
                 this.divA = data;
                 break;
-            case "Div B":
+            case "divB":
                 this.divB = 1 / data;
                 break;
         }
@@ -43,20 +43,20 @@ module.exports = {
         const outputs = this.options.outputs;
 
         switch (id) {
-            case "Add A":
-            case "Add B":
+            case "addA":
+            case "addB":
                 outputs.Add = this.addA + this.addB;
                 break;
-            case "Sub A":
-            case "Sub B":
+            case "subA":
+            case "subB":
                 outputs.Sub = this.subA - this.subB;
                 break;
-            case "Mlt A":
-            case "Mlt B":
+            case "mltA":
+            case "mltB":
                 outputs.Mlt = this.mltA * this.mltB;
                 break;
-            case "Div A":
-            case "Div B":
+            case "divA":
+            case "divB":
                 outputs.Div = this.divB != 0 ? this.divA * this.divB : this.divA;
                 break;
         }

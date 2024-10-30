@@ -13,14 +13,14 @@
     "features": [
     ],
     "inputs": [
-        {"name": "Add A", "type": "Number", "value": 0},
-        {"name": "Add B", "type": "Number", "value": 0},
-        {"name": "Sub A", "type": "Number", "value": 0},
-        {"name": "Sub B", "type": "Number", "value": 0},
-        {"name": "Mlt A", "type": "Number", "value": 0},
-        {"name": "Mlt B", "type": "Number", "value": 0},
-        {"name": "Div A", "type": "Number", "value": 0},
-        {"name": "Div B", "type": "Number", "value": 0}
+        {"name": "addA", "type": "Number", "value": 0},
+        {"name": "addB", "type": "Number", "value": 0},
+        {"name": "subA", "type": "Number", "value": 0},
+        {"name": "subB", "type": "Number", "value": 0},
+        {"name": "mltA", "type": "Number", "value": 0},
+        {"name": "mltB", "type": "Number", "value": 0},
+        {"name": "divA", "type": "Number", "value": 0},
+        {"name": "divB", "type": "Number", "value": 0}
     ],
     "outputs": [
         {"name": "Add", "type": "Number", "value": 0},

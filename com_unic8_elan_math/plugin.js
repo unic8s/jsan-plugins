@@ -22,10 +22,10 @@ module.exports = {
             case "floor":
                 outputs.floor = Math.floor(data);
                 break;
-            case "pow base":
+            case "powBase":
                 this.powBase = data;
                 break;
-            case "pow exp":
+            case "powExp":
                 this.powExp = data;
                 break;
             case "round":
@@ -40,8 +40,8 @@ module.exports = {
         }
 
         switch (id) {
-            case "pow base":
-            case "pow exp":
+            case "powBase":
+            case "powExp":
                 outputs.pow = Math.pow(this.powBase, this.powExp);
                 break;
         }

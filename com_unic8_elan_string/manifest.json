@@ -14,17 +14,17 @@
     ],
     "inputs": [
         {"name": "Len", "type": "String", "value": ""},
-        {"name": "Has hay", "type": "String", "value": ""},
-        {"name": "Has ndl", "type": "String", "value": ""},
-        {"name": "Con A", "type": "String", "value": ""},
-        {"name": "Con B", "type": "String", "value": ""},
-        {"name": "Con sep", "type": "String", "value": ""},
-        {"name": "Rep hay", "type": "String", "value": ""},
-        {"name": "Rep ndl", "type": "String", "value": ""},
-        {"name": "Rep new", "type": "String", "value": ""},
-        {"name": "Sub src", "type": "String", "value": ""},
-        {"name": "Sub bgn", "type": "Number", "value": 0},
-        {"name": "Sub end", "type": "Number", "value": 0}
+        {"name": "hasHay", "type": "String", "value": ""},
+        {"name": "hasNdl", "type": "String", "value": ""},
+        {"name": "conA", "type": "String", "value": ""},
+        {"name": "conB", "type": "String", "value": ""},
+        {"name": "conSep", "type": "String", "value": ""},
+        {"name": "repHay", "type": "String", "value": ""},
+        {"name": "repNdl", "type": "String", "value": ""},
+        {"name": "repNew", "type": "String", "value": ""},
+        {"name": "subSrc", "type": "String", "value": ""},
+        {"name": "subBgn", "type": "Number", "value": 0},
+        {"name": "subEnd", "type": "Number", "value": 0}
     ],
     "outputs": [
         {"name": "Len", "type": "Number", "value": 0},
