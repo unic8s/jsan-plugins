@@ -1,0 +1,27 @@
+{
+    "name": "Audio analyzer",
+    "uid": "com_unic8_elan_audio_analyzer",
+    "description": "Audio analyzer plugin for frequencies",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+        "microphone"
+    ],
+    "features": [
+    ],
+    "inputs": [
+        {"name": "freqMin", "type": "Number", "value": 0},
+        {"name": "freqMax", "type": "Number", "value": 128},
+        {"name": "sensitivity", "type": "Number", "value": 10}
+    ],
+    "outputs": [
+        {"name": "trigger", "type": "Boolean", "value": false},
+        {"name": "level", "type": "Number", "value": 0}
+    ],
+    "files": [
+    ]
+}
