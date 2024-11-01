@@ -12,7 +12,6 @@
         "camera"
     ],
     "features": [
-        "2d",
         "3d"
     ],
     "inputs": [
