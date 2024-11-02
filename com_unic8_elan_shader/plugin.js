@@ -23,6 +23,7 @@ module.exports = {
         "assets/tunnel.frag"
     ],
     shaderIndex: 0,
+    timeScale: 1,
 
     install: function (options) {
         this.options = options;
@@ -47,7 +48,7 @@ module.exports = {
             const now = Date.now();
             const delta = now - this.timestamp;
 
-            this.filter.uniforms.time += delta * 0.001;
+            this.filter.uniforms.time += delta * 0.001 * this.timeScale;
             this.timestamp = now;
         }
     },
@@ -86,6 +87,9 @@ module.exports = {
                 }
 
                 this.init();
+                break;
+            case "timeScale":
+                this.timeScale = data;
                 break;
         }
     },
