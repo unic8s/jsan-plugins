@@ -15,7 +15,8 @@
     "inputs": [
         {"name": "Cycles", "type": "Number", "value": 0},
         {"name": "Delay", "type": "Number", "value": 1000},
-        {"name": "Active", "type": "Boolean", "value": false}
+        {"name": "Active", "type": "Boolean", "value": false},
+        {"name": "Async", "type": "Boolean", "value": false}
     ],
     "outputs": [
         {"name": "Toggle", "type": "Boolean", "value": false}
