@@ -69,10 +69,8 @@ module.exports = {
                 refThis.stage.texture.baseTexture.resource.data.set(data);
                 refThis.stage.texture.update();
             } else {
-                refThis.player = {
-                    videoWidth: refThis.dimensions.width,
-                    videoHeight: refThis.dimensions.height
-                };
+                refThis.player.videoWidth = refThis.dimensions.width;
+                refThis.player.videoHeight = refThis.dimensions.height;
 
                 const resource = new refThis.PIXI.BufferResource(data, {
                     width: refThis.dimensions.width,
