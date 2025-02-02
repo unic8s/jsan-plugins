@@ -42,6 +42,8 @@ module.exports = {
     },
     cameraUpdate: function (event) {
         this.camData = event.data;
+
+        this.draw();
     },
     cameraActive: function () {
         this.container.visible = true;
@@ -49,7 +51,7 @@ module.exports = {
     cameraInactive: function () {
         this.container.visible = false;
     },
-    render() {
+    draw() {
         if(!this.camData){
             return;
         }

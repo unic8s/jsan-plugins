@@ -118,9 +118,13 @@ module.exports = {
     },
     microphoneFrequencies: function (event) {
         this.freqData = event.data;
+
+        this.draw();
     },
     microphoneTimedomain: function (event) {
         this.timeData = event.data;
+
+        this.draw();
     },
     microphoneActive: function () {
         if(!this.container){
@@ -136,7 +140,7 @@ module.exports = {
 
         this.container.visible = false;
     },
-    render() {
+    draw() {
         if (!this.freqData || !this.timeData) {
             return;
         }
