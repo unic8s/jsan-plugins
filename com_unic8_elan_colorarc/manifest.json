@@ -1,0 +1,28 @@
+{
+    "name": "Color Arc",
+    "uid": "com_unic8_elan_colorarc",
+    "description": "Color Arc plugin",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+    ],
+    "features": [
+        "2d"
+    ],
+    "inputs": [
+        {"name": "color", "type": "Color", "value": "#000000"},
+        {"name": "size", "type": "Number", "value": 10},
+        {"name": "radius", "type": "Number", "value": 10},
+        {"name": "start", "type": "Number", "value": 0},
+        {"name": "end", "type": "Number", "value": 270},
+        {"name": "invert", "type": "Boolean", "value": false}
+    ],
+    "outputs": [
+    ],
+    "files": [
+    ]
+}
