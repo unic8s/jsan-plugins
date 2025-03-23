@@ -13,6 +13,7 @@ module.exports = {
     },
     input: function (id, data) {
         let needsUpdate = false;
+        let from = this.from;
 
         switch (id) {
             case "trigger":
@@ -24,6 +25,7 @@ module.exports = {
                 needsUpdate = true;
                 break;
             case "to":
+                from = null;
                 this.to = data;
 
                 needsUpdate = true;
@@ -40,7 +42,7 @@ module.exports = {
         }
 
         if (needsUpdate) {
-            this.step(this.from, this.to);
+            this.step(from, this.to);
         }
     },
     uninstall: function () {
@@ -59,7 +61,10 @@ module.exports = {
         const refThis = this;
         const outputs = this.options.outputs;
 
-        this.value = from;
+        if(from != null){
+            this.value = from;
+        }
+        
         outputs.active = true;
 
         this.tween = this.options.GSAP.TweenLite.to(this, this.duration,
