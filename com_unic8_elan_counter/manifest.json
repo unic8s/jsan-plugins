@@ -20,7 +20,7 @@
     ],
     "outputs": [
         {"name": "Counter", "type": "Number", "value": 0},
-        {"name": "active", "type": "Boolean", "value": true}
+        {"name": "Active", "type": "Boolean", "value": true}
     ],
     "files": [
     ]

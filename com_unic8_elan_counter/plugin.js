@@ -13,11 +13,11 @@ module.exports = {
         switch (id) {
             case "Trigger":
                 if (this.limit == 0 || this.counter < this.limit) {
-                    this.outputs.active = true;
+                    this.options.outputs.Active = true;
 
                     this.counter++;
                 } else {
-                    this.outputs.active = false;
+                    this.options.outputs.Active = false;
 
                     if (this.repeat || this.reset) {
                         this.counter = 0;

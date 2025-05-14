@@ -51,28 +51,28 @@ module.exports = {
         const outputs = this.options.outputs;
 
         switch (id) {
-            case "nor":
-                outputs.NOT = !data;
+            case "not":
+                outputs.not = !data;
                 break;
             case "andA":
             case "andB":
-                outputs.AND = this.andA && this.andB;
+                outputs.and = this.andA && this.andB;
                 break;
             case "orA":
             case "orB":
-                outputs.OR = this.orA || this.orB;
+                outputs.or = this.orA || this.orB;
                 break;
             case "xorA":
             case "xorB":
-                outputs.XOR = this.xorA ^ this.xorB;
+                outputs.xor = this.xorA ^ this.xorB;
                 break;
             case "nandA":
             case "nandB":
-                outputs.NAND = !(this.nandA && this.andB);
+                outputs.nand = !(this.nandA && this.andB);
                 break;
             case "norA":
             case "norB":
-                outputs.NOR = !(this.norA || this.norB);
+                outputs.nor = !(this.norA || this.norB);
                 break;
         }
     }
