@@ -74,7 +74,13 @@ module.exports = {
         this.sprite.pivot.set(this.dimensions.width >> 1, this.dimensions.height >> 1);
         this.sprite.position.set(this.dimensions.width >> 1, this.dimensions.height >> 1);
 
-        this.peaks = new Array(this.dimensions.width);
+        let peakAmount = this.dimensions.width | 0;
+
+        if(peakAmount < 0){
+            peakAmount = 0;
+        }
+
+        this.peaks = new Array(peakAmount);
         this.lengthFactor = this.dimensions.height / 255;
     },
     blend: function (mode) {
