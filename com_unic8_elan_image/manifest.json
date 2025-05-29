@@ -17,7 +17,9 @@
         {"name": "path", "type": "File", "value": ""},
         {"name": "contains", "type": "Boolean", "value": false},
         {"name": "fade", "type": "Number", "value": 0},
-        {"name": "frameDelay", "type": "Number", "value": -1}
+        {"name": "frameDelay", "type": "Number", "value": -1},
+        {"name": "hAlign", "type": "Number", "value": 0},
+        {"name": "vAlign", "type": "Number", "value": 0}
     ],
     "outputs": [
         {"name": "average", "type": "Color", "value": "#000000"},

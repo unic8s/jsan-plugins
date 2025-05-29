@@ -22,6 +22,10 @@ module.exports = {
     },
     patchCanvas: null,
     patchContext: null,
+    align: {
+        hor: 0,
+        ver: 0
+    },
 
     install: function (options) {
         this.options = options;
@@ -110,7 +114,7 @@ module.exports = {
                     onComplete: () => {
                         this.killTween();
 
-                        if(data){
+                        if (data) {
                             this.loadImage(data);
                         }
                     }
@@ -126,6 +130,16 @@ module.exports = {
                 break;
             case "frameDelay":
                 this.frameDelay = data;
+                break;
+            case "hAlign":
+                this.align.hor = data;
+
+                this.scaleImage();
+                break;
+            case "vAlign":
+                this.align.ver = data;
+
+                this.scaleImage();
                 break;
         }
     },
@@ -215,8 +229,30 @@ module.exports = {
 
         this.stage.width = realBounds.width;
         this.stage.height = realBounds.height;
-        this.stage.x = (this.dimensions.width - realBounds.width) >> 1;
-        this.stage.y = (this.dimensions.height - realBounds.height) >> 1;
+
+        switch (this.align.hor) {
+            case -1:
+                this.stage.x = 0;
+                break;
+            case 0:
+                this.stage.x = (this.dimensions.width - realBounds.width) >> 1;
+                break;
+            case 1:
+                this.stage.x = this.dimensions.width - realBounds.width;
+                break;
+        }
+
+        switch (this.align.ver) {
+            case -1:
+                this.stage.y = 0;
+                break;
+            case 0:
+                this.stage.y = (this.dimensions.height - realBounds.height) >> 1;
+                break;
+            case 1:
+                this.stage.y = this.dimensions.height - realBounds.height;
+                break;
+        }
 
         return realBounds;
     },
