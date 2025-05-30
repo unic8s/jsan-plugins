@@ -17,9 +17,6 @@ module.exports = {
     },
     input: function (id, data) {
         switch (id) {
-            case "Len":
-                this.outputs.Len = data.length;
-                break;
             case "hasHay":
                 this.hasHay = data;
                 break;
@@ -58,6 +55,9 @@ module.exports = {
         const outputs = this.options.outputs;
 
         switch (id) {
+            case "Len":
+                outputs.Len = data.length;
+                break;
             case "hasHay":
             case "hasNdl":
                 outputs.Has = this.hasHay.indexOf(this.hasNdl) >= 0;
