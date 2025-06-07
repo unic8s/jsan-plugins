@@ -74,7 +74,7 @@ module.exports = {
             case "blue":
                 this.filter.uniforms[id] = data ? 4.0 : 1.0
                 break;
-            case "alpha":
+            case "opacity":
                 this.filter.uniforms.alpha = data
                 break;
             case "index":

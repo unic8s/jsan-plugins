@@ -17,7 +17,7 @@
         {"name": "red", "type": "Boolean", "value": false},
         {"name": "green", "type": "Boolean", "value": false},
         {"name": "blue", "type": "Boolean", "value": false},
-        {"name": "alpha", "type": "Number", "value": 0},
+        {"name": "opacity", "type": "Number", "value": 0},
         {"name": "index", "type": "Number", "value": 0},
         {"name": "timeScale", "type": "Number", "value": 1}
     ],
