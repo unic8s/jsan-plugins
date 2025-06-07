@@ -14,9 +14,7 @@
     ],
     "inputs": [
         {"name": "abs", "type": "Number", "value": 0},
-        {"name": "ceil", "type": "Number", "value": 0},
         {"name": "cos", "type": "Number", "value": 0},
-        {"name": "floor", "type": "Number", "value": 0},
         {"name": "powBase", "type": "Number", "value": 0},
         {"name": "powExp", "type": "Number", "value": 0},
         {"name": "round", "type": "Number", "value": 0},
@@ -25,9 +23,7 @@
     ],
     "outputs": [
         {"name": "abs", "type": "Number", "value": 0},
-        {"name": "ceil", "type": "Number", "value": 0},
         {"name": "cos", "type": "Number", "value": 0},
-        {"name": "floor", "type": "Number", "value": 0},
         {"name": "pow", "type": "Number", "value": 0},
         {"name": "round", "type": "Number", "value": 0},
         {"name": "sin", "type": "Number", "value": 0},

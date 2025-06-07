@@ -13,14 +13,8 @@ module.exports = {
             case "abs":
                 outputs.abs = Math.abs(data);
                 break;
-            case "ceil":
-                outputs.ceil = Math.ceil(data);
-                break;
             case "cos":
                 outputs.cos = Math.cos(data);
-                break;
-            case "floor":
-                outputs.floor = Math.floor(data);
                 break;
             case "powBase":
                 this.powBase = data;
