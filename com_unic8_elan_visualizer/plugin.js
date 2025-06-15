@@ -76,12 +76,14 @@ module.exports = {
 
         let peakAmount = this.dimensions.width | 0;
 
-        if(peakAmount < 0){
+        if (peakAmount < 0) {
             peakAmount = 0;
         }
 
         this.peaks = new Array(peakAmount);
         this.lengthFactor = this.dimensions.height / 255;
+
+        this.context.clearRect(0, 0, this.dimensions.width, this.dimensions.height);
     },
     blend: function (mode) {
         this.sprite.blendMode = mode;
@@ -133,14 +135,14 @@ module.exports = {
         this.draw();
     },
     microphoneActive: function () {
-        if(!this.container){
+        if (!this.container) {
             return;
         }
 
         this.container.visible = true;
     },
     microphoneInactive: function () {
-        if(!this.container){
+        if (!this.container) {
             return;
         }
 
@@ -158,6 +160,9 @@ module.exports = {
 
         const speedMlt = this.dimensions.height;
         const increment = this.width + this.gap;
+
+        const stampAlpha = 1 - this.trail / 100;
+        const stampStyle = "rgba(0,0,0," + stampAlpha + ")";
 
         switch (this.mode) {
             case 0:
@@ -227,9 +232,8 @@ module.exports = {
                 break;
             case 2:
                 this.context.globalAlpha = 1 / (this.trail * 2);
-                this.context.fillStyle = "#000";
+                this.context.fillStyle = stampStyle;
                 this.context.fillRect(0, 0, this.dimensions.width, this.dimensions.height);
-                this.context.globalAlpha = 1;
                 this.context.beginPath();
 
                 for (let c = 0; c < this.dimensions.width; c += increment) {
@@ -246,10 +250,8 @@ module.exports = {
                 break;
             case 3:
                 this.context.drawImage(this.canvas, this.speed, -this.speed);
-                this.context.globalAlpha = 1 / (this.trail * 2);
-                this.context.fillStyle = "#000";
+                this.context.fillStyle = stampStyle;
                 this.context.fillRect(0, 0, this.dimensions.width, this.dimensions.height);
-                this.context.globalAlpha = 1;
                 this.context.beginPath();
 
                 for (let c = 0; c < this.dimensions.width; c += increment) {
@@ -272,10 +274,8 @@ module.exports = {
                 break;
             case 4:
                 this.context.drawImage(this.canvas, -this.speed, 0);
-                this.context.globalAlpha = 1 / (this.trail * 2);
-                this.context.fillStyle = "#000";
+                this.context.fillStyle = stampStyle;
                 this.context.fillRect(0, 0, this.dimensions.width, this.dimensions.height);
-                this.context.globalAlpha = 1;
 
                 var average = 0;
 
@@ -298,10 +298,8 @@ module.exports = {
 
                 this.context.globalAlpha = 1 / (this.trail * 2);
                 this.context.drawImage(this.canvas, -this.speed, -this.speed, this.dimensions.width + this.speed * 2, this.dimensions.height + this.speed * 2);
-                this.context.globalAlpha = 1 / (this.trail * 2);
-                this.context.fillStyle = "#000";
+                this.context.fillStyle = stampStyle;
                 this.context.fillRect(0, 0, this.dimensions.width, this.dimensions.height);
-                this.context.globalAlpha = 1;
                 this.context.beginPath();
 
                 var first = 0;
