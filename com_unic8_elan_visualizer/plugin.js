@@ -231,7 +231,6 @@ module.exports = {
                 this.context.stroke();
                 break;
             case 2:
-                this.context.globalAlpha = 1 / (this.trail * 2);
                 this.context.fillStyle = stampStyle;
                 this.context.fillRect(0, 0, this.dimensions.width, this.dimensions.height);
                 this.context.beginPath();
@@ -296,7 +295,6 @@ module.exports = {
                 var step = Math.PI * 2 / (this.freqData.length / width);
                 var index = 0;
 
-                this.context.globalAlpha = 1 / (this.trail * 2);
                 this.context.drawImage(this.canvas, -this.speed, -this.speed, this.dimensions.width + this.speed * 2, this.dimensions.height + this.speed * 2);
                 this.context.fillStyle = stampStyle;
                 this.context.fillRect(0, 0, this.dimensions.width, this.dimensions.height);
