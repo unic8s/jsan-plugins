@@ -1,0 +1,26 @@
+{
+    "name": "Gradient Rectangle",
+    "uid": "com_unic8_elan_gradientrectangle",
+    "description": "Gradient Rectangle plugin",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+    ],
+    "features": [
+        "2d"
+    ],
+    "inputs": [
+        {"name": "colorFrom", "type": "Color", "value": "#000000"},
+        {"name": "colorTo", "type": "Color", "value": "#FFFFFF"},
+        {"name": "alphaFrom", "type": "Number", "value": 0},
+        {"name": "alphaTo", "type": "Number", "value": 1}
+    ],
+    "outputs": [
+    ],
+    "files": [
+    ]
+}
