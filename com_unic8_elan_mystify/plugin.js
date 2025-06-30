@@ -163,11 +163,12 @@ module.exports = {
         this.options.GSAP.TweenLite.to(vertex, Math.random() * this.speed + this.speed, tweenParams);
     },
     draw: function () {
+        const stampAlpha = 1 / (this.trail);
+        const stampStyle = "rgba(0,0,0," + stampAlpha + ")";
+
         this.context.strokeStyle = this.color;
-        this.context.globalAlpha = 1 / (this.trail * 2);
-        this.context.fillStyle = "#000";
+        this.context.fillStyle = stampStyle;
         this.context.fillRect(0, 0, this.dimensions.width, this.dimensions.height);
-        this.context.globalAlpha = 1;
         this.context.beginPath();
 
         for (let c = 0; c < this.vertices.length; c++) {
