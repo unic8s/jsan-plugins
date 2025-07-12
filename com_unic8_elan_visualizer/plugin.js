@@ -20,6 +20,7 @@ module.exports = {
     gap: 1,
     freqData: null,
     timeData: null,
+    sineOffsets: [0, 0, 0],
 
     install: function (options) {
         this.options = options;
@@ -272,22 +273,54 @@ module.exports = {
                 this.context.stroke();
                 break;
             case 4:
-                this.context.drawImage(this.canvas, -this.speed, 0);
+                this.context.drawImage(this.canvas, this.speed, -this.speed);
                 this.context.fillStyle = stampStyle;
                 this.context.fillRect(0, 0, this.dimensions.width, this.dimensions.height);
+                this.context.beginPath();
 
-                var average = 0;
+                var freqSplit = Math.floor(this.freqData.length / 3);
+                var freqSegments = [0, 0, 0];
+                var freqDivider = [8, 4, 2];
+                var freqColors = ["#FF0000", "#00FF00", "#0000FF"]
 
-                for (let c = 0; c < this.dimensions.width; c += increment) {
-                    average += this.freqData[c];
+                for (let c = 0; c < this.freqData.length; c++) {
+                    if (c < freqSplit) {
+                        freqSegments[0] += this.freqData[c];
+                    } else if (c < freqSplit * 2) {
+                        freqSegments[1] += this.freqData[c];
+                    } else {
+                        freqSegments[2] += this.freqData[c];
+                    }
                 }
 
-                average /= this.freqData.length * 0.75;
+                for (let c = 0; c < freqSegments.length; c++) {
+                    freqSegments[c] /= freqSplit;
+                    this.sineOffsets[c] += freqSegments[c] / freqDivider[c] / this.dimensions.width * this.speed;
 
-                var adjustedLength = this.lengthFactor * average;
+                    if (this.sineOffsets[c] >= 90) {
+                        this.sineOffsets[c] -= 90;
+                    }
+                }
 
-                this.context.fillStyle = style;
-                this.context.fillRect(this.dimensions.width - 1, (this.dimensions.height - adjustedLength) | 0, 1, this.dimensions.height);
+                var centerY = (this.dimensions.height >> 1);
+
+                for (let c1 = 0; c1 < freqSegments.length; c1++) {
+                    var velocity = freqSegments[c1];
+                    var divider = freqDivider[c1];
+
+                    this.context.strokeStyle = freqColors[c1];
+                    this.context.beginPath();
+
+                    for (let c2 = 0; c2 < this.dimensions.width; c2++) {
+                        if (c2 == 0) {
+                            this.context.moveTo(0, centerY | 0);
+                        }
+
+                        this.context.lineTo(c2, (centerY + Math.sin((c2 + this.sineOffsets[c1]) / divider) * velocity) | 0);
+                    }
+
+                    this.context.stroke();
+                }
                 break;
             case 5:
                 var width = this.width > 0 ? this.width : 1;
