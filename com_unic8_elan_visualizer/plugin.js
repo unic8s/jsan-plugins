@@ -273,10 +273,9 @@ module.exports = {
                 this.context.stroke();
                 break;
             case 4:
-                this.context.drawImage(this.canvas, this.speed, -this.speed);
+                this.context.drawImage(this.canvas, -this.speed, 0);
                 this.context.fillStyle = stampStyle;
                 this.context.fillRect(0, 0, this.dimensions.width, this.dimensions.height);
-                this.context.beginPath();
 
                 var freqSplit = Math.floor(this.freqData.length / 3);
                 var freqSegments = [0, 0, 0];
@@ -295,7 +294,7 @@ module.exports = {
 
                 for (let c = 0; c < freqSegments.length; c++) {
                     freqSegments[c] /= freqSplit;
-                    this.sineOffsets[c] += freqSegments[c] / freqDivider[c] / this.dimensions.width * this.speed;
+                    this.sineOffsets[c] += freqSegments[c] / freqDivider[c] / this.dimensions.width * this.speed + (3 - c) / this.dimensions.width;
 
                     var sinLimit = Math.PI * freqDivider[c];
 
@@ -320,7 +319,7 @@ module.exports = {
                             this.context.moveTo(0, centerY | 0);
                         }
 
-                        var yPos = (this.dimensions.height / 512 * Math.sin((c2 + this.sineOffsets[c1]) / divider) * velocity) | 0;
+                        var yPos = (this.dimensions.height / 512 * Math.sin((c2 + this.sineOffsets[c1]) / divider) * velocity);
 
                         this.context.lineTo(c2, centerY + yPos);
                     }
