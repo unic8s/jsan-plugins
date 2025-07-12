@@ -297,8 +297,12 @@ module.exports = {
                     freqSegments[c] /= freqSplit;
                     this.sineOffsets[c] += freqSegments[c] / freqDivider[c] / this.dimensions.width * this.speed;
 
-                    if (this.sineOffsets[c] >= 90) {
-                        this.sineOffsets[c] -= 90;
+                    var sinLimit = Math.PI * freqDivider[c];
+
+                    if (this.sineOffsets[c] <= sinLimit) {
+                        this.sineOffsets[c] += sinLimit;
+                    } else if (this.sineOffsets[c] >= sinLimit) {
+                        this.sineOffsets[c] -= sinLimit;
                     }
                 }
 
@@ -316,7 +320,9 @@ module.exports = {
                             this.context.moveTo(0, centerY | 0);
                         }
 
-                        this.context.lineTo(c2, (centerY + Math.sin((c2 + this.sineOffsets[c1]) / divider) * velocity) | 0);
+                        var yPos = (this.dimensions.height / 512 * Math.sin((c2 + this.sineOffsets[c1]) / divider) * velocity) | 0;
+
+                        this.context.lineTo(c2, centerY + yPos);
                     }
 
                     this.context.stroke();
