@@ -7,6 +7,7 @@ module.exports = {
     canvas: null,
     context: null,
     gradientList: [],
+    gradientDetails: [],
     schemeList: [],
     schemeIndex: -1,
     scheme: null,
@@ -280,7 +281,9 @@ module.exports = {
                 var freqSplit = Math.floor(this.freqData.length / 3);
                 var freqSegments = [0, 0, 0];
                 var freqDivider = [8, 4, 2];
-                var freqColors = ["#FF0000", "#00FF00", "#0000FF"]
+                var freqColors = this.schemeIndex < 0 || this.schemeIndex >= this.gradientDetails.length || this.gradientDetails[this.schemeIndex].length < 3 ?
+                    [this.color, this.color, this.color]:
+                    [this.gradientDetails[this.schemeIndex][0].color, this.gradientDetails[this.schemeIndex][1].color, this.gradientDetails[this.schemeIndex][2].color];
 
                 for (let c = 0; c < this.freqData.length; c++) {
                     if (c < freqSplit) {
@@ -422,6 +425,8 @@ module.exports = {
     },
     createGradient: function (name, definition, width = 0) {
         const gradient = this.context.createLinearGradient(0, 0, width, this.dimensions.height);
+
+        this.gradientDetails.push(definition);
 
         for (let c = 0; c < definition.length; c++) {
             const def = definition[c];
