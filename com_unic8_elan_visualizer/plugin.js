@@ -22,11 +22,16 @@ module.exports = {
     freqData: null,
     timeData: null,
     sineOffsets: [0, 0, 0],
+    freqDivider: [],
+    freqSpeed: [],
 
     install: function (options) {
         this.options = options;
 
         this.dimensions = this.options.params.canvas;
+
+        this.freqDivider = [this.dimensions.width >> 2, this.dimensions.width >> 4, this.dimensions.width >> 6];
+        this.freqSpeed = [this.dimensions.width * 0.01, this.dimensions.width * 0.02, this.dimensions.width * 0.03];
 
         this.container = options.PIXI.instance;
         this.PIXI = options.PIXI.module;
@@ -280,7 +285,6 @@ module.exports = {
 
                 var freqSplit = Math.floor(this.freqData.length / 3);
                 var freqSegments = [0, 0, 0];
-                var freqDivider = [8, 4, 2];
                 var freqColors = this.schemeIndex < 0 || this.schemeIndex >= this.gradientDetails.length || this.gradientDetails[this.schemeIndex].length < 3 ?
                     [this.color, this.color, this.color]:
                     [this.gradientDetails[this.schemeIndex][0].color, this.gradientDetails[this.schemeIndex][1].color, this.gradientDetails[this.schemeIndex][2].color];
@@ -297,9 +301,9 @@ module.exports = {
 
                 for (let c = 0; c < freqSegments.length; c++) {
                     freqSegments[c] /= freqSplit;
-                    this.sineOffsets[c] += freqSegments[c] / freqDivider[c] / this.dimensions.width * this.speed + (3 - c) / this.dimensions.width;
+                    this.sineOffsets[c] += freqSegments[c] / this.freqSpeed[c] / this.dimensions.width * this.speed + (3 - c) / this.dimensions.width;
 
-                    var sinLimit = Math.PI * freqDivider[c];
+                    var sinLimit = Math.PI * this.freqDivider[c];
 
                     if (this.sineOffsets[c] <= sinLimit) {
                         this.sineOffsets[c] += sinLimit;
@@ -312,7 +316,7 @@ module.exports = {
 
                 for (let c1 = 0; c1 < freqSegments.length; c1++) {
                     var velocity = freqSegments[c1];
-                    var divider = freqDivider[c1];
+                    var divider = this.freqDivider[c1];
 
                     this.context.strokeStyle = freqColors[c1];
                     this.context.beginPath();
