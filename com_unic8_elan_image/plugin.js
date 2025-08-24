@@ -286,7 +286,7 @@ module.exports = {
                 pixels = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height).data;
             }
 
-            const average = this.options.helpers.color.calculateAverage(pixels);
+            const average = this.options.helpers.color.calculateAverage(pixels).color;
             const accent = this.options.helpers.color.calculateAccent(pixels);
 
             this.options.outputs.average = this.options.helpers.color.rgbToHex.apply(this, average);
