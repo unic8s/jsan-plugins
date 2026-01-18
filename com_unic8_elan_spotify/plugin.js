@@ -45,14 +45,14 @@ module.exports = {
                 this.spotifyApi.skipToPrevious();
                 break;
             case "play":
-                if(this.playing){
+                if (this.playing) {
                     return;
                 }
 
                 this.spotifyApi.play();
                 break;
             case "pause":
-                if(!this.playing){
+                if (!this.playing) {
                     return;
                 }
 
@@ -68,9 +68,14 @@ module.exports = {
 
         this.spotifyApi.authorizationCodeGrant(event.data).then(
             function (data) {
-                localStorage.setItem("spotifyExpire", data.body['expires_in']);
-                localStorage.setItem("spotifyAccessToken", data.body['access_token']);
-                localStorage.setItem("spotifyRefreshToken", data.body['refresh_token']);
+                let credentialsRaw = localStorage.getItem("com_unic8_elan_spotify");
+                let credentialsData = credentialsRaw ? JSON.parse(credentialsRaw) : { spotify: {} };
+
+                credentialsData["expire"] = data.body['expires_in'];
+                credentialsData["accessToken"] = data.body['access_token'];
+                credentialsData["refreshToken"] = data.body['refresh_token'];
+
+                localStorage.setItem("com_unic8_elan_spotify", JSON.stringify(credentialsData));
 
                 refThis.spotifyApi.setAccessToken(data.body['access_token']);
                 refThis.spotifyApi.setRefreshToken(data.body['refresh_token']);
@@ -250,8 +255,11 @@ module.exports = {
             return;
         }
 
-        const accessToken = localStorage.getItem("spotifyAccessToken");
-        const refreshToken = localStorage.getItem("spotifyRefreshToken");
+        let credentialsRaw = localStorage.getItem("com_unic8_elan_spotify");
+        let credentialsData = credentialsRaw ? JSON.parse(credentialsRaw) : { spotify: {} };
+
+        const accessToken = credentialsData["accessToken"];
+        const refreshToken = credentialsData["refreshToken"];
 
         if (accessToken && refreshToken) {
             const refThis = this;
@@ -263,8 +271,13 @@ module.exports = {
                 function (data) {
                     refThis.spotifyApi.setAccessToken(data.body['access_token']);
 
-                    localStorage.setItem("spotifyExpire", data.body['expires_in']);
-                    localStorage.setItem("spotifyAccessToken", data.body['access_token']);
+                    let credentialsRaw = localStorage.getItem("com_unic8_elan_spotify");
+                    let credentialsData = credentialsRaw ? JSON.parse(credentialsRaw) : { spotify: {} };
+
+                    credentialsData["expire"] = data.body['expires_in'];
+                    credentialsData["accessToken"] = data.body['access_token'];
+
+                    localStorage.setItem("com_unic8_elan_spotify", JSON.stringify(credentialsData));
 
                     refThis.startPolling();
                 },
@@ -296,7 +309,12 @@ module.exports = {
                     return;
                 }
 
-                localStorage.setItem("spotifyAccessToken", data.body['access_token']);
+                let credentialsRaw = localStorage.getItem("com_unic8_elan_spotify");
+                let credentialsData = credentialsRaw ? JSON.parse(credentialsRaw) : { spotify: {} };
+
+                credentialsData["accessToken"] = data.body['access_token'];
+
+                localStorage.setItem("com_unic8_elan_spotify", JSON.stringify(credentialsData));
 
                 if (refThis.spotifyApi) {
                     refThis.spotifyApi.setAccessToken(data.body['access_token']);
