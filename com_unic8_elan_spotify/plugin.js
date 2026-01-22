@@ -256,7 +256,7 @@ module.exports = {
         }
 
         let credentialsRaw = localStorage.getItem("com_unic8_elan_spotify");
-        let credentialsData = credentialsRaw ? JSON.parse(credentialsRaw) : { spotify: {} };
+        let credentialsData = credentialsRaw ? JSON.parse(credentialsRaw) : {};
 
         const accessToken = credentialsData["accessToken"];
         const refreshToken = credentialsData["refreshToken"];
@@ -272,7 +272,7 @@ module.exports = {
                     refThis.spotifyApi.setAccessToken(data.body['access_token']);
 
                     let credentialsRaw = localStorage.getItem("com_unic8_elan_spotify");
-                    let credentialsData = credentialsRaw ? JSON.parse(credentialsRaw) : { spotify: {} };
+                    let credentialsData = credentialsRaw ? JSON.parse(credentialsRaw) : {};
 
                     credentialsData["expire"] = data.body['expires_in'];
                     credentialsData["accessToken"] = data.body['access_token'];
