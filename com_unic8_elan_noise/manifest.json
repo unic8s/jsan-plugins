@@ -1,0 +1,24 @@
+{
+    "name": "Noise",
+    "uid": "com_unic8_elan_noise",
+    "description": "Noise plugin",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+    ],
+    "features": [
+        "2d"
+    ],
+    "inputs": [
+        {"name": "trigger", "type": "Boolean", "value": false},
+        {"name": "noise", "type": "Number", "value": 50}
+    ],
+    "outputs": [
+    ],
+    "files": [
+    ]
+}
