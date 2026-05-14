@@ -51,7 +51,7 @@ module.exports = {
         }
     },
     blend: function (mode) {
-        this.container.blendMode = mode;
+        this.filter.blendMode = mode;
     },
 
     drawRect: function () {
