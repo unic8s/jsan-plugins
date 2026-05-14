@@ -14,9 +14,10 @@ module.exports = {
         const PIXI = options.PIXI.module;
 
         this.filter = new options.PIXI.module.NoiseFilter({
-            noise: options.inputs.noise,
-            seed: (Math.random() * 1000) | 0
+            noise: 0.5,
+            seed: Math.random()
         });
+        this.filter.noise = options.inputs.noise / 100;
 
         this.gfx = new PIXI.Graphics();
         this.gfx.filters = [this.filter];
@@ -45,12 +46,12 @@ module.exports = {
     },
     render: function () {
         if (this.isDirty) {
-            this.filter.seed = (Math.random() * 1000) | 0;
+            this.filter.seed = Math.random();
             this.isDirty = false;
         }
     },
     blend: function (mode) {
-        this.gfx.blendMode = mode;
+        this.container.blendMode = mode;
     },
 
     drawRect: function () {
