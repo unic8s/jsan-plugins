@@ -65,6 +65,9 @@ module.exports = {
             case "random":
                 this.random = data;
                 break;
+            case "smooth":
+                this.smooth = data;
+                break;
         }
 
         this.build();
@@ -284,8 +287,8 @@ module.exports = {
                     y: offset < position.length - 1 ? position[offset].y : y,
                     ease: this.options.GSAP.Circ.easeOut,
                     roundProps: {
-                        x: 1,
-                        y: 1
+                        x: this.smooth ? 0.01 : 1,
+                        y: this.smooth ? 0.01 : 1
                     }
                 }, this.duration * offset + position[offset].delay);
 

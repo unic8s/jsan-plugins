@@ -19,7 +19,8 @@
         {"name": "duration", "type": "Number", "value": 8},
         {"name": "scheme", "type": "Number", "value": 0},
         {"name": "trail", "type": "Number", "value": 1},
-        {"name": "random", "type": "Boolean", "value": false}
+        {"name": "random", "type": "Boolean", "value": false},
+        {"name": "smooth", "type": "Boolean", "value": false}
     ],
     "outputs": [
     ],
