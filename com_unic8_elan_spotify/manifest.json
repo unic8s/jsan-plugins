@@ -29,7 +29,8 @@
         {"name": "cover", "type": "File", "value": ""},
         {"name": "playing", "type": "Boolean", "value": false},
         {"name": "progress", "type": "Number", "value": 0},
-        {"name": "duration", "type": "Number", "value": 0}
+        {"name": "duration", "type": "Number", "value": 0},
+        {"name": "authURL", "type": "String", "value": ""}
     ],
     "files": [
         "assets/spotify.png"

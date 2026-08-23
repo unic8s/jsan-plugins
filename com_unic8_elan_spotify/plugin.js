@@ -296,6 +296,10 @@ module.exports = {
 
             var authorizeURL = this.spotifyApi.createAuthorizeURL(scopes, state, showDialog);
 
+            const outputs = this.options.outputs;
+            
+            outputs.authURL = authorizeURL;
+
             window.open(authorizeURL, "Spotify", "toolbar=no, location=no, directories=no, status=no, menubar=no, resizable=no");
             this.popup = true;
         }
