@@ -70,7 +70,7 @@ module.exports = {
             const color = this.palette[index];
 
             this.gfx.beginFill(color);
-            this.gfx.drawRect(c, this.dimensions.y, 1, this.dimensions.height);
+            this.gfx.rect(c, this.dimensions.y, 1, this.dimensions.height);
             this.gfx.endFill();
         }
     },

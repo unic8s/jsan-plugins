@@ -34,14 +34,14 @@ module.exports = {
         this.dimensions = this.options.params.canvas;
         this.container = options.PIXI.instance;
     },
-    uninstall: function() {
+    uninstall: function () {
         this.alive = false;
     },
     resize: function (bounds) {
         this.dimensions = bounds;
     },
-    blend: function(mode) {
-        for(let c = 0; c < this.container.children.length; c++){
+    blend: function (mode) {
+        for (let c = 0; c < this.container.children.length; c++) {
             const gfx = this.container.children[c];
             gfx.blendMode = mode;
         }
@@ -126,30 +126,30 @@ module.exports = {
 
         this.options.outputs.amount++;
 
+        const size = Math.max(this.dimensions.width, this.dimensions.height);
+
+        switch (randomShape) {
+            case "square":
+                gfx.rect(-size >> 1, -size >> 1, size, size);
+                break;
+            case "circle":
+                gfx.circle(0, 0, size >> 1);
+                break;
+            case "star":
+                this.drawStar(gfx, 0, 0, 5, size >> 1, size, 90);
+                break;
+        }
+
         const color = this.random.color ? Math.round(Math.random() * 0xFFFFFF) : this.color;
 
         if (this.outline) {
-            gfx.lineStyle({
+            gfx.stroke({
                 width: this.line,
                 color: color,
                 native: this.line == 1
             });
         } else {
-            gfx.beginFill(color);
-        }
-
-        const size = Math.max(this.dimensions.width, this.dimensions.height);
-
-        switch (randomShape) {
-            case "square":
-                gfx.drawRect(-size >> 1, -size >> 1, size, size);
-                break;
-            case "circle":
-                gfx.drawCircle(0, 0, size >> 1);
-                break;
-            case "star":
-                this.drawStar(gfx, 0, 0, 5, size >> 1, size, 90);
-                break;
+            gfx.fill(color);
         }
 
         const refThis = this;
@@ -174,7 +174,7 @@ module.exports = {
 
                     gfx.destroy();
 
-                    if(refThis.alive){
+                    if (refThis.alive) {
                         refThis.options.outputs.amount--;
                     }
                 }

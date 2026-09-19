@@ -127,18 +127,17 @@ module.exports = {
         this.gfxSeconds.clear();
 
         if (this.modern) {
-            this.gfxSeconds.lineStyle(arcWidth, this.colorSeconds, 1, true);
             this.gfxSeconds.arc(x, y, arcRadius - 2, 0, Math.PI * 2 / 60 * seconds);
+            this.gfxSeconds.stroke(arcWidth, this.colorSeconds, 1, true);
         } else {
             size = 1;
 
-            this.gfxSeconds.beginFill(this.colorSeconds);
-            this.gfxSeconds.drawPolygon([
+            this.gfxSeconds.poly([
                 { x: x - size, y: y + size },
                 { x: x, y: y >> 3 },
                 { x: x + size, y: y + size },
             ]);
-            this.gfxSeconds.endFill();
+            this.gfxSeconds.fill(this.colorSeconds);
         }
 
         this.gfxMinutes.clear();
@@ -146,18 +145,17 @@ module.exports = {
         if (this.modern) {
             arcRadius -= arcWidth + 3;
 
-            this.gfxMinutes.lineStyle(arcWidth, this.colorMinutes, 1, true);
             this.gfxMinutes.arc(x, y, arcRadius, 0, Math.PI * 2 / 60 * minutesSub);
+            this.gfxMinutes.stroke(arcWidth, this.colorMinutes, 1, true);
         } else {
             size = 1.25;
 
-            this.gfxMinutes.beginFill(this.colorMinutes);
-            this.gfxMinutes.drawPolygon([
+            this.gfxMinutes.poly([
                 { x: x - size, y: y + size },
                 { x: x, y: y >> 2 },
                 { x: x + size, y: y + size },
             ]);
-            this.gfxMinutes.endFill();
+            this.gfxMinutes.fill(this.colorMinutes);
         }
 
         this.gfxHours.clear();
@@ -165,23 +163,21 @@ module.exports = {
         if (this.modern) {
             arcRadius -= arcWidth + 1;
 
-            this.gfxHours.lineStyle(arcWidth, this.colorHours, 1, true);
-
             if (hours >= 12) {
                 hours -= 12;
             }
 
             this.gfxHours.arc(x, y, arcRadius, 0, Math.PI * 2 / 12 * (hours + minutesSub / 60));
+            this.gfxHours.stroke(arcWidth, this.colorHours, 1, true);
         } else {
             size = 1.5;
 
-            this.gfxHours.beginFill(this.colorHours);
-            this.gfxHours.drawPolygon([
+            this.gfxHours.poly([
                 { x: x - size, y: y + size },
                 { x: x, y: y >> 1 },
                 { x: x + size, y: y + size },
             ]);
-            this.gfxHours.endFill();
+            this.gfxHours.fill(this.colorHours);
         }
     }
 }

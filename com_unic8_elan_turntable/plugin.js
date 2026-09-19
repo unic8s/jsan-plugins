@@ -130,17 +130,17 @@ module.exports = {
 
         this.coverMask.clear();
         this.coverMask.beginFill("#FF0000");
-        this.coverMask.drawCircle(this.vinyl.width >> 1, this.vinyl.height >> 1, 160 * scale);
+        this.coverMask.circle(this.vinyl.width >> 1, this.vinyl.height >> 1, 160 * scale);
         this.coverMask.endFill();
 
         this.hole.clear();
         this.hole.beginFill("#000000");
-        this.hole.drawCircle(this.vinyl.width >> 1, this.vinyl.height >> 1, 11 * scale);
+        this.hole.circle(this.vinyl.width >> 1, this.vinyl.height >> 1, 11 * scale);
         this.hole.endFill();
 
         this.grainMask.clear();
         this.grainMask.beginFill("#FF0000");
-        this.grainMask.drawCircle(this.vinyl.width >> 1, this.vinyl.height >> 1, 470 * scale);
+        this.grainMask.circle(this.vinyl.width >> 1, this.vinyl.height >> 1, 470 * scale);
         this.grainMask.endFill();
 
         this.grain.position.set(this.vinyl.width >> 1, this.vinyl.height >> 1);
@@ -151,7 +151,7 @@ module.exports = {
         for (let y = 0; y < this.dimensions.height; y++) {
             for (let x = 0; x < this.dimensions.width; x++) {
                 if (Math.round(Math.random() * 0.52) == 1) {
-                    this.grain.drawRect(x, y, 1, 1);
+                    this.grain.rect(x, y, 1, 1);
                 }
             }
         }

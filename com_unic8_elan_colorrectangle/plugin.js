@@ -61,13 +61,13 @@ module.exports = {
 
     drawRect: function () {
         this.gfx.clear();
-        this.gfx.beginFill(this.color);
 
         if(this.chamfer){
             this.gfx.drawChamferRect(0, 0, this.dimensions.width, this.dimensions.height, this.radius);
         }else{
             this.gfx.drawFilletRect(0, 0, this.dimensions.width, this.dimensions.height, this.radius);
         }
-        this.gfx.endFill();
+        
+        this.gfx.fill(this.color);
     }
 }

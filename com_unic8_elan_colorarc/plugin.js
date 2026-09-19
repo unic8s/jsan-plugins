@@ -76,11 +76,11 @@ module.exports = {
 
     drawArc: function () {
         this.gfx.clear();
-        this.gfx.lineStyle(this.size, this.color, 1, true);
 
         const deg2rad = Math.PI / 180;
         const offset = 90;
 
         this.gfx.arc(this.dimensions.width >> 1, this.dimensions.height >> 1, this.radius, (this.start - offset) * deg2rad, (this.end - offset) * deg2rad, this.invert);
+        this.gfx.stroke(this.size, this.color, 1, true);
     }
 }

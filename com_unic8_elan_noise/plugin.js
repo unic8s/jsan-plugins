@@ -57,7 +57,7 @@ module.exports = {
     drawRect: function () {
         this.gfx.clear();
         this.gfx.beginFill(0x000000);
-        this.gfx.drawRect(0, 0, this.dimensions.width, this.dimensions.height);
+        this.gfx.rect(0, 0, this.dimensions.width, this.dimensions.height);
         this.gfx.endFill();
     }
 }
