@@ -32,7 +32,9 @@ module.exports = {
             willReadFrequently: true
         });
 
-        this.gfx = new PIXI.Sprite(PIXI.Texture.from(this.canvas));
+        const canvasSource = new this.PIXI.CanvasSource({ resource: this.canvas });
+
+        this.gfx = new PIXI.Sprite(new this.PIXI.Texture({ source: canvasSource }));
         this.container.addChild(this.gfx);
 
         this.drawGradient();

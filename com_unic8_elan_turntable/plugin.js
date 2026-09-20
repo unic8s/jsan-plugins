@@ -129,24 +129,20 @@ module.exports = {
         this.cover.scale.set(coverScale, coverScale);
 
         this.coverMask.clear();
-        this.coverMask.beginFill("#FF0000");
         this.coverMask.circle(this.vinyl.width >> 1, this.vinyl.height >> 1, 160 * scale);
-        this.coverMask.endFill();
+        this.coverMask.fill("#FF0000");
 
         this.hole.clear();
-        this.hole.beginFill("#000000");
         this.hole.circle(this.vinyl.width >> 1, this.vinyl.height >> 1, 11 * scale);
-        this.hole.endFill();
+        this.hole.fill("#000000");
 
         this.grainMask.clear();
-        this.grainMask.beginFill("#FF0000");
         this.grainMask.circle(this.vinyl.width >> 1, this.vinyl.height >> 1, 470 * scale);
-        this.grainMask.endFill();
+        this.grainMask.fill("#FF0000");
 
         this.grain.position.set(this.vinyl.width >> 1, this.vinyl.height >> 1);
         this.grain.pivot.set(this.dimensions.width >> 1, this.dimensions.height >> 1);
         this.grain.clear();
-        this.grain.beginFill("#000000", Math.random() * 0.25 + 0.25);
 
         for (let y = 0; y < this.dimensions.height; y++) {
             for (let x = 0; x < this.dimensions.width; x++) {
@@ -156,7 +152,7 @@ module.exports = {
             }
         }
 
-        this.grain.endFill();
+        this.grain.fill("#000000", Math.random() * 0.25 + 0.25);
     },
     update: function () {
         if (!this.ready) {

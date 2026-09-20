@@ -49,7 +49,8 @@ module.exports = {
             willReadFrequently: true
         });
 
-        this.sprite.texture = this.PIXI.Texture.from(this.canvas);
+        const canvasSource = new this.PIXI.CanvasSource({ resource: this.canvas });
+        this.sprite.texture = new this.PIXI.Texture({ source: canvasSource });
 
         this.peaks = new Array(this.dimensions.width);
         this.lengthFactor = this.dimensions.height / 255;
@@ -76,8 +77,10 @@ module.exports = {
         const schemeName = this.schemeList[this.schemeIndex];
         this.scheme = this.gradientList[schemeName];
 
+        const canvasSource = new this.PIXI.CanvasSource({ resource: this.canvas });
+
         this.sprite.texture.destroy(true);
-        this.sprite.texture = this.PIXI.Texture.from(this.canvas);
+        this.sprite.texture = new this.PIXI.Texture({ source: canvasSource });
         this.sprite.pivot.set(this.dimensions.width >> 1, this.dimensions.height >> 1);
         this.sprite.position.set(this.dimensions.width >> 1, this.dimensions.height >> 1);
 

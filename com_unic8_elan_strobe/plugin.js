@@ -73,9 +73,8 @@ module.exports = {
 
         let color = this.randomColor ? Math.round(Math.random() * 0xFFFFFF) : this.color;
 
-        this.gfx.beginFill(color);
         this.gfx.rect(0, 0, this.dimensions.width, this.dimensions.height);
-        this.gfx.endFill();
+        this.gfx.fill(color);
     },
     animate: function () {
         if (this.tween) {

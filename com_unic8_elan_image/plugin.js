@@ -63,8 +63,10 @@ module.exports = {
 
         this.container = options.PIXI.instance;
 
+        const canvasSource = new PIXI.CanvasSource({ resource: this.canvas });
+
         this.stage = new PIXI.Sprite();
-        this.stage.texture = PIXI.Texture.from(this.canvas);
+        this.stage.texture = new PIXI.Texture({ source: canvasSource });
         this.container.addChild(this.stage);
 
         this.contains = options.inputs.contains;

@@ -31,7 +31,8 @@ module.exports = {
             willReadFrequently: true
         });
 
-        this.container.texture = this.PIXI.Texture.from(this.canvas);
+        const canvasSource = new this.PIXI.CanvasSource({ resource: this.canvas });
+        this.container.texture = new this.PIXI.Texture({ source: canvasSource });
 
         var palette = [];
         for (let i = 0; i < 256; i++) {
@@ -83,8 +84,10 @@ module.exports = {
         this.canvas.width = this.dimensions.width;
         this.canvas.height = this.dimensions.height;
 
+        const canvasSource = new this.PIXI.CanvasSource({ resource: this.canvas });
+
         this.container.texture.destroy(true);
-        this.container.texture = this.PIXI.Texture.from(this.canvas);
+        this.container.texture = new this.PIXI.Texture({ source: canvasSource });
     },
     input: function (id, data) {
         switch (id) {

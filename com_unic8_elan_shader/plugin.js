@@ -40,7 +40,7 @@ module.exports = {
         this.drawFrame();
         this.init();
     },
-    uninstall: function() {
+    uninstall: function () {
         this.gfx.destroy();
     },
     render: function () {
@@ -48,7 +48,7 @@ module.exports = {
             const now = Date.now();
             const delta = now - this.timestamp;
 
-            this.filter.uniforms.time += delta * 0.001 * this.timeScale;
+            this.filter.fields.uTime.value += delta * 0.001 * this.timeScale;
             this.timestamp = now;
         }
     },
@@ -58,8 +58,8 @@ module.exports = {
         this.drawFrame();
 
         if (this.filter) {
-            this.filter.uniforms.width = this.dimensions.width;
-            this.filter.uniforms.height = this.dimensions.height;
+            this.filter.fields.width.value = this.dimensions.width;
+            this.filter.fields.height.value = this.dimensions.height;
         }
     },
     blend: function (mode) {
@@ -72,17 +72,17 @@ module.exports = {
             case "red":
             case "green":
             case "blue":
-                this.filter.uniforms[id] = data ? 4.0 : 1.0
+                this.filter.fields[id].value = data ? 4.0 : 1.0
                 break;
             case "opacity":
-                this.filter.uniforms.alpha = data
+                this.filter.fields.alpha.value = data
                 break;
             case "index":
                 this.shaderIndex = data;
 
-                if(this.shaderIndex < 0){
+                if (this.shaderIndex < 0) {
                     this.shaderIndex = 0;
-                }else if(this.shaderIndex > this.shaderList.length - 1){
+                } else if (this.shaderIndex > this.shaderList.length - 1) {
                     this.shaderIndex = this.shaderList.length - 1;
                 }
 
@@ -105,22 +105,21 @@ module.exports = {
             const response = await fetch(fileID);
             const fragment = await response.text();
 
-            this.filter = new PIXI.Filter(
-                // vertex shader
-                null,
-                // fragment shader
-                fragment,
-                // custom uniforms
-                {
-                    time: 0.0,
-                    width: this.dimensions.width,
-                    height: this.dimensions.height,
-                    red: 1.0,
-                    green: 1.0,
-                    blue: 1.0,
-                    alpha: 0.0
+            this.filter = new PIXI.Filter({
+                glProgram: PIXI.GlProgram.from({
+                    fragment: fragment,
+                    vertex: null
+                }),
+                resources: {
+                    time: { value: 0.0, type: 'f32' },
+                    width: { value: this.dimensions.width, type: 'uint8' },
+                    height: { value: this.dimensions.height, type: 'uint8' },
+                    red: { value: 0.0, type: 'f32' },
+                    green: { value: 0.0, type: 'f32' },
+                    blue: { value: 0.0, type: 'f32' },
+                    alpha: { value: 0.0, type: 'f32' }
                 }
-            );
+            });
 
             this.filter.blendMode = this.container.blendMode;
 
@@ -129,8 +128,7 @@ module.exports = {
     },
     drawFrame() {
         this.gfx.clear();
-        this.gfx.beginFill(0x000000);
         this.gfx.rect(0, 0, this.dimensions.width, this.dimensions.height);
-        this.gfx.endFill();
+        this.gfx.fill(0x000000);
     }
 }

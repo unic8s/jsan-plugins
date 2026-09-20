@@ -76,12 +76,10 @@ module.exports = {
 
         this.gfx.clear();
 
-        this.gfx.beginFill(this.track);
         this.gfx.rect(0, 0, this.dimensions.width, this.dimensions.height);
-        this.gfx.endFill();
+        this.gfx.fill(this.track);
 
-        this.gfx.beginFill(this.fill);
         this.gfx.rect(0, 0, progress, this.dimensions.height);
-        this.gfx.endFill();
+        this.gfx.fill(this.fill);
     }
 }

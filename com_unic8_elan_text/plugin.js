@@ -36,7 +36,7 @@ module.exports = {
         this.style.wordWrapWidth = wordWrapWidth;
         this.style.wordWrap = this.style.wordWrapWidth > 0;
 
-        this.label = new PIXI.Text("", this.style);
+        this.label = new PIXI.Text({text: "", style: this.style});
         this.label.text = inputs.label;
 
         this.scroll = inputs.scroll;

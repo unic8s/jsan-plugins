@@ -34,7 +34,8 @@ module.exports = {
             willReadFrequently: true
         });
 
-        this.sprite.texture = this.PIXI.Texture.from(this.canvas);
+        const canvasSource = new this.PIXI.CanvasSource({ resource: this.canvas });
+        this.sprite.texture = new this.PIXI.Texture({ source: canvasSource });
 
         this.setup();
     },
@@ -52,8 +53,10 @@ module.exports = {
         this.canvas.width = this.dimensions.width;
         this.canvas.height = this.dimensions.height;
 
+        const canvasSource = new this.PIXI.CanvasSource({ resource: this.canvas });
+
         this.sprite.texture.destroy(true);
-        this.sprite.texture = this.PIXI.Texture.from(this.canvas);
+        this.sprite.texture = new this.PIXI.Texture({ source: canvasSource });
         this.sprite.pivot.set(this.dimensions.width >> 1, this.dimensions.height >> 1);
         this.sprite.position.set(this.dimensions.width >> 1, this.dimensions.height >> 1);
     },
