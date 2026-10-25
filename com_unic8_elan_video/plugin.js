@@ -7,6 +7,8 @@ module.exports = {
     player: null,
     stage: null,
     speed: 1,
+    fade: 0,
+    tween: null,
 
     install: function (options) {
         this.options = options;
@@ -26,6 +28,7 @@ module.exports = {
         this.player.src = inputs.path;
         this.contains = inputs.contains;
         this.speed = inputs.speed;
+        this.fade = inputs.fade;
 
         this.container = options.PIXI.instance;
         this.PIXI = options.PIXI.module;
@@ -44,6 +47,12 @@ module.exports = {
             refThis.stage.texture = refThis.PIXI.Texture.from(refThis.player);
 
             refThis.scaleVideo();
+
+            refThis.killTween();
+
+            refThis.tween = refThis.options.GSAP.TweenLite.to(refThis.stage, refThis.fade, {
+                alpha: 1
+            });
         }
 
         this.player.ontimeupdate = function () {
@@ -92,6 +101,8 @@ module.exports = {
 
         this.player.src = "";
 
+        this.killTween();
+
         delete this.player;
     },
     resize: function (bounds) {
@@ -105,10 +116,19 @@ module.exports = {
     input: function (id, data) {
         switch (id) {
             case "path":
-                this.stage.texture.destroy(true);
-                this.stage.texture = null;
+                this.killTween();
 
-                this.player.src = data;
+                this.tween = this.options.GSAP.TweenLite.to(this.stage, this.fade, {
+                    alpha: 0,
+                    onComplete: () => {
+                        this.stage.texture.destroy(true);
+                        this.stage.texture = null;
+
+                        this.killTween();
+
+                        this.player.src = data;
+                    }
+                });
                 break;
             case "contains":
                 this.contains = data;
@@ -137,6 +157,16 @@ module.exports = {
                     this.player.play();
                 }
                 break;
+            case "fade":
+                this.fade = data;
+                break;
+        }
+    },
+
+    killTween: function () {
+        if (this.tween) {
+            this.tween.kill();
+            this.tween = null;
         }
     },
 

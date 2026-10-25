@@ -21,7 +21,8 @@
         {"name": "muted", "type": "Boolean", "value": true},
         {"name": "paused", "type": "Boolean", "value": false},
         {"name": "progress", "type": "Number", "value": 0},
-        {"name": "speed", "type": "Number", "value": 1}
+        {"name": "speed", "type": "Number", "value": 1},
+        {"name": "fade", "type": "Number", "value": 0}
     ],
     "outputs": [
         {"name": "paused", "type": "Boolean", "value": false},

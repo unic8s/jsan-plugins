@@ -232,6 +232,7 @@ module.exports = {
             outputs.album = "";
             outputs.artist = "";
             outputs.duration = 0;
+            outputs.canvasURL = "";
         }
 
         if (this.previousCover != this.coverPath) {

@@ -105,9 +105,7 @@ module.exports = {
             case "path":
                 clearTimeout(this.timeoutID);
 
-                if (this.tween) {
-                    this.tween.kill();
-                }
+                this.killTween();
 
                 this.tween = this.options.GSAP.TweenLite.to(this.stage, this.fade, {
                     alpha: 0,
