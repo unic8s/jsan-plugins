@@ -30,6 +30,7 @@
         {"name": "playing", "type": "Boolean", "value": false},
         {"name": "progress", "type": "Number", "value": 0},
         {"name": "duration", "type": "Number", "value": 0},
+        {"name": "canvasURL", "type": "String", "value": ""},
         {"name": "authURL", "type": "String", "value": ""}
     ],
     "files": [

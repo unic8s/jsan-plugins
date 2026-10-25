@@ -207,6 +207,8 @@ module.exports = {
                                 }, (error) => {
                                     refThis.handleError(error);
                                 });
+
+                            refThis.getCanvas();
                         }
                     } else {
                         refThis.resetState();
@@ -342,5 +344,23 @@ module.exports = {
                 console.log('Could not refresh access token', err);
             }
         );
+    },
+    async getCanvas(){
+        const url = [
+            'https://spotify-canva.vercel.app/api/canvas?trackId=',
+            this.previousID
+        ].join('');
+
+        try {
+            const response = await fetch(url);
+            const list = (await response.json()).canvasesList;
+
+            if(list.length == 0){
+                return;
+            }
+
+            const outputs = this.options.outputs;
+            outputs.canvasURL = list[0].canvasUrl;
+        } catch (ex) { }
     }
 }
