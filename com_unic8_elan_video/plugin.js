@@ -9,6 +9,7 @@ module.exports = {
     speed: 1,
     fade: 0,
     tween: null,
+    shown: false,
 
     install: function (options) {
         this.options = options;
@@ -74,6 +75,16 @@ module.exports = {
         }
 
         this.player.onstream = function (data) {
+            if (!refThis.shown) {
+                refThis.killTween();
+
+                refThis.tween = refThis.options.GSAP.TweenLite.to(refThis.stage, refThis.fade, {
+                    alpha: 1
+                });
+
+                refThis.shown = true;
+            }
+
             if (refThis.stage.texture && refThis.stage.texture.baseTexture && refThis.stage.texture.baseTexture.resource) {
                 refThis.stage.texture.baseTexture.resource.data.set(data);
                 refThis.stage.texture.update();
@@ -129,6 +140,8 @@ module.exports = {
                         this.player.src = data;
                     }
                 });
+
+                this.shown = false;
                 break;
             case "contains":
                 this.contains = data;
