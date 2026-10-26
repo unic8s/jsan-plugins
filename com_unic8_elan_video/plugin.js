@@ -49,11 +49,13 @@ module.exports = {
 
             refThis.scaleVideo();
 
-            refThis.killTween();
+            if (refThis.fade > 0) {
+                refThis.killTween();
 
-            refThis.tween = refThis.options.GSAP.TweenLite.to(refThis.stage, refThis.fade, {
-                alpha: 1
-            });
+                refThis.tween = refThis.options.GSAP.TweenLite.to(refThis.stage, refThis.fade, {
+                    alpha: 1
+                });
+            }
         }
 
         this.player.ontimeupdate = function () {
@@ -75,7 +77,7 @@ module.exports = {
         }
 
         this.player.onstream = function (data) {
-            if (!refThis.shown) {
+            if (refThis.fade > 0 && !refThis.shown) {
                 refThis.killTween();
 
                 refThis.tween = refThis.options.GSAP.TweenLite.to(refThis.stage, refThis.fade, {
@@ -127,21 +129,30 @@ module.exports = {
     input: function (id, data) {
         switch (id) {
             case "path":
-                this.killTween();
-
-                this.tween = this.options.GSAP.TweenLite.to(this.stage, this.fade, {
-                    alpha: 0,
-                    onComplete: () => {
-                        this.stage.texture.destroy(true);
-                        this.stage.texture = null;
-
-                        this.killTween();
-
-                        this.player.src = data;
-                    }
-                });
-
                 this.shown = false;
+
+                if (this.fade == 0) {
+                    this.stage.texture.destroy(true);
+                    this.stage.texture = null;
+
+                    this.player.src = data;
+                } else {
+                    this.killTween();
+
+                    this.tween = this.options.GSAP.TweenLite.to(this.stage, this.fade, {
+                        alpha: 0,
+                        onComplete: () => {
+                            this.stage.texture.destroy(true);
+                            this.stage.texture = null;
+
+                            this.killTween();
+
+                            this.player.src = data;
+                        }
+                    });
+
+
+                }
                 break;
             case "contains":
                 this.contains = data;
