@@ -69,7 +69,7 @@ module.exports = {
         this.spotifyApi.authorizationCodeGrant(event.data).then(
             function (data) {
                 let credentialsRaw = localStorage.getItem("com_unic8_elan_spotify");
-                let credentialsData = credentialsRaw ? JSON.parse(credentialsRaw) : { spotify: {} };
+                let credentialsData = credentialsRaw ? JSON.parse(credentialsRaw) : {};
 
                 credentialsData["expire"] = data.body['expires_in'];
                 credentialsData["accessToken"] = data.body['access_token'];
@@ -300,7 +300,7 @@ module.exports = {
             var authorizeURL = this.spotifyApi.createAuthorizeURL(scopes, state, showDialog);
 
             const outputs = this.options.outputs;
-            
+
             outputs.authURL = authorizeURL;
 
             window.open(authorizeURL, "Spotify", "toolbar=no, location=no, directories=no, status=no, menubar=no, resizable=no");
@@ -317,7 +317,7 @@ module.exports = {
                 }
 
                 let credentialsRaw = localStorage.getItem("com_unic8_elan_spotify");
-                let credentialsData = credentialsRaw ? JSON.parse(credentialsRaw) : { spotify: {} };
+                let credentialsData = credentialsRaw ? JSON.parse(credentialsRaw) : {};
 
                 credentialsData["accessToken"] = data.body['access_token'];
 
@@ -346,22 +346,34 @@ module.exports = {
             }
         );
     },
-    async getCanvas(){
-        const url = [
-            'https://spotify-canva.vercel.app/api/canvas?trackId=',
-            this.previousID
-        ].join('');
+    async getCanvas() {
+        let dataRaw = localStorage.getItem("com_unic8_elan_spotify");
+        let dataParsed = dataRaw ? JSON.parse(dataRaw) : { canvasCache: {} };
 
-        try {
-            const response = await fetch(url);
-            const list = (await response.json()).canvasesList;
+        const outputs = this.options.outputs;
 
-            if(list.length == 0){
-                return;
-            }
+        if (dataParsed.canvasCache && dataParsed.canvasCache[this.previousID]) {
+            outputs.canvasURL = dataParsed.canvasCache[this.previousID];
+        } else {
+            const url = [
+                'https://spotify-canva.vercel.app/api/canvas?trackId=',
+                this.previousID
+            ].join('');
 
-            const outputs = this.options.outputs;
-            outputs.canvasURL = list[0].canvasUrl;
-        } catch (ex) { }
+            try {
+                const response = await fetch(url);
+                const list = (await response.json()).canvasesList;
+
+                if (list.length == 0) {
+                    return;
+                }
+
+                dataParsed.canvasCache[this.previousID] = list[0].canvasUrl;
+
+                localStorage.setItem("com_unic8_elan_spotify", JSON.stringify(dataParsed));
+
+                outputs.canvasURL = list[0].canvasUrl;
+            } catch (ex) { }
+        }
     }
 }
