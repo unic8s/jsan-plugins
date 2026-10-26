@@ -192,7 +192,11 @@ module.exports = {
                     case "image/jpeg":
                     case "image/webp":
                     case "image/svg+xml":
-                        this.image.src = this.image.constructor.name == "HTMLImageElement" ? URL.createObjectURL(new Blob([buffer], { type: blobData.type })) : url;
+                        if(this.image.constructor.name == "HTMLImageElement"){
+                            this.image.src = URL.createObjectURL(new Blob([buffer], { type: blobData.type }));
+                        }else{
+                            this.image.src = url;
+                        }
                         break;
                 }
             } catch (ex) {

@@ -362,6 +362,11 @@ module.exports = {
 
             try {
                 const response = await fetch(url);
+
+                if(response.status != 200){
+                    return;
+                }
+
                 const list = (await response.json()).canvasesList;
 
                 if (list.length == 0) {
