@@ -150,8 +150,6 @@ module.exports = {
                             this.player.src = data;
                         }
                     });
-
-
                 }
                 break;
             case "contains":
