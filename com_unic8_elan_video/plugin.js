@@ -9,7 +9,7 @@ module.exports = {
     speed: 1,
     fade: 0,
     tween: null,
-    shown: false,
+    fadeIn: false,
 
     install: function (options) {
         this.options = options;
@@ -77,14 +77,14 @@ module.exports = {
         }
 
         this.player.onstream = function (data) {
-            if (refThis.fade > 0 && !refThis.shown) {
+            if (refThis.fade > 0 && refThis.fadeIn) {
                 refThis.killTween();
 
                 refThis.tween = refThis.options.GSAP.TweenLite.to(refThis.stage, refThis.fade, {
                     alpha: 1
                 });
 
-                refThis.shown = true;
+                refThis.fadeIn = false;
             }
 
             if (refThis.stage.texture && refThis.stage.texture.baseTexture && refThis.stage.texture.baseTexture.resource) {
@@ -129,7 +129,7 @@ module.exports = {
     input: function (id, data) {
         switch (id) {
             case "path":
-                this.shown = false;
+                this.fadeIn = false;
 
                 if (this.fade == 0) {
                     this.stage.texture.destroy(true);
@@ -148,6 +148,8 @@ module.exports = {
                             this.killTween();
 
                             this.player.src = data;
+
+                            this.fadeIn = true;
                         }
                     });
                 }
