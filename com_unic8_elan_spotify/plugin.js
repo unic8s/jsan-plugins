@@ -347,38 +347,26 @@ module.exports = {
         );
     },
     async getCanvas() {
-        let dataRaw = localStorage.getItem("com_unic8_elan_spotify");
-        let dataParsed = dataRaw ? JSON.parse(dataRaw) : { canvasCache: {} };
+        const url = [
+            'https://spotify-canva.vercel.app/api/canvas?trackId=',
+            this.previousID
+        ].join('');
 
-        const outputs = this.options.outputs;
+        try {
+            const response = await fetch(url);
 
-        if (dataParsed.canvasCache && dataParsed.canvasCache[this.previousID]) {
-            outputs.canvasURL = dataParsed.canvasCache[this.previousID];
-        } else {
-            const url = [
-                'https://spotify-canva.vercel.app/api/canvas?trackId=',
-                this.previousID
-            ].join('');
+            if (response.status == 500) {
+                return;
+            }
 
-            try {
-                const response = await fetch(url);
+            const list = (await response.json()).canvasesList;
 
-                if(response.status != 200){
-                    return;
-                }
+            if (list.length == 0) {
+                return;
+            }
 
-                const list = (await response.json()).canvasesList;
-
-                if (list.length == 0) {
-                    return;
-                }
-
-                dataParsed.canvasCache[this.previousID] = list[0].canvasUrl;
-
-                localStorage.setItem("com_unic8_elan_spotify", JSON.stringify(dataParsed));
-
-                outputs.canvasURL = list[0].canvasUrl;
-            } catch (ex) { }
-        }
+            const outputs = this.options.outputs;
+            outputs.canvasURL = list[0].canvasUrl;
+        } catch (ex) { }
     }
 }
