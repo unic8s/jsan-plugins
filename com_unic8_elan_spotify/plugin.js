@@ -353,19 +353,21 @@ module.exports = {
         ].join('');
 
         try {
+            const outputs = this.options.outputs;
             const response = await fetch(url);
 
             if (response.status == 500) {
+                outputs.canvasURL = "";
                 return;
             }
 
             const list = (await response.json()).canvasesList;
 
             if (list.length == 0) {
+                outputs.canvasURL = "";
                 return;
             }
 
-            const outputs = this.options.outputs;
             outputs.canvasURL = list[0].canvasUrl;
         } catch (ex) { }
     }
