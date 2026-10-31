@@ -57,13 +57,9 @@ module.exports = {
         this.dimensions = bounds;
 
         this.resize3D(this.dimensions);
-
-        var scale = 1 / this.dimensions.multiplier3d;
-
-        //this.container.scale.set(scale, scale);
     },
     render: function () {
-        this.render3D(this.dimensions, this.container3D, this.container);
+        this.render3D(this.container3D, this.container);
     },
     input: function (id, data) {
         const THREE = this.options.THREE.module;

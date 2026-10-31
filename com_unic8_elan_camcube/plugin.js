@@ -55,13 +55,9 @@ module.exports = {
 
         let texture = new THREE.DataTexture(null, this.dimensions.width, this.dimensions.height);
         this.material.map = texture;
-
-        var scale = 1 / this.dimensions.multiplier3d;
-
-        //this.container.scale.set(scale, scale);
     },
     render: function () {
-        this.render3D(this.dimensions, this.container3D, this.container);
+        this.render3D(this.container3D, this.container);
     },
     input: function (id, data) {
         const THREE = this.options.THREE.module;
