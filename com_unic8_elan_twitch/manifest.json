@@ -1,0 +1,24 @@
+{
+    "name": "Twitch",
+    "uid": "com_unic8_elan_twitch",
+    "description": "Twitch plugin",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+    ],
+    "features": [
+    ],
+    "inputs": [
+        {"name": "channel", "type": "String", "value": ""},
+        {"name": "quality", "type": "Number", "value": -1}
+    ],
+    "outputs": [
+        {"name": "stream", "type": "File", "value": ""}
+    ],
+    "files": [
+    ]
+}
