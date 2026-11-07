@@ -168,8 +168,6 @@ module.exports = {
                         outputs.playing = data.body.is_playing;
                     }
 
-                    console.log(data.body);
-
                     let itemID = data.body.item ? data.body.item.id : null;
 
                     if (data.body.is_playing) {
@@ -369,8 +367,6 @@ module.exports = {
                 outputs.canvasURL = "";
                 return;
             }
-
-            console.log(list);
 
             outputs.canvasURL = list[0].canvasUrl;
         } catch (ex) { }
