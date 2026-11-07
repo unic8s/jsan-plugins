@@ -1,6 +1,6 @@
 module.exports = {
     options: null,
-    clientId: "kimne78kx3ncx6brgo4mv6wki5h1ko",
+    twitchApi: null,
     channel: null,
     quality: -1,
     inputTimeout: null,
@@ -8,6 +8,8 @@ module.exports = {
 
     install: function (options) {
         this.options = options;
+
+        this.twitchApi = options.TwitchApi;
     },
     input: function (id, data) {
         switch (id) {
@@ -37,7 +39,7 @@ module.exports = {
     resolveData: async function () {
         const refThis = this;
 
-        this.getStream(this.channel)
+        this.twitchApi.getStream(this.channel)
             .then((data) => {
                 refThis.streams = data;
 
@@ -64,93 +66,5 @@ module.exports = {
             fileID: item.url,
             path: item.url
         };
-    },
-    async getAccessToken(id, isVod) {
-        const data = JSON.stringify({
-            operationName: "PlaybackAccessToken",
-            extensions: {
-                persistedQuery: {
-                    version: 1,
-                    sha256Hash: "0828119ded1c13477966434e15800ff57ddacf13ba1911c129dc2200705b0712"
-                }
-            },
-            variables: {
-                isLive: !isVod,
-                login: (isVod ? "" : id),
-                isVod: isVod,
-                vodID: (isVod ? id : ""),
-                playerType: "embed"
-            }
-        });
-
-        return new Promise((resolve, reject) => {
-            fetch("https://gql.twitch.tv/gql", {
-                method: "POST",
-                body: data,
-                headers: {
-                    'Client-id': this.clientId
-                }
-            }).then(async (response) => {
-                const body = await response.json();
-
-                if (response.status != 200) {
-                    reject(new Error(body.message));
-                } else {
-                    if (isVod) {
-                        resolve(body.data.videoPlaybackAccessToken);
-                    } else {
-                        resolve(body.data.streamPlaybackAccessToken);
-                    }
-                }
-            });
-        });
-    },
-    getPlaylist(id, accessToken, vod) {
-        return new Promise((resolve, reject) => {
-            fetch('https://usher.ttvnw.net/' + (vod ? 'vod' : 'api/channel/hls') + '/' + id + '.m3u8?client_id=' + this.clientId + '&token=' + accessToken.value + '&sig=' + accessToken.signature + '&allow_source=true')
-                .then(async (response) => {
-                    const body = await response.text();
-
-                    switch (response.status) {
-                        case 200:
-                            resolve(resolve(body));
-                            break;
-                        case 404:
-                            reject(new Error('Transcode does not exist - the stream is probably offline'));
-                            break;
-                        default:
-                            reject(new Error(`Twitch returned status code ${response.statusCode}`));
-                            break;
-                    }
-                });
-        });
-    },
-    parsePlaylist(playlist) {
-        const parsedPlaylist = [];
-        const lines = playlist.split('\n');
-        for (let i = 4; i < lines.length; i += 3) {
-            parsedPlaylist.push({
-                quality: lines[i - 2].split('NAME="')[1].split('"')[0],
-                resolution: (lines[i - 1].indexOf('RESOLUTION') != -1 ? lines[i - 1].split('RESOLUTION=')[1].split(',')[0] : null),
-                url: lines[i]
-            });
-        }
-        return parsedPlaylist;
-    },
-    getStream(channel, raw) {
-        return new Promise((resolve, reject) => {
-            this.getAccessToken(channel, false)
-                .then((accessToken) => this.getPlaylist(channel, accessToken, false))
-                .then((playlist) => resolve((raw ? playlist : this.parsePlaylist(playlist))))
-                .catch(error => reject(error));
-        });
-    },
-    getVod(vid, raw) {
-        return new Promise((resolve, reject) => {
-            this.getAccessToken(vid, true)
-                .then((accessToken) => this.getPlaylist(vid, accessToken, true))
-                .then((playlist) => resolve((raw ? playlist : this.parsePlaylist(playlist))))
-                .catch(error => reject(error));
-        });
     }
 }
