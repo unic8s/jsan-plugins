@@ -14,7 +14,7 @@
         "3d"
     ],
     "inputs": [
-        {"name": "shape", "type": "Number", "value": 0},
+        {"name": "shape", "type": "Number", "value": 0, "presets": [{"Box": 0}, {"Cone": 1}, {"Cylinder": 2}, {"Torus": 3}, {"Torus knot": 4}]},
         {"name": "color", "type": "Color", "value": "#FFFFFF"},
         {"name": "image", "type": "File", "value": ""},
         {"name": "opacity", "type": "Number", "value": 1},

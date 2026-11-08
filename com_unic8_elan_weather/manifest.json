@@ -14,7 +14,7 @@
     ],
     "inputs": [
         {"name": "location", "type": "String", "value": ""},
-        {"name": "unit", "type": "String", "value": "metric"},
+        {"name": "unit", "type": "String", "value": "metric", "presets": [{"Metric": "metric"}, {"Imperial": "imperial"}]},
         {"name": "precision", "type": "Number", "value": 1}
     ],
     "outputs": [

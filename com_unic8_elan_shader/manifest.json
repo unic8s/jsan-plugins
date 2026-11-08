@@ -18,7 +18,25 @@
         {"name": "green", "type": "Boolean", "value": false},
         {"name": "blue", "type": "Boolean", "value": false},
         {"name": "opacity", "type": "Number", "value": 0},
-        {"name": "index", "type": "Number", "value": 0},
+        {"name": "index", "type": "Number", "value": 0,
+            "presets": [
+                {"Cave": 0},
+                {"Cells": 1},
+                {"Chase": 2},
+                {"Geom": 3},
+                {"Liquid": 4},
+                {"Organic": 5},
+                {"Pattern": 6},
+                {"Plasma": 7},
+                {"Rain": 8},
+                {"Robot": 9},
+                {"Skyline": 10},
+                {"Spheres": 11},
+                {"Tunnel clouds": 12},
+                {"Tunnel fire": 13},
+                {"Tunnel": 14}
+            ]
+        },
         {"name": "timeScale", "type": "Number", "value": 1}
     ],
     "outputs": [

@@ -16,7 +16,7 @@
     "features": [
     ],
     "inputs": [
-        {"name": "Image size", "type": "Number", "value": -1},
+        {"name": "Image size", "type": "Number", "value": -1, "presets": [{"Auto": -1}, {"Small": 0}, {"Medium": 1}, {"Large": 2}]},
         {"name": "play", "type": "Boolean", "value": false},
         {"name": "pause", "type": "Boolean", "value": false},
         {"name": "previous", "type": "Boolean", "value": false},

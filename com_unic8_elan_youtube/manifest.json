@@ -14,7 +14,7 @@
     ],
     "inputs": [
         {"name": "channel", "type": "String", "value": ""},
-        {"name": "imageSize", "type": "Number", "value": -1}
+        {"name": "imageSize", "type": "Number", "value": -1, "presets": [{"Auto": -1}, {"Small": 0}, {"Medium": 1}, {"Large": 2}]}
     ],
     "outputs": [
         {"name": "cover", "type": "File", "value": ""},
