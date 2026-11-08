@@ -418,14 +418,6 @@ module.exports = {
             { index: 0.83, color: "#4b0082" },
             { index: 1.0, color: "#ee82ee" }
         ], this.dimensions.width);
-
-        this.createGradient("white", [
-            { index: 0.0, color: "#fff" }
-        ]);
-
-        this.createGradient("black", [
-            { index: 0.0, color: "#000" }
-        ]);
     },
     createGradient: function (name, definition, width = 0) {
         const gradient = this.context.createLinearGradient(0, 0, width, this.dimensions.height);

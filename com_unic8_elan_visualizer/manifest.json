@@ -15,12 +15,12 @@
         "2d"
     ],
     "inputs": [
-        {"name": "mode", "type": "Number", "value": 0},
+        {"name": "mode", "type": "Number", "value": 0, "presets": [{"Bars": 0}, {"Area": 1}, {"Sine": 2}, {"Waves": 3}, {"Waves": 4}, {"Tornado": 5}]},
         {"name": "width", "type": "Number", "value": 1},
         {"name": "gap", "type": "Number", "value": 1},
         {"name": "speed", "type": "Number", "value": 1},
         {"name": "trail", "type": "Number", "value": 1},
-        {"name": "scheme", "type": "Number", "value": -1},
+        {"name": "scheme", "type": "Number", "value": -1, "presets": [{"User": -1}, {"Retro": 0}, {"Spectrum": 1}, {"Rainbow": 2}]},
         {"name": "color", "type": "Color", "value": "#FFFFFF"},
         {"name": "invert x", "type": "Boolean", "value": false},
         {"name": "invert y", "type": "Boolean", "value": false}
