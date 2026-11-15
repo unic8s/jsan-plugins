@@ -1,0 +1,31 @@
+{
+    "name": "Stock",
+    "uid": "com_unic8_elan_stock",
+    "description": "Stock plugin",
+    "author": "unic8 Studios",
+    "version": "0.1.0",
+    "process": {
+        "multiple": true,
+        "priority": 0
+    },
+    "permissions": [
+    ],
+    "features": [
+    ],
+    "inputs": [
+        {"name": "symbol", "type": "String", "value": ""},
+        {"name": "amount", "type": "Number", "value": 1},
+        {"name": "period", "type": "Number", "value": 0, "presets": [{"Day": 0}, {"Week": 1}, {"Month": 2}, {"Year": 3}]},
+        {"name": "duration", "type": "Number", "value": 1},
+        {"name": "frequency", "type": "Number", "value": 0, "presets": [{"Minute": 0}, {"Hour": 1}, {"Day": 2}, {"Week": 3}, {"Month": 4}]}
+    ],
+    "outputs": [
+        {"name": "open", "type": "Number", "value": 0},
+        {"name": "high", "type": "Number", "value": 0},
+        {"name": "low", "type": "Number", "value": 0},
+        {"name": "close", "type": "Number", "value": 0},
+        {"name": "volume", "type": "Number", "value": 0}
+    ],
+    "files": [
+    ]
+}
