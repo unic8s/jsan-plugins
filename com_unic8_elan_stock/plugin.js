@@ -10,9 +10,6 @@ module.exports = {
     frequency: 0,
     jsonData: null,
 
-    // https://github.com/code4fukui/yahoo_finance_api2_js/
-    // https://github.com/ranaroussi/yfinance
-
     install: function (options) {
         this.options = options;
 
