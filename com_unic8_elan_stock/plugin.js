@@ -1,6 +1,5 @@
 module.exports = {
     options: null,
-    appID: '6426bd9b96736f6bab6469bf72afa05c',
     intervalTime: 60000,
     intervalID: null,
     symbol: "",
