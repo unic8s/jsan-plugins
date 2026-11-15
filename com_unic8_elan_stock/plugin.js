@@ -4,9 +4,9 @@ module.exports = {
     intervalID: null,
     symbol: "",
     amount: 1,
-    period: 0,
-    duration: 1,
-    frequency: 0,
+    period: "day",
+    duration: 10,
+    frequency: "m",
     jsonData: null,
 
     install: function (options) {
@@ -72,43 +72,26 @@ module.exports = {
         let timeStart;
 
         switch (this.period) {
-            case 0:
+            case "day":
                 period = Math.min(this.amount, 59);
                 timeStart = now - timedelta(period);
                 break;
-            case 1:
+            case "week":
                 period = Math.min(period, 59);
                 timeStart = now - timedelta(period * 7);
                 break;
-            case 2:
+            case "month":
                 period = Math.min(period, 59);
                 timeStart = now - timedelta(period * 30);
                 break;
-            case 3:
+            case "year":
                 period = Math.min(period, 59);
                 timeStart = now - timedelta(period * 365);
                 break;
         }
 
-        let freqUnit = "m";
-
-        switch (this.frequency) {
-            case 1:
-                freqUnit = "h";
-                break;
-            case 2:
-                freqUnit = "d";
-                break;
-            case 3:
-                freqUnit = "wk";
-                break;
-            case 4:
-                freqUnit = "mo";
-                break;
-        }
-
         const timeEnd = now;
-        const interval = this.duration + freqUnit;
+        const interval = this.duration + this.frequency;
 
         const url = [
             `https://query1.finance.yahoo.com/v8/finance/chart/`,

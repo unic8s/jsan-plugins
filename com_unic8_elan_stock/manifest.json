@@ -15,9 +15,9 @@
     "inputs": [
         {"name": "symbol", "type": "String", "value": ""},
         {"name": "amount", "type": "Number", "value": 1},
-        {"name": "period", "type": "Number", "value": 0, "presets": [{"Day": 0}, {"Week": 1}, {"Month": 2}, {"Year": 3}]},
-        {"name": "duration", "type": "Number", "value": 1},
-        {"name": "frequency", "type": "Number", "value": 0, "presets": [{"Minute": 0}, {"Hour": 1}, {"Day": 2}, {"Week": 3}, {"Month": 4}]}
+        {"name": "period", "type": "String", "value": "day", "presets": [{"Day": "day"}, {"Week": "week"}, {"Month": "month"}, {"Year": "year"}]},
+        {"name": "duration", "type": "Number", "value": 10},
+        {"name": "frequency", "type": "String", "value": "m", "presets": [{"Minute": "m"}, {"Hour": "h"}, {"Day": "d"}, {"Week": "wk"}, {"Month": "mo"}]}
     ],
     "outputs": [
         {"name": "open", "type": "Number", "value": 0},
